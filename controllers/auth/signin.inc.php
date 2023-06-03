@@ -20,8 +20,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
                 //password match and login in user
                 
                 
-                // session_start();
                 $_SESSION["userId"] = $row['uid'];
+                $_SESSION["role"] = $row['type'];
                 $_SESSION["username"] = $row['username'];
                 
                 if(isset($_POST['rememberMe']) && $_POST['rememberMe'] == 'rememberMe'){

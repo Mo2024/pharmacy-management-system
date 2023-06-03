@@ -11,13 +11,22 @@
             <li class="nav-item">
               <a class="nav-link h4 " aria-current="page" href="/pharmacy-management-system/mainpage.php">Home</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link h4 " href="/pharmacy-management-system/quiz/createQuiz.php">Create Quiz</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link h4 " href="/pharmacy-management-system/quiz/quizzesDisplay.php">Quizzes</a>
-            </li>
-
+            <?php
+              if(isset($_SESSION['userId']) && isset($_SESSION['role']) && $_SESSION['role'] == "admin"){
+                echo'
+                <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle h4" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                  aria-expanded="false">
+                  Admin
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown" >
+                  <li><a class="dropdown-item" href="/pharmacy-management-system/admin/addPharmacist.php">Add Pharmacist</a></li>
+                  <li><a class="dropdown-item" href="/pharmacy-management-system/admin/generateReports.php">Generate Reports</a></li>
+                </ul>
+              </li>
+                ';
+              }
+            ?>
 
           </ul>
           <div class="navbar-nav ms-auto d-flex">
@@ -29,21 +38,8 @@
         ';
       }else{
         echo '
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle h4" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-            aria-expanded="false">
-            Profile
-          </a>
-          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown" >
-            <li><a class="dropdown-item" href="/pharmacy-management-system/profile/profile.php">Manage profile</a></li>
-            <li><a class="dropdown-item" href="/pharmacy-management-system/profile/myHistory.php">My History</a></li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li><a class="dropdown-item" href="/pharmacy-management-system/profile/myQuizzes.php">My Quizzes</a></li>
-          </ul>
-        </li>
-      <a href="/pharmacy-management-system/controllers/auth/logout.inc.php" class="nav-link h4">Sign out</a>
+        <a href="/pharmacy-management-system/profile/profile.php" class="nav-link h4">Profile</a>
+        <a href="/pharmacy-management-system/controllers/auth/logout.inc.php" class="nav-link h4">Sign out</a>
         ';
       }
     ?>

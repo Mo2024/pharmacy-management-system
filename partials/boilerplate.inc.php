@@ -42,8 +42,8 @@
   ?>
 
 
-  <?php require(__DIR__.'/../partials/navbar.inc.php');
-    require('notification.inc.php');
+  <?php require(__DIR__.'/../partials/navbar.inc.php'); ?>
 
-  ?>
+  <main class="container mt-5">
+  <?php require('notification.inc.php');?>
   
