@@ -1,10 +1,10 @@
 <?php $title = "Add User"; require('../partials/boilerplate.inc.php')?>
-<?php require('../controllers/admin/addUser.inc.php')?>
+<?php require('../controllers/admin/CreateUser.inc.php')?>
 <section class="container row mx-auto">
     <div class="col-lg-6">
 
         <h1 class="text-dark">Create New User</h1>
-        <form action="/admin/createUser" method="POST" class="validated-form" novalidate enctype="multipart/form-data">
+        <form method="POST" class="validated-form" novalidate enctype="multipart/form-data">
             <div class="mb-3">
                 <label class="form-label text-dark" for="username">username</label>
                 <input class="form-control" type="text" name="username" id="username" required>
@@ -34,9 +34,30 @@
                 <input class="form-control" type="text" name="block" id="block" required>
             </div>
 
-           
             <div class="mb-3">
-                <button class="btn btn-success">Add Item</button>
+                <label class="form-label text-dark" for="role">Role</label>
+                <select class="form-control" name="role" id="role" required>
+                    <option value="">Select Role</option>
+                    <option value="user">User</option>
+                    <option value="admin">Admin</option>
+                    <option value="pharmacist">Pharmacist</option>
+                </select>
+            </div>
+            <div class="mb-3" id="branchesContainer" style="display: none;">
+                <label class="form-label text-dark" for="branches">Branches</label>
+                <select class="form-select" name="branches" id="branches" required>
+                    <option value="">Select Branch</option>
+                    <?php
+                    if (!empty($branches)) {
+                        foreach ($branches as $branch) {
+                            echo '<option value="' . $branch['id'] . '">' . $branch['name'] . '</option>';
+                        }
+                    }
+                    ?>
+                </select>
+            </div>
+            <div class="mb-3">
+                <button name="submit" class="btn btn-success">Add Item</button>
             </div>
         </form>
     </div>
@@ -49,9 +70,25 @@
             </div>
 
             <div class="mb-3">
-                <button class="btn btn-success">Add Section</button>
+                <button name="submit" class="btn btn-success">Add Section</button>
             </div>
         </form>
     </div>
 </section>
+
+<script>
+    const roleSelect = document.getElementById('role');
+    const branchesContainer = document.getElementById('branchesContainer');
+
+    roleSelect.addEventListener('change', function() {
+        const selectedRole = this.value;
+
+        if (selectedRole === 'pharmacist') {
+            branchesContainer.style.display = 'block';
+            // You can fetch and populate the branch options dynamically here
+        } else {
+            branchesContainer.style.display = 'none';
+        }
+    });
+</script>
 <?php require('../partials/footer.inc.php')?>

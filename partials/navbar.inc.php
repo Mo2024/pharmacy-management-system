@@ -20,7 +20,7 @@
                   Admin
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown" >
-                  <li><a class="dropdown-item" href="/pharmacy-management-system/admin/addPharmacist.php">Add Pharmacist</a></li>
+                  <li><a class="dropdown-item" href="/pharmacy-management-system/admin/addUser.php">Add User</a></li>
                   <li><a class="dropdown-item" href="/pharmacy-management-system/admin/addBranch.php">Add Branch</a></li>
                   <li><a class="dropdown-item" href="/pharmacy-management-system/admin/generateReports.php">Generate Reports</a></li>
                 </ul>
