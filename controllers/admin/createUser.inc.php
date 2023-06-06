@@ -135,12 +135,12 @@ if (isset($_SESSION['userId'])) {
         
                 $message->setTo($recipientEmail);
                 $message->setSubject($subject);
-                $message->setBody($body);
+                $message->setBody($messageBody);
                 $mailer->send($message);
         
                 // Redirect or display success message as desired
                 $_SESSION['success'] = "User created successfully";
-                header("Location: /pharmacy-management-system/admin/users.php");
+                header("Location: /pharmacy-management-system/admin/createUser.php");
                 exit();
             } else {
                 // Insert failed, rollback the transaction
