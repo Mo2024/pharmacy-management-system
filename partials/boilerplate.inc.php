@@ -36,6 +36,7 @@
         $data = explode('#', $data);
         $_SESSION['userId'] = $data[0];
         $_SESSION['username'] = $data[1];
+        $_SESSION['role'] = $data[2];
         setcookie("session", $dataCookie,time() + 604800, '/', '', true, true);
       }
     }

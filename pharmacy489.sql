@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 02, 2023 at 08:12 PM
+-- Generation Time: Jun 06, 2023 at 08:36 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -20,21 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `pharmacy489`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `addresses`
---
-
-CREATE TABLE `addresses` (
-  `aid` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `building` int(11) NOT NULL,
-  `road` int(11) NOT NULL,
-  `block` int(11) NOT NULL,
-  `uid` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -65,18 +50,6 @@ CREATE TABLE `orders` (
   `uid` int(11) NOT NULL,
   `status` varchar(255) NOT NULL,
   `dateDelivered` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `pharmacist_in_branch`
---
-
-CREATE TABLE `pharmacist_in_branch` (
-  `id` int(11) NOT NULL,
-  `uid` int(11) NOT NULL,
-  `bid` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -163,26 +136,23 @@ CREATE TABLE `users` (
   `pcode` varchar(255) NOT NULL,
   `type` varchar(255) NOT NULL,
   `number` varchar(255) NOT NULL,
-  `isDeleted` tinyint(1) NOT NULL
+  `isDeleted` tinyint(1) NOT NULL,
+  `bid` int(11) DEFAULT NULL,
+  `building` varchar(255) NOT NULL,
+  `road` varchar(255) NOT NULL,
+  `block` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`uid`, `username`, `email`, `fName`, `hash`, `pcode`, `type`, `number`, `isDeleted`) VALUES
-(1, 'mohd1', 'mohdosama2025@gmail.com', 'Mohamed Ali', '$2y$10$qrvkrZ0JDY/LUosgNy0QPufbQhWxxpa6gAyY.CCYvtwAp9ZG4pn.a', '588514', '', '', 0);
+INSERT INTO `users` (`uid`, `username`, `email`, `fName`, `hash`, `pcode`, `type`, `number`, `isDeleted`, `bid`, `building`, `road`, `block`) VALUES
+(1, 'mohd1', 'mohdosama2025@gmail.com', 'Mohamed Ali', '$2y$10$qrvkrZ0JDY/LUosgNy0QPufbQhWxxpa6gAyY.CCYvtwAp9ZG4pn.a', '588514', 'admin', '', 0, NULL, '', '', '');
 
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `addresses`
---
-ALTER TABLE `addresses`
-  ADD PRIMARY KEY (`aid`),
-  ADD KEY `uid` (`uid`);
 
 --
 -- Indexes for table `branches`
@@ -196,14 +166,6 @@ ALTER TABLE `branches`
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`oid`),
   ADD KEY `uid` (`uid`);
-
---
--- Indexes for table `pharmacist_in_branch`
---
-ALTER TABLE `pharmacist_in_branch`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `uid` (`uid`),
-  ADD KEY `bid` (`bid`);
 
 --
 -- Indexes for table `products`
@@ -248,17 +210,12 @@ ALTER TABLE `suppliers_in_branch`
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`uid`);
+  ADD PRIMARY KEY (`uid`),
+  ADD KEY `bid` (`bid`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
-
---
--- AUTO_INCREMENT for table `addresses`
---
-ALTER TABLE `addresses`
-  MODIFY `aid` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `branches`
@@ -271,12 +228,6 @@ ALTER TABLE `branches`
 --
 ALTER TABLE `orders`
   MODIFY `oid` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `pharmacist_in_branch`
---
-ALTER TABLE `pharmacist_in_branch`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -319,23 +270,10 @@ ALTER TABLE `users`
 --
 
 --
--- Constraints for table `addresses`
---
-ALTER TABLE `addresses`
-  ADD CONSTRAINT `addresses_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `users` (`uid`) ON DELETE CASCADE;
-
---
 -- Constraints for table `orders`
 --
 ALTER TABLE `orders`
   ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `users` (`uid`);
-
---
--- Constraints for table `pharmacist_in_branch`
---
-ALTER TABLE `pharmacist_in_branch`
-  ADD CONSTRAINT `pharmacist_in_branch_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `users` (`uid`) ON DELETE CASCADE,
-  ADD CONSTRAINT `pharmacist_in_branch_ibfk_2` FOREIGN KEY (`bid`) REFERENCES `branches` (`bid`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `products`
@@ -369,6 +307,12 @@ ALTER TABLE `suppliers`
 ALTER TABLE `suppliers_in_branch`
   ADD CONSTRAINT `suppliers_in_branch_ibfk_1` FOREIGN KEY (`sid`) REFERENCES `suppliers` (`sid`) ON DELETE CASCADE,
   ADD CONSTRAINT `suppliers_in_branch_ibfk_2` FOREIGN KEY (`bid`) REFERENCES `branches` (`bid`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `users`
+--
+ALTER TABLE `users`
+  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`bid`) REFERENCES `branches` (`bid`) ON DELETE SET NULL;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

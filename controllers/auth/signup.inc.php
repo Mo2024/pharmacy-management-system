@@ -63,7 +63,7 @@ if (isset($_POST['submit'])) {
                 $_SESSION["username"] = $username;
 
                 if(isset($_POST['rememberMe']) && $_POST['rememberMe'] == 'rememberMe'){
-                    $data = $_SESSION["userId"].'#'.$_SESSION["username"];
+                    $data = $_SESSION["userId"].'#'.$_SESSION["username"]."#".$_SESSION["role"];
                     $data = base64_encode($data);
                     setcookie("session", $data,time() + 604800, '/', '', true, true);
                 }
