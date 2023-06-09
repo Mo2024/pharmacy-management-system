@@ -9,7 +9,7 @@ document.getElementById("searchButton").addEventListener("click", function () {
 
 
   var ajax = new XMLHttpRequest();
-  ajax.open("GET", "http://localhost/ITCS333-Project/controllers/ajax/searchQuizzes.inc.php?searchQuery=" + encodeURIComponent(searchQuery) + "&isSearchBtn", true);
+  ajax.open("GET", "http://localhost/pharmacy-management-system/controllers/ajax/searchQuizzes.inc.php?searchQuery=" + encodeURIComponent(searchQuery) + "&isSearchBtn", true);
   ajax.onreadystatechange = function () {
     if (ajax.readyState === 4 && ajax.status === 200) {
       var response = JSON.parse(ajax.responseText);
@@ -30,7 +30,7 @@ document.getElementById("searchButton").addEventListener("click", function () {
               <div class="card-body">
                   <h3 class="card-title">${quiz.title}</h3>
                   <h4 class="card-title">Created By: ${quiz.username}</h4>
-                  <a href="/ITCS333-Project/quiz/viewQuiz.php?quizId=${quiz.quizid}" class="btn mt-5 btn-primary">View Quiz Details</a>
+                  <a href="/pharmacy-management-system/quiz/viewQuiz.php?quizId=${quiz.quizid}" class="btn mt-5 btn-primary">View Quiz Details</a>
               </div>
             </div>
           </div>
@@ -49,7 +49,7 @@ var currentSelectionIndex = -1;
 
 function fetchSuggestions(searchQuery) {
   var ajax = new XMLHttpRequest();
-  ajax.open('GET', 'http://localhost/ITCS333-Project/controllers/ajax/searchQuizzes.inc.php?searchQuery=' + encodeURIComponent(searchQuery), true);
+  ajax.open('GET', 'http://localhost/pharmacy-management-system/controllers/ajax/searchQuizzes.inc.php?searchQuery=' + encodeURIComponent(searchQuery), true);
   ajax.setRequestHeader('Content-Type', 'application/json');
 
   ajax.onreadystatechange = function () {
@@ -72,7 +72,7 @@ function fetchSuggestions(searchQuery) {
 
         suggestions.forEach(function (suggestion, index) {
           var suggestionItem = document.createElement('a');
-          suggestionItem.href = '/ITCS333-Project/quiz/viewQuiz.php?quizId=' + suggestion.quizid;
+          suggestionItem.href = '/pharmacy-management-system/quiz/viewQuiz.php?quizId=' + suggestion.quizid;
           suggestionItem.classList.add('suggestion-item');
           suggestionItem.textContent = suggestion.title;
 

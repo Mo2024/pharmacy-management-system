@@ -21,10 +21,15 @@
                 <h5 class="card-title text-center" style="font-size:35px;font-weight:bold;color:black;">Sign Up</h5>
                     <form class="validated-form" method="POST" novalidate>
                         <div class="row">
-                            <div class="mb-3 col-sm-12">
+                            <div class="mb-3 col-sm-6">
                                 <label class="form-label" for="email">Email</label>
                                 <input class="form-control" placeholder="Email" type="email" name="email" id="email" value="<?php if(isset($_GET['email'])) echo $_GET['email']?>" required>
                                 <p id="emailTakenAlert" class="email-username-alert" style="display: none;">Email is already taken.</p>
+                            </div>
+                            <div class="mb-3 col-sm-6">
+                                <label class="form-label" for="username">Username</label>
+                                <input class="form-control" placeholder="Username" type="text" name="username" id="username" value="<?php if(isset($_GET['email'])) echo $_GET['username']?>" required>
+                                <p id="usernameTakenAlert" class="email-username-alert" style="display: none;">Username is already taken.</p>
                             </div>
                         </div>
                         <div class="row">
@@ -33,9 +38,8 @@
                                 <input class="form-control" placeholder="Full Name" type="text" name="fullname" id="fullname" value="<?php if(isset($_GET['email'])) echo $_GET['fullname']?>" required>
                             </div>
                             <div class="mb-3 col-sm-6">
-                                <label class="form-label" for="username">Username</label>
-                                <input class="form-control" placeholder="Username" type="text" name="username" id="username" value="<?php if(isset($_GET['email'])) echo $_GET['username']?>" required>
-                                <p id="usernameTakenAlert" class="email-username-alert" style="display: none;">Username is already taken.</p>
+                                <label class="form-label" for="number">Number</label>
+                                <input class="form-control" placeholder="Number" type="text" name="number" id="number" value="<?php if(isset($_GET['email'])) echo $_GET['number']?>" required>
                             </div>
                         </div>
                         <div class="row">

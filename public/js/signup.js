@@ -5,7 +5,7 @@ username.addEventListener('input', function () {
     var usernameTakenAlert = document.getElementById("usernameTakenAlert");
 
     var ajax = new XMLHttpRequest();
-    ajax.open("POST", "http://localhost/ITCS333-Project/controllers/ajax/checkUsernameEmail.inc.php", true);
+    ajax.open("POST", "http://localhost/pharmacy-management-system/controllers/ajax/checkUsernameEmail.inc.php", true);
     ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     ajax.onreadystatechange = function () {
         if (ajax.readyState === 4 && ajax.status === 200) {
@@ -28,7 +28,7 @@ email.addEventListener('input', function () {
     var emailTakenAlert = document.getElementById("emailTakenAlert");
 
     var ajax = new XMLHttpRequest();
-    ajax.open("POST", "http://localhost/ITCS333-Project/controllers/ajax/checkUsernameEmail.inc.php", true);
+    ajax.open("POST", "http://localhost/pharmacy-management-system/controllers/ajax/checkUsernameEmail.inc.php", true);
     ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     ajax.onreadystatechange = function () {
         if (ajax.readyState === 4 && ajax.status === 200) {
@@ -55,6 +55,7 @@ function validateInputs() {
     const passwordInput = document.getElementById('password');
     const password2Input = document.getElementById('password2');
     const fullnameInput = document.getElementById('fullname');
+    const numberInput = document.getElementById('number');
     const submitButton = document.getElementById('signupButton');
 
     const isEmailValid = emailRegex.test(emailInput.value);
@@ -62,6 +63,7 @@ function validateInputs() {
     const isPasswordValid = passwordRegex.test(passwordInput.value);
     const isPassword2Valid = passwordRegex.test(password2Input.value);
     const isFullnameValid = fullnameRegex.test(fullnameInput.value);
+    const isNumberValid = numberRegex.test(numberInput.value);
 
     let notificationDisplay = document.getElementById("notificationId")
     let message = document.getElementById("messageId")
@@ -81,6 +83,9 @@ function validateInputs() {
     } else if (!isFullnameValid) {
         notificationDisplay.style.display = "block"
         message.innerHTML = "Please make sure that the entered full name is entered properly"
+    } else if (!isNumberValid) {
+        notificationDisplay.style.display = "block"
+        message.innerHTML = "Please make sure that the entered number is entered properly"
     } else {
         submitButton.type = "submit";
         submitButton.click();
