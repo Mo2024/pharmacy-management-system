@@ -54,6 +54,22 @@
                         </div>
                         <div class="row">
                             <div class="mb-3 col-sm-6">
+                                <label class="form-label" for="building">Building</label>
+                                <input class="form-control" placeholder="Building" type="text" name="building" id="building" value="<?php if(isset($_GET['email'])) echo $_GET['building']?>" required>
+                            </div>
+                            <div class="mb-3 col-sm-6">
+                                <label class="form-label" for="road">Road</label>
+                                <input class="form-control" placeholder="Road" type="text" name="road" id="road" value="<?php if(isset($_GET['email'])) echo $_GET['road']?>" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="mb-3 col-sm-6">
+                                <label class="form-label" for="block">Block</label>
+                                <input class="form-control" placeholder="Block" type="text" name="block" id="block" value="<?php if(isset($_GET['email'])) echo $_GET['block']?>" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="mb-3 col-sm-6">
                                 <input class="form-check-input" id="showPassword" type="checkbox" onclick="dPassword()">
                                 <label class="form-check-label" for="showPassword">
                                     Show Password
