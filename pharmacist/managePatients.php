@@ -27,11 +27,11 @@ thead
         </tr>
         
         <?php foreach ($rows as $row) { ?>
-          <tr>
+          <tr id="<?php echo $row['uid'] ?>">
             <td><?php echo $row['username']; ?></td>
             <td><?php echo $row['dateCreated'];?></td>
             <td><a type="button" href="/pharmacy-management-system/pharmacist/editPatient.php?patientId=<?php echo $row['uid'] ?>" class="btn btn-sm btn-outline-secondary">Edit Patient</a></td>
-            <td><button type="button" class="btn btn-sm btn-danger">Delete Patient</button></td>
+            <td><button value="<?php echo $row['uid'] ?>" onclick="handleDelete(this.value)" type="button" class="btn btn-sm btn-danger delete-patient-btn">Delete Patient</button></td>
           </tr>
         <?php } ?>
 
@@ -46,5 +46,7 @@ thead
       </button>
     </div>
 </div>
+
+<script src="/pharmacy-management-system/public/js/managePatients.js"></script>
 
 <?php require('../partials/footer.inc.php')?>

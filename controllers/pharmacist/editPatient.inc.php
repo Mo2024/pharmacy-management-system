@@ -5,7 +5,7 @@ if(isset($_SESSION['userId'])){
     if($_SESSION['role'] == "pharmacist"){
         if(isset($_GET['patientId'])){
             $pid = $_GET['patientId'];
-            $pidQuery = "SELECT users.number, users.uid, users.type, addresses.road, addresses.building, addresses.block FROM users INNER JOIN addresses ON users.uid = addresses.uid WHERE users.uid = '$pid'";
+            $pidQuery = "SELECT users.number, users.uid, users.type, addresses.road, addresses.building, addresses.block FROM users INNER JOIN addresses ON users.uid = addresses.uid WHERE users.uid = '$pid' AND isDeleted = 0";
             $result = $db->query($pidQuery);
             $row = $result->fetch();
             if($row['type'] != "patient"){
@@ -24,7 +24,7 @@ if(isset($_SESSION['userId'])){
             $road = $_POST['road'];
             $block = $_POST['block'];
 
-            $postPidQuery = "SELECT users.number, users.uid, users.type, addresses.road, addresses.building, addresses.block FROM users INNER JOIN addresses ON users.uid = addresses.uid WHERE users.uid = '$pid'";
+            $postPidQuery = "SELECT users.number, users.uid, users.type, addresses.road, addresses.building, addresses.block FROM users INNER JOIN addresses ON users.uid = addresses.uid WHERE users.uid = '$pid' AND isDeleted = 0";
             $postResult = $db->query($postPidQuery);
             $postRow = $postResult->fetch();
 
