@@ -27,6 +27,21 @@
               </li>
                 ';
               }
+              if(isset($_SESSION['userId']) && isset($_SESSION['role']) && $_SESSION['role'] == "pharmacist"){
+                echo'
+                <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle h4" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                  aria-expanded="false">
+                  Pharmacist
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown" >
+                  <li><a class="dropdown-item" href="/pharmacy-management-system/pharmacist/managePatients.php">Manage Patients</a></li>
+                  <li><a class="dropdown-item" href="/pharmacy-management-system/admin/addBranch.php">Add Branch</a></li>
+                  <li><a class="dropdown-item" href="/pharmacy-management-system/admin/generateReports.php">Generate Reports</a></li>
+                </ul>
+              </li>
+                ';
+              }
             ?>
 
           </ul>

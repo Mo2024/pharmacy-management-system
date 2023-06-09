@@ -15,6 +15,8 @@ if (isset($_POST['submit'])) {
     $password2 = $_POST['password2'];
     $fullname = $_POST['fullname'];
     $number = $_POST['number'];
+    $dateCreated = date("F d\, Y");
+
 
     if(!preg_match($emailReg, $email)){
         $_SESSION['error'] = "Please make sure that the entered email is valid";
@@ -61,8 +63,8 @@ if (isset($_POST['submit'])) {
 
                 $hash = password_hash($password, PASSWORD_DEFAULT);
 
-                $sql = "INSERT INTO users (username, email, fName, hash, pcode, number, type) 
-                        VALUES('$username', '$email', '$fullname', '$hash', 0, '$number', 'patient')";
+                $sql = "INSERT INTO users (username, email, fName, hash, pcode, number, type, dateCreated) 
+                        VALUES('$username', '$email', '$fullname', '$hash', 0, '$number', 'patient', '$dateCreated')";
                 $result = $db->query($sql);
 
                 $_SESSION["userId"] = $db->lastInsertId();

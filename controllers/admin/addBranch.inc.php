@@ -2,7 +2,7 @@
 // Assuming you have started the session
 
 if (isset($_SESSION['userId'])) {
-    if ($_SESSION['role'] === 'admin') {
+    if ($_SESSION['role'] == 'admin') {
 
         if (isset($_POST['submit'])) {
             $name = $_POST['name'];
@@ -21,16 +21,16 @@ if (isset($_SESSION['userId'])) {
                 if (!$nameValid) {
                     $_SESSION['error'] = "Invalid name";
                     header("Location: /pharmacy-management-system/admin/addBranch.php?name=".$name."&area=".$area."&building=".$building."&road=".$road."&block=".$block);
-                } elseif (!$areaValid) {
+                } else if (!$areaValid) {
                     $_SESSION['error'] = "Invalid area";
                     header("Location: /pharmacy-management-system/admin/addBranch.php?name=".$name."&area=".$area."&building=".$building."&road=".$road."&block=".$block);
-                } elseif (!$buildingValid) {
+                } else if (!$buildingValid) {
                     $_SESSION['error'] = "Invalid building";
                     header("Location: /pharmacy-management-system/admin/addBranch.php?name=".$name."&area=".$area."&building=".$building."&road=".$road."&block=".$block);
-                } elseif (!$roadValid) {
+                } else if (!$roadValid) {
                     $_SESSION['error'] = "Invalid road";
                     header("Location: /pharmacy-management-system/admin/addBranch.php?name=".$name."&area=".$area."&building=".$building."&road=".$road."&block=".$block);
-                } elseif (!$blockValid) {
+                } else if (!$blockValid) {
                     $_SESSION['error'] = "Invalid block";
                     header("Location: /pharmacy-management-system/admin/addBranch.php?name=".$name."&area=".$area."&building=".$building."&road=".$road."&block=".$block);
                 } else {

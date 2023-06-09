@@ -4,7 +4,7 @@ require('../functions/functions.inc.php');
 require('../partials/regex.inc.php');
 
 if (isset($_SESSION['userId'])) {
-    if ($_SESSION['role'] === 'admin') {
+    if ($_SESSION['role'] == 'admin') {
 
         $sql = "SELECT bid, name FROM branches";
         $stmt = $db->query($sql);
@@ -20,6 +20,7 @@ if (isset($_SESSION['userId'])) {
             $road = $_POST['road'];
             $block = $_POST['block'];
             $role = $_POST['role'];
+            $dateCreated = date("F d\, Y");
             if(isset($_POST['branches'])){
                 $bid = $_POST['branches'];
             }else{
@@ -61,7 +62,7 @@ if (isset($_SESSION['userId'])) {
     
                 if ($stmt->rowCount() > 0) {
                     $_SESSION['error'] = "Username already exists";
-                    header("Location: /pharmacy-management-system/admin/addUser.php?error=username");
+                    header("Location: /pharmacy-management-system/admin/addUser.php");
                     exit();
                 }
     
@@ -72,7 +73,7 @@ if (isset($_SESSION['userId'])) {
     
                 if ($stmt->rowCount() > 0) {
                     $_SESSION['error'] = "Email already exists";
-                    header("Location: /pharmacy-management-system/admin/addUser.php?error=email");
+                    header("Location: /pharmacy-management-system/admin/addUser.php");
                     exit();
                 }
                 
@@ -85,16 +86,17 @@ if (isset($_SESSION['userId'])) {
                         $_SESSION['error'] = "Invalid branch";
                         header("Location: /pharmacy-management-system/admin/addUser.php?username=" . urlencode($username) . "&fullname=" . urlencode($fullname) . "&email=" . urlencode($email) . "&number=" . urlencode($number) . "&building=" . urlencode($building) . "&road=" . urlencode($road) . "&block=" . urlencode($block) . "&role=" . urlencode($role)."&branches=".$bid);
                     }
-                    $sql = "INSERT INTO users (username, fName, email, number, bid, hash, type) VALUES (:username, :fName, :email, :number, :bid, :hash, :role)";
+                    $sql = "INSERT INTO users (username, fName, email, number, bid, hash, type, dateCreated) VALUES (:username, :fName, :email, :number, :bid, :hash, :role, :dateCreated)";
                     $stmt = $db->prepare($sql);
                     $stmt->bindParam(':bid', $_POST['branches']);
 
                 }else{
-                    $sql = "INSERT INTO users (username, fName, email, number, bid, hash, type) VALUES (:username, :fName, :email, :number, null, :hash, :role)";
+                    $sql = "INSERT INTO users (username, fName, email, number, bid, hash, type, dateCreated) VALUES (:username, :fName, :email, :number, null, :hash, :role, :dateCreated)";
                     $stmt = $db->prepare($sql);
                 }
                 
                 $stmt->bindParam(':username', $username);
+                $stmt->bindParam(':dateCreated', $dateCreated);
                 $stmt->bindParam(':fName', $fullname);
                 $stmt->bindParam(':email', $email);
                 $stmt->bindParam(':number', $number);
@@ -139,7 +141,7 @@ if (isset($_SESSION['userId'])) {
 
                     $db->rollback();            
                     $_SESSION['error'] = "Failed to insert user into the database";
-                    header("Location: /pharmacy-management-system/admin/addUser.php?error=db");
+                    header("Location: /pharmacy-management-system/admin/addUser.php");
                     exit();
                 }
 
