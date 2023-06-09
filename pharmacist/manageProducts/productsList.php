@@ -1,5 +1,5 @@
 <?php $title = "Manage Patients"; require('../../partials/boilerplate.inc.php')?>
-<?php require('../../controllers/pharmacist/managePatients/managePatients.inc.php')?>
+<?php require('../../controllers/pharmacist/manageProducts/ProductsList.inc.php')?>
 <style>
 thead
 {
@@ -13,17 +13,17 @@ thead
 
       <thead>
         <tr >
-          <th  scope="col" colspan="4">Patients List</th>
+          <th  scope="col" colspan="4">Products List</th>
         </tr>
       </thead>
 
       <tbody>
 
         <tr>
-          <th>Username</th>
+          <th>Name</th>
           <th>Date Created</th>
-          <th>Edit Patient Info</th>
-          <th>Delete Patient</th>
+          <th>Edit Product Info</th>
+          <th>Delete Product</th>
         </tr>
         
         <?php foreach ($rows as $row) { ?>

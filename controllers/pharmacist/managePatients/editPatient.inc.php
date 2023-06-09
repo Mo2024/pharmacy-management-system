@@ -10,11 +10,11 @@ if(isset($_SESSION['userId'])){
             $row = $result->fetch();
             if($row['type'] != "patient"){
                 $_SESSION['error'] = "You can't edit non patients users!";
-                header("Location: /pharmacy-management-system/pharmacist/managePatients/managePatients.php");
+                header("Location: /pharmacy-management-system/pharmacist/managePatients/patientsList.php");
             }
         }else{
             $_SESSION['error'] = "Choose a valid Patient";
-            header("Location: /pharmacy-management-system/pharmacist/managePatients/managePatients.php");
+            header("Location: /pharmacy-management-system/pharmacist/managePatients/patientsList.php");
         }
 
         if(isset($_POST['submit'])){
@@ -30,7 +30,7 @@ if(isset($_SESSION['userId'])){
 
             if($postRow['type'] != "patient"){
                 $_SESSION['error'] = "You can't edit non patients users!";
-                header("Location: /pharmacy-management-system/pharmacist/managePatients/managePatients.php");
+                header("Location: /pharmacy-management-system/pharmacist/managePatients/patientsList.php");
             }else{
                 $buildingValid = preg_match('/^[a-zA-Z0-9\s]+$/', $building);
                 $roadValid = preg_match('/^[a-zA-Z0-9\s]+$/', $road);
@@ -64,7 +64,7 @@ if(isset($_SESSION['userId'])){
                     $stmt->execute();
     
                     $_SESSION['success'] = "Patient's Info Updated";
-                    header("Location: /pharmacy-management-system/pharmacist/managePatients/managePatients.php");
+                    header("Location: /pharmacy-management-system/pharmacist/managePatients/patientsList.php");
                 }
             }
             

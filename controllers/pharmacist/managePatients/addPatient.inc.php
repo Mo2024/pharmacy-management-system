@@ -115,13 +115,13 @@ if (isset($_SESSION['userId'])) {
                         $mailer->send($message);
                 
                         $_SESSION['success'] = "Patient created successfully";
-                        header("Location: /pharmacy-management-system/pharmacist/managePatients/managePatients.php");
+                        header("Location: /pharmacy-management-system/pharmacist/managePatients/patientsList.php");
                         exit();
                     } else {
     
                         $db->rollback();            
                         $_SESSION['error'] = "Failed to insert user into the database";
-                        header("Location: /pharmacy-management-system/pharmacist/managePatients/managePatients.php");
+                        header("Location: /pharmacy-management-system/pharmacist/managePatients/patientsList.php");
                         exit();
                     }
                 }
