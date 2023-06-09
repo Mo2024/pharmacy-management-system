@@ -3,7 +3,7 @@ require('../../functions/functions.inc.php');
 require("../../partials/regex.inc.php");
 if(isset($_SESSION['userId'])){
     if($_SESSION['role'] == "pharmacist"){
-        $query = "SELECT pid, name, type, fName, number, dateCreated FROM users WHERE type = 'patient' AND isDeleted = 0";
+        $query = "SELECT products.* FROM products WHERE isDeleted = 0";
         $statement = $db->prepare($query);
         $statement->execute();
         $rows = $statement->fetchAll(PDO::FETCH_ASSOC);

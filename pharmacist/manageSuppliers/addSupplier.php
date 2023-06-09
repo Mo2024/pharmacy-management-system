@@ -1,4 +1,4 @@
-<?php $title = "Add Branch"; require('../../partials/boilerplate.inc.php')?>
+<?php $title = "Add Supplier"; require('../../partials/boilerplate.inc.php')?>
 <?php require('../../controllers/pharmacist/manageSuppliers/addSupplier.inc.php')?>
 <?php 
 $name = isset($_GET['name']) ? $_GET['name'] : '';
@@ -34,21 +34,6 @@ $building = isset($_GET['building']) ? $_GET['building'] : '';
             <div class="mb-3">
                 <label class="form-label text-dark" for="block">Block</label>
                 <input placeholder="Block" class="form-control" type="text" name="block" id="block" value="<?php echo $block; ?>" required>
-            </div>
-
-            <div class="mb-3" id="branchesContainer" <?php echo isset($_GET['branches']) ? 'style="display: block;"' : ''; ?>>
-                <label class="form-label text-dark" for="branches">Branches</label>
-                <select class="form-select" name="branches" id="branches" required>
-                    <option value="">Select Branch</option>
-                    <?php
-                    if (!empty($branches)) {
-                        foreach ($branches as $branch) {
-                            $selected = isset($_GET['branches']) && $_GET['branches'] == $branch['bid'] ? 'selected' : '';
-                            echo '<option value="' . $branch['bid'] . '" ' . $selected . '>' . $branch['name'] . '</option>';
-                        }
-                    }
-                    ?>
-                </select>
             </div>
 
             <div class="mb-3">

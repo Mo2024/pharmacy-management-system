@@ -20,6 +20,7 @@
     $descriptionReg = "/^(?=.*[a-zA-Z]).{1,100}$/";
     $roleReg = "/^(pharmacist|admin|patient)$/";
     $idReg = "/^\d+$/";
+    $priceReg = '/^[-+]?[0-9]*\.?[0-9]+$/';
 
 
 ?>

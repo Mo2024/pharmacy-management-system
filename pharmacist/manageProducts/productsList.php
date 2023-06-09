@@ -1,10 +1,10 @@
-<?php $title = "Manage Patients"; require('../../partials/boilerplate.inc.php')?>
+<?php $title = "Products List"; require('../../partials/boilerplate.inc.php')?>
 <?php require('../../controllers/pharmacist/manageProducts/ProductsList.inc.php')?>
 <style>
 thead
 {
     background-color: #3C486B;
-    color: white;
+    color: white; 
 }
 </style>
 <div class="mt-4 container">
@@ -21,17 +21,17 @@ thead
 
         <tr>
           <th>Name</th>
-          <th>Date Created</th>
+          <th>Price</th>
           <th>Edit Product Info</th>
           <th>Delete Product</th>
         </tr>
         
         <?php foreach ($rows as $row) { ?>
-          <tr id="<?php echo $row['uid'] ?>">
-            <td><?php echo $row['username']; ?></td>
-            <td><?php echo $row['dateCreated'];?></td>
-            <td><a type="button" href="/pharmacy-management-system/pharmacist/managePatients/editPatient.php?patientId=<?php echo $row['uid'] ?>" class="btn btn-sm btn-outline-secondary">Edit Patient</a></td>
-            <td><button value="<?php echo $row['uid'] ?>" onclick="handleDelete(this.value)" type="button" class="btn btn-sm btn-danger delete-patient-btn">Delete Patient</button></td>
+          <tr id="<?php echo $row['pid'] ?>">
+            <td><?php echo $row['name']; ?></td>
+            <td>$<?php echo $row['price'];?></td>
+            <td><a type="button" href="/pharmacy-management-system/pharmacist/manageProducts/editProduct.php?productId=<?php echo $row['pid'] ?>" class="btn btn-sm btn-outline-secondary">Edit Product</a></td>
+            <td><button value="<?php echo $row['pid'] ?>" onclick="handleDelete(this.value)" type="button" class="btn btn-sm btn-danger">Delete Product</button></td>
           </tr>
         <?php } ?>
 
@@ -41,12 +41,12 @@ thead
     </div>
     <div class="d-flex mb-3">
       <button type="button" class="ms-auto border-0">
-        <a class="text-decoration-none btn btn-sm btn-primary ms-auto" href="/pharmacy-management-system/pharmacist/managePatients/addPatient.php">Add Patient</a>
+        <a class="text-decoration-none btn btn-sm btn-primary ms-auto" href="/pharmacy-management-system/pharmacist/manageProducts/addProduct.php">Add Product</a>
         <a class="text-decoration-none btn btn-sm btn-outline-primary ms-auto" href="/pharmacy-management-system/mainpage.php">Return To Home Page</a>
       </button>
     </div>
 </div>
 
-<script src="/pharmacy-management-system/public/js/managePatients.js"></script>
+<script src="/pharmacy-management-system/public/js/productsList.js"></script>
 
 <?php require('../../partials/footer.inc.php')?>
