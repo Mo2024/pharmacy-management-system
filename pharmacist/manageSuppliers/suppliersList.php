@@ -47,6 +47,6 @@ thead
     </div>
 </div>
 
-<script src="/pharmacy-management-system/public/js/manageSuppliers.js"></script>
+<script src="/pharmacy-management-system/public/js/suppliersList.js"></script>
 
 <?php require('../../partials/footer.inc.php')?>
