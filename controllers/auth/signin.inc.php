@@ -12,13 +12,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     } else if($formPassword == ''){
         $_SESSION['error'] = "You must enter a password";
         header("Location: /pharmacy-management-system/auth/signin.php?uid=".$uid);
-    }else if(preg_match($usernameReg, $uid) && preg_match($passwordReg, $formPassword)){
+    }else {
         $uidQuery = "SELECT * FROM users WHERE BINARY username = '$uid'";
         $result = $db->query($uidQuery);
         if ($row = $result->fetch()) {
-            if (password_verify($formPassword, $row['hash'])) {
-                //password match and login in user
-                
+            if (password_verify($formPassword, $row['hash'])) {                
                 
                 $_SESSION["userId"] = $row['uid'];
                 $_SESSION["role"] = $row['type'];
@@ -52,14 +50,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
             header("Location: /pharmacy-management-system/auth/signin.php");
         }
 
-    }else if(!preg_match($usernameReg, $uid)){
-        //invalid username
-        $_SESSION['error'] = "Invalid Username";
-        header("Location: /pharmacy-management-system/auth/signin.php?uid=".$uid);
-    }else if(!preg_match($passwordReg, $formPassword)){
-        //invalid password
-        $_SESSION['error'] = "Invalid Password";
-        header("Location: /pharmacy-management-system/auth/signin.php?uid=".$uid);
     }
 }
 ?>

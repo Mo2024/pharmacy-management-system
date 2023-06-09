@@ -18,4 +18,8 @@
     $timerReg = "/^(300|600|1200|1800|2400|3000|3600)$/";
     $noOfQuestionsReg = "/^[1-9]\d*$/";
     $descriptionReg = "/^(?=.*[a-zA-Z]).{1,100}$/";
+    $roleReg = "/^(pharmacist|admin|patient)$/";
+    $idReg = "/^\d+$/";
+
+
 ?>
