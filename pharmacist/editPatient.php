@@ -3,13 +3,8 @@
 
 <section class="container row mx-auto">
     <div class="col-lg-12">
-        <h1 class="text-dark">Edit User</h1>
+        <h1 class="text-dark">Edit Patient</h1>
         <form method="POST" class="validated-form" novalidate enctype="multipart/form-data">
-
-            <div class="mb-3">
-                <label class="form-label text-dark" for="fName">Full Name</label>
-                <input placeholder="Full Name" class="form-control" type="text" name="fName" id="fName" value="<?php echo $row['fName']; ?>" required>
-            </div>
 
             <div class="mb-3">
                 <label class="form-label text-dark" for="number">Number</label>
@@ -32,7 +27,7 @@
             </div>
 
             <div class="mb-3">
-                <button name="submit" class="btn btn-success">Save Info</button>
+                <button name="submit" value="<?php echo $_GET['patientId'] ?>" class="btn btn-success">Save Info</button>
             </div>
         </form>
     </div>
