@@ -35,7 +35,7 @@
                   Pharmacist
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown" >
-                  <li><a class="dropdown-item" href="/pharmacy-management-system/pharmacist/managePatients.php">Manage Patients</a></li>
+                  <li><a class="dropdown-item" href="/pharmacy-management-system/pharmacist/managePatients/managePatients.php">Manage Patients</a></li>
                   <li><a class="dropdown-item" href="/pharmacy-management-system/admin/addBranch.php">Add Branch</a></li>
                   <li><a class="dropdown-item" href="/pharmacy-management-system/admin/generateReports.php">Generate Reports</a></li>
                 </ul>

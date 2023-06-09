@@ -1,11 +1,11 @@
 <?php
 session_start();
-require_once('../../vendor/autoload.php');
+require_once('../../../vendor/autoload.php');
 use Dotenv\Dotenv;
-$dotenv = Dotenv::createImmutable(__DIR__.'/../../');
+$dotenv = Dotenv::createImmutable(__DIR__.'/../../../');
 $dotenv->load();
-require('../../functions/connection.inc.php');
-require('../../functions/functions.inc.php');
+require('../../../functions/connection.inc.php');
+require('../../../functions/functions.inc.php');
 
 $pid = $_POST['pid'];
 

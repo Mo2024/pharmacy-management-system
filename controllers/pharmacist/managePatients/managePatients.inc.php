@@ -1,6 +1,6 @@
 <?php 
-require('../functions/functions.inc.php');
-require("../partials/regex.inc.php");
+require('../../functions/functions.inc.php');
+require("../../partials/regex.inc.php");
 if(isset($_SESSION['userId'])){
     if($_SESSION['role'] == "pharmacist"){
         $query = "SELECT uid, username, email, fName, number, dateCreated FROM users WHERE type = 'patient' AND isDeleted = 0";

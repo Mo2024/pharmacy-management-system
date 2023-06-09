@@ -1,6 +1,6 @@
 function handleDelete(pid) {
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "http://localhost/pharmacy-management-system/controllers/pharmacist/deletePatient.inc.php", true);
+    xhr.open("POST", "http://localhost/pharmacy-management-system/controllers/pharmacist/managePatients/deletePatient.inc.php", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
     xhr.onreadystatechange = function () {

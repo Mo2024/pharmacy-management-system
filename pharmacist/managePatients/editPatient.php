@@ -1,5 +1,5 @@
-<?php $title = "Add Branch"; require('../partials/boilerplate.inc.php')?>
-<?php require('../controllers/pharmacist/editPatient.inc.php')?>
+<?php $title = "Add Branch"; require('../../partials/boilerplate.inc.php')?>
+<?php require('../../controllers/pharmacist/managePatients/editPatient.inc.php')?>
 
 <section class="container row mx-auto">
     <div class="col-lg-12">
@@ -27,7 +27,7 @@
             </div>
 
             <div class="mb-3">
-                <a class="text-decoration-none btn btn-warning" href="/pharmacy-management-system/pharmacist/managePatients.php">Return</a>
+                <a class="text-decoration-none btn btn-warning" href="/pharmacy-management-system/pharmacist/managePatients/managePatients.php">Return</a>
                 <button name="submit" value="<?php echo $_GET['patientId'] ?>" class="btn btn-success">Save Info</button>
             </div>
         </form>
@@ -35,4 +35,4 @@
 </section>
 
 
-<?php require('../partials/footer.inc.php')?>
+<?php require('../../partials/footer.inc.php')?>

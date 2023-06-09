@@ -1,5 +1,5 @@
-<?php $title = "Manage Patients"; require('../partials/boilerplate.inc.php')?>
-<?php require('../controllers/pharmacist/managePatients.inc.php')?>
+<?php $title = "Manage Patients"; require('../../partials/boilerplate.inc.php')?>
+<?php require('../../controllers/pharmacist/managePatients/managePatients.inc.php')?>
 <style>
 thead
 {
@@ -30,7 +30,7 @@ thead
           <tr id="<?php echo $row['uid'] ?>">
             <td><?php echo $row['username']; ?></td>
             <td><?php echo $row['dateCreated'];?></td>
-            <td><a type="button" href="/pharmacy-management-system/pharmacist/editPatient.php?patientId=<?php echo $row['uid'] ?>" class="btn btn-sm btn-outline-secondary">Edit Patient</a></td>
+            <td><a type="button" href="/pharmacy-management-system/pharmacist/managePatients/editPatient.php?patientId=<?php echo $row['uid'] ?>" class="btn btn-sm btn-outline-secondary">Edit Patient</a></td>
             <td><button value="<?php echo $row['uid'] ?>" onclick="handleDelete(this.value)" type="button" class="btn btn-sm btn-danger delete-patient-btn">Delete Patient</button></td>
           </tr>
         <?php } ?>
@@ -41,7 +41,7 @@ thead
     </div>
     <div class="d-flex mb-3">
       <button type="button" class="ms-auto border-0">
-        <a class="text-decoration-none btn btn-sm btn-primary ms-auto" href="/pharmacy-management-system/pharmacist/addPatient.php">Add Patient</a>
+        <a class="text-decoration-none btn btn-sm btn-primary ms-auto" href="/pharmacy-management-system/pharmacist/managePatients/addPatient.php">Add Patient</a>
         <a class="text-decoration-none btn btn-sm btn-outline-primary ms-auto" href="/pharmacy-management-system/mainpage.php">Return To Home Page</a>
       </button>
     </div>
@@ -49,4 +49,4 @@ thead
 
 <script src="/pharmacy-management-system/public/js/managePatients.js"></script>
 
-<?php require('../partials/footer.inc.php')?>
+<?php require('../../partials/footer.inc.php')?>

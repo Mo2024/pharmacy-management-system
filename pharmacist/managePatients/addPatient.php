@@ -1,5 +1,5 @@
-<?php $title = "Add Branch"; require('../partials/boilerplate.inc.php')?>
-<?php require('../controllers/pharmacist/addPatient.inc.php')?>
+<?php $title = "Add Branch"; require('../../partials/boilerplate.inc.php')?>
+<?php require('../../controllers/pharmacist/managePatients/addPatient.inc.php')?>
 <?php 
 $username = isset($_GET['username']) ? $_GET['username'] : '';
 $email = isset($_GET['email']) ? $_GET['email'] : '';
@@ -54,4 +54,4 @@ $building = isset($_GET['number']) ? $_GET['building'] : '';
         </form>
     </div>
 </section>
-<?php require('../partials/footer.inc.php')?>
+<?php require('../../partials/footer.inc.php')?>

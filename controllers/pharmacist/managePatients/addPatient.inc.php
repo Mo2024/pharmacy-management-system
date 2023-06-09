@@ -1,7 +1,7 @@
 <?php
-require('../partials/regex.inc.php');
-require('../functions/mailer.inc.php');
-require('../functions/functions.inc.php');
+require('../../partials/regex.inc.php');
+require('../../functions/mailer.inc.php');
+require('../../functions/functions.inc.php');
 if (isset($_SESSION['userId'])) {
     if ($_SESSION['role'] == 'pharmacist') {
 
@@ -28,25 +28,25 @@ if (isset($_SESSION['userId'])) {
 
                 if (!$usernameValid) {
                     $_SESSION['error'] = "Invalid username";
-                    header("Location: /pharmacy-management-system/pharmacist/addPatient.php?username=".$username."&email=".$email."&fName=".$fName."&number=".$number."&block=".$block."&road=".$road."&building=".$building);
+                    header("Location: /pharmacy-management-system/pharmacist/managePatients/addPatient.php?username=".$username."&email=".$email."&fName=".$fName."&number=".$number."&block=".$block."&road=".$road."&building=".$building);
                 } elseif (!$emailValid) {
                     $_SESSION['error'] = "Invalid email";
-                    header("Location: /pharmacy-management-system/pharmacist/addPatient.php?username=".$username."&email=".$email."&fName=".$fName."&number=".$number."&block=".$block."&road=".$road."&building=".$building);
+                    header("Location: /pharmacy-management-system/pharmacist/managePatients/addPatient.php?username=".$username."&email=".$email."&fName=".$fName."&number=".$number."&block=".$block."&road=".$road."&building=".$building);
                 } elseif (!$fNameValid) {
                     $_SESSION['error'] = "Invalid Full Name";
-                    header("Location: /pharmacy-management-system/pharmacist/addPatient.php?username=".$username."&email=".$email."&fName=".$fName."&number=".$number."&block=".$block."&road=".$road."&building=".$building);
+                    header("Location: /pharmacy-management-system/pharmacist/managePatients/addPatient.php?username=".$username."&email=".$email."&fName=".$fName."&number=".$number."&block=".$block."&road=".$road."&building=".$building);
                 } elseif (!$numberValid) {
                     $_SESSION['error'] = "Invalid number";
-                    header("Location: /pharmacy-management-system/pharmacist/addPatient.php?username=".$username."&email=".$email."&fName=".$fName."&number=".$number."&block=".$block."&road=".$road."&building=".$building);
+                    header("Location: /pharmacy-management-system/pharmacist/managePatients/addPatient.php?username=".$username."&email=".$email."&fName=".$fName."&number=".$number."&block=".$block."&road=".$road."&building=".$building);
                 } else if (!$buildingValid) {
                     $_SESSION['error'] = "Invalid building";
-                    header("Location: /pharmacy-management-system/pharmacist/addPatient.php?username=".$username."&email=".$email."&fName=".$fName."&number=".$number."&block=".$block."&road=".$road."&building=".$building);
+                    header("Location: /pharmacy-management-system/pharmacist/managePatients/addPatient.php?username=".$username."&email=".$email."&fName=".$fName."&number=".$number."&block=".$block."&road=".$road."&building=".$building);
                 } else if (!$roadValid) {
                     $_SESSION['error'] = "Invalid road";
-                    header("Location: /pharmacy-management-system/pharmacist/addPatient.php?username=".$username."&email=".$email."&fName=".$fName."&number=".$number."&block=".$block."&road=".$road."&building=".$building);
+                    header("Location: /pharmacy-management-system/pharmacist/managePatients/addPatient.php?username=".$username."&email=".$email."&fName=".$fName."&number=".$number."&block=".$block."&road=".$road."&building=".$building);
                 } else if (!$blockValid) {
                     $_SESSION['error'] = "Invalid block";
-                    header("Location: /pharmacy-management-system/pharmacist/addPatient.php?username=".$username."&email=".$email."&fName=".$fName."&number=".$number."&block=".$block."&road=".$road."&building=".$building);
+                    header("Location: /pharmacy-management-system/pharmacist/managePatients/addPatient.php?username=".$username."&email=".$email."&fName=".$fName."&number=".$number."&block=".$block."&road=".$road."&building=".$building);
                 }else {
                     $sql = "SELECT * FROM users WHERE username = :username";
                     $stmt = $db->prepare($sql);
@@ -55,7 +55,7 @@ if (isset($_SESSION['userId'])) {
         
                     if ($stmt->rowCount() > 0) {
                         $_SESSION['error'] = "Username already exists";
-                    header("Location: /pharmacy-management-system/pharmacist/addPatient.php?username=".$username."&email=".$email."&fName=".$fName."&number=".$number."&block=".$block."&road=".$road."&building=".$building);
+                    header("Location: /pharmacy-management-system/pharmacist/managePatients/addPatient.php?username=".$username."&email=".$email."&fName=".$fName."&number=".$number."&block=".$block."&road=".$road."&building=".$building);
                         exit();
                     }
         
@@ -66,7 +66,7 @@ if (isset($_SESSION['userId'])) {
         
                     if ($stmt->rowCount() > 0) {
                         $_SESSION['error'] = "Email already exists";
-                    header("Location: /pharmacy-management-system/pharmacist/addPatient.php?username=".$username."&email=".$email."&fName=".$fName."&number=".$number."&block=".$block."&road=".$road."&building=".$building);
+                    header("Location: /pharmacy-management-system/pharmacist/managePatients/addPatient.php?username=".$username."&email=".$email."&fName=".$fName."&number=".$number."&block=".$block."&road=".$road."&building=".$building);
                         exit();
                     }
                     
@@ -115,19 +115,19 @@ if (isset($_SESSION['userId'])) {
                         $mailer->send($message);
                 
                         $_SESSION['success'] = "Patient created successfully";
-                        header("Location: /pharmacy-management-system/pharmacist/managePatients.php");
+                        header("Location: /pharmacy-management-system/pharmacist/managePatients/managePatients.php");
                         exit();
                     } else {
     
                         $db->rollback();            
                         $_SESSION['error'] = "Failed to insert user into the database";
-                        header("Location: /pharmacy-management-system/pharmacist/managePatients.php");
+                        header("Location: /pharmacy-management-system/pharmacist/managePatients/managePatients.php");
                         exit();
                     }
                 }
             } else {
                 $_SESSION['error'] = "Please make sure all data is inputed";
-                    header("Location: /pharmacy-management-system/pharmacist/addPatient.php?username=".$username."&email=".$email."&fName=".$fName."&number=".$number."&block=".$block."&road=".$road."&building=".$building);
+                    header("Location: /pharmacy-management-system/pharmacist/managePatients/addPatient.php?username=".$username."&email=".$email."&fName=".$fName."&number=".$number."&block=".$block."&road=".$road."&building=".$building);
             }
         }
     } else {
