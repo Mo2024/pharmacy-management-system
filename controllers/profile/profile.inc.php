@@ -5,20 +5,20 @@ require("../partials/regex.inc.php");
 if(isset($_SESSION['userId']) && !empty($_SESSION['userId'])){
     $id = $_SESSION['userId'];
     $row = selectUser($id, $db);
-    if(!isset($email)){
-        $email = $row['email'];
-        $username = $row['username'];
-        $fullname = $row['fName'];
-        $redirect = true;
-    }
+    $email = $row['email'];
+    $username = $row['username'];
+    $fullname = $row['fName'];
+    $number = $row['number'];
+    $redirect = true;
     
     if (isset($_POST['submit'])){
         $username = $_POST['username'];
-        $email = $_POST['email'];
+        $postEmail = $_POST['email'];
         $fullname = $_POST['fullname'];
+        $number = $_POST['number'];
         $redirect = true;
 
-        if(!preg_match($emailReg,$email)){
+        if(!preg_match($emailReg,$postEmail)){
             $_SESSION['error'] = "Please make sure that the entered email is valid";
             header("Location: /pharmacy-management-system/profile/profile.php");   
         } else if(!preg_match($usernameReg,$username)){
@@ -29,7 +29,7 @@ if(isset($_SESSION['userId']) && !empty($_SESSION['userId'])){
             header("Location: /pharmacy-management-system/profile/profile.php");   
         }else {
             $usernameQuery = "SELECT * FROM users WHERE BINARY username = '$username'";
-            $emailQuery = "SELECT * FROM users WHERE BINARY email = '$email'";
+            $emailQuery = "SELECT * FROM users WHERE BINARY email = '$postEmail'";
     
             $usernameResult = ($db->query($usernameQuery)->rowCount());
             $emailResult = ($db->query($emailQuery)->rowCount());
@@ -39,17 +39,18 @@ if(isset($_SESSION['userId']) && !empty($_SESSION['userId'])){
                 $_SESSION['error'] = 'Username already exists';
                 header("Location: /pharmacy-management-system/profile/profile.php");   
             }
-            else if($emailResult>0 && $email != $row['email']){
+            else if($emailResult>0 && $postEmail != $row['email']){
                 $_SESSION['error'] = 'Email already exists';
                 header("Location: /pharmacy-management-system/profile/profile.php");   
             }
             else{
-                $updateQuery = "UPDATE users SET username = :username, email = :email, fName = :fName WHERE uid = :uid";
+                $updateQuery = "UPDATE users SET username = :username, email = :email, fName = :fName, number = :number WHERE uid = :uid";
                 $stmt = $db->prepare($updateQuery);
                 
                 $stmt->bindParam(':username', $username);
-                $stmt->bindParam(':email', $email);
+                $stmt->bindParam(':email', $postEmail);
                 $stmt->bindParam(':fName', $fullname);
+                $stmt->bindParam(':number', $number);
                 $stmt->bindParam(':uid', $id);
                 $stmt->execute();
 

@@ -27,6 +27,10 @@
                     <label class="form-label" for="email">Email</label>
                     <input class="form-control" placeholder="Email" type="email" name="email" id="email" value="<?php if($redirect) echo $email?>" required>
                 </div>
+                <div class="mb-3 col-sm-6">
+                    <label class="form-label" for="number">Number</label>
+                    <input class="form-control" placeholder="Number" type="number" name="number" id="number" value="<?php if($redirect) echo $number?>" required>
+                </div>
             </div>
             <a href="/pharmacy-management-system/mainpage.php" class="btn btn-secondary mb-2 ms-auto">Cancel</a>
             <button name="submit" type="submit" class="btn btn-primary mb-2 ms-auto">Save Changes</button>
