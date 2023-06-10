@@ -33,7 +33,7 @@ thead
                 <span class="input-group-btn">
                 <button type="button" class="btn btn-outline-secondary" onclick="decreaseValue('<?php echo $row['pid'].'%'.$row['bid'] ?>')">-</button>
                 </span>
-                <input id="<?php echo $row['pid'].'%'.$row['bid'] ?>" type="number" class="form-control text-center"  value="<?php echo $row['qty'];?>" min="0">
+                <input id="<?php echo $row['pid'].'%'.$row['bid'] ?>" type="number" class="form-control qty text-center"  value="<?php echo $row['qty'];?>" onchange="handleStockUpdate(this.id, this.value, function (result) {if (!result) {alert('error in updating stock')}})"  min="1">
                 <span class="input-group-btn">
                 <button type="button" class="btn btn-outline-secondary" onclick="increaseValue('<?php echo $row['pid'].'%'.$row['bid'] ?>')">+</button>
                 </span>
