@@ -22,15 +22,24 @@ thead
         <tr>
           <th>Product Name</th>
           <th>Quantity</th>
-          <th>Edit Stock Amount</th>
           <th>Delete Stock</th>
         </tr>
         
         <?php foreach ($rows as $row) { ?>
           <tr id="<?php echo $row['pid'].'#'.$row['bid'] ?>">
             <td><?php echo $row['name']; ?></td>
-            <td><?php echo $row['qty'];?></td>
-            <td><a type="button" href="/pharmacy-management-system/pharmacist/manageStock/stocksList.php?productId=<?php echo $row['pid'] ?>&branchId=<?php echo $_SESSION['bid'] ?>" class="btn btn-sm btn-outline-secondary">Edit Stock</a></td>
+            <td class="w-25">                    
+              <div class="input-group">
+                <span class="input-group-btn">
+                <button type="button" class="btn btn-outline-secondary" onclick="decreaseValue('<?php echo $row['pid'].'%'.$row['bid'] ?>')">-</button>
+                </span>
+                <input id="<?php echo $row['pid'].'%'.$row['bid'] ?>" type="number" class="form-control text-center"  value="<?php echo $row['qty'];?>" min="0">
+                <span class="input-group-btn">
+                <button type="button" class="btn btn-outline-secondary" onclick="increaseValue('<?php echo $row['pid'].'%'.$row['bid'] ?>')">+</button>
+                </span>
+              </div>
+            </td>
+
             <td><button value="<?php echo $row['pid'].'#'.$row['bid'] ?>" onclick="handleDelete(this.value)" type="button" class="btn btn-sm btn-danger">Delete Stock</button></td>
           </tr>
         <?php } ?>
@@ -47,6 +56,6 @@ thead
     </div>
 </div>
 
-<script src="/pharmacy-management-system/public/js/productsList.js"></script>
+<script src="/pharmacy-management-system/public/js/stocksList.js"></script>
 
 <?php require('../../partials/footer.inc.php')?>
