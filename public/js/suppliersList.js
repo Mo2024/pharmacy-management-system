@@ -14,11 +14,10 @@ function handleDelete(sid) {
                     if (element) {
                         element.remove();
                     } else {
-                        alert('Error deleting a patient')
+                        alert('Error deleting a supplier')
                     }
                 } else {
-                    console.log("Deletion request failed.");
-                    console.log(response)
+                    alert("Deletion failed")
                 }
             } else {
                 console.log("Error sending deletion request. Status code: " + xhr.status);
