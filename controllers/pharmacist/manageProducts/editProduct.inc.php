@@ -52,10 +52,21 @@ if(isset($_SESSION['userId'])){
                 $stmt->bindParam(':type', $type);
                 $stmt->bindParam(':price', $price);
                 $stmt->bindParam(':sid', $sid);
+
+                $filepath = '../../public/products/' . $pid;
+                $filepathRollBack = '../../public/products/_deleted';
                 if ($stmt->execute()) {
 
                     if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
                         $file = $_FILES['image'];
+
+                        if (file_exists($filepath . ".jpg")) {
+                            rename($filepath . ".jpg", $filepathRollBack . ".jpg");
+                        } else if (file_exists($filepath . ".png")) {
+                            rename($filepath . ".png", $filepathRollBack . ".png");
+                        } else if (file_exists($filepath . ".jpeg")) {
+                            rename($filepath . ".jpeg", $filepathRollBack . ".jpeg");
+                        }
                     
                         // Check if the uploaded file is an image
                         $allowedExtensions = array('jpg', 'jpeg', 'png');
@@ -70,22 +81,50 @@ if(isset($_SESSION['userId'])){
                     
                             // Move the uploaded file to the destination folder
                             if (!move_uploaded_file($file['tmp_name'], $destinationPath)) {
-                                $db->rollback();            
+                                $db->rollback();
+                                if (file_exists($filepathRollBack . ".jpg")) {
+                                    rename($filepathRollBack . ".jpg", $filepath . ".jpg");
+                                } else if (file_exists($filepathRollBack . ".png")) {
+                                    rename($filepathRollBack . ".png", $filepath . ".png");
+                                } else if (file_exists($filepathRollBack . ".jpeg")) {
+                                    rename($filepathRollBack . ".jpeg", $filepath . ".jpeg");
+                                }            
                                 $_SESSION['error'] = "Failed to upload";
                                 header("Location: /pharmacy-management-system/pharmacist/manageProducts/addProduct.php?name=" . $name . "&price=" . $price . "&type=" . $type . "&suppliers=" . $sid);
                             }
                         } else {
-                            $db->rollback();            
+                            $db->rollback();
+                            if (file_exists($filepathRollBack . ".jpg")) {
+                                rename($filepathRollBack . ".jpg", $filepath . ".jpg");
+                            } else if (file_exists($filepathRollBack . ".png")) {
+                                rename($filepathRollBack . ".png", $filepath . ".png");
+                            } else if (file_exists($filepathRollBack . ".jpeg")) {
+                                rename($filepathRollBack . ".jpeg", $filepath . ".jpeg");
+                            }            
                             $_SESSION['error'] = "File must be an image";
                             header("Location: /pharmacy-management-system/pharmacist/manageProducts/addProduct.php?name=" . $name . "&price=" . $price . "&type=" . $type . "&suppliers=" . $sid);
                         }
                     }    
                     $db->commit();
+                    if (file_exists($filepathRollBack . ".jpg")) {
+                        unlink($filepathRollBack . ".jpg");
+                    } else if (file_exists($filepathRollBack . ".png")) {
+                        unlink($filepathRollBack . ".png");
+                    } else if (file_exists($filepathRollBack . ".jpeg")) {
+                        unlink($filepathRollBack . ".jpeg");
+                    }
                     $_SESSION['success'] = "Product created successfully";
                     header("Location: /pharmacy-management-system/pharmacist/manageProducts/productsList.php");
                     exit();
                 } else {
-                    $db->rollback();            
+                    $db->rollback();
+                    if (file_exists($filepathRollBack . ".jpg")) {
+                        rename($filepathRollBack . ".jpg", $filepath . ".jpg");
+                    } else if (file_exists($filepathRollBack . ".png")) {
+                        rename($filepathRollBack . ".png", $filepath . ".png");
+                    } else if (file_exists($filepathRollBack . ".jpeg")) {
+                        rename($filepathRollBack . ".jpeg", $filepath . ".jpeg");
+                    }            
                     $_SESSION['error'] = "Failed to insert user into the database";
                     header("Location: /pharmacy-management-system/pharmacist/manageProducts/productsList.php");
                     exit();

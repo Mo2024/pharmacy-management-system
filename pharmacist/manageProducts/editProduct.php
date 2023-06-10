@@ -2,7 +2,7 @@
 <?php require('../../controllers/pharmacist/manageProducts/editProduct.inc.php')?>
 <section class="container row mx-auto">
     <div class="col-lg-12">
-        <h1 class="text-dark">Create New Product</h1>
+        <h1 class="text-dark">editProduct Product</h1>
         <form method="POST" class="validated-form" novalidate enctype="multipart/form-data">
             <div class="mb-3">
                 <label class="form-label text-dark" for="name">Name</label>
