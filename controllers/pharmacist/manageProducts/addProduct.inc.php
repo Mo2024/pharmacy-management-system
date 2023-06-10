@@ -37,53 +37,49 @@ if (isset($_SESSION['userId'])) {
                     $_SESSION['error'] = "Invalid Type";
                     header("Location: /pharmacy-management-system/pharmacist/manageProducts/addProduct.php?name=".$name."&price=".$price."&type=".$type."&suppliers=".$sid);
                 } else {
-                  
+                    $db->beginTransaction();           
                     $sql = "INSERT INTO products (name, type, price, sid) VALUES (:name, :type, :price, :sid)";
                     $stmt = $db->prepare($sql);
                     $stmt->bindParam(':name', $name);
                     $stmt->bindParam(':type', $type);
                     $stmt->bindParam(':price', $price);
                     $stmt->bindParam(':sid', $sid);
-
-                    $newProductId =  $db->lastInsertId();
-
-                    if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-                        $file = $_FILES['image'];
-                      
-                        // Check if the uploaded file is an image
-                        $allowedExtensions = array('jpg', 'jpeg', 'png', 'gif');
-                        $fileExtension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
-                      
-                        if (in_array($fileExtension, $allowedExtensions)) {
-                          // Rename the file
-                          $newFileName = $newProductId.'.' . $fileExtension;
-                      
-                          // Set the destination path to the "products" folder
-                          $destinationPath = '../../public/products/' . basename($newFileName);
-                      
-                          // Move the uploaded file to the destination folder
-                          if (move_uploaded_file($file['tmp_name'], $destinationPath)) {
-                            // File upload and rename successful
-                            $_SESSION['success'] = "successful";
-                            header("Location: /pharmacy-management-system/pharmacist/manageProducts/addProduct.php?name=".$name."&price=".$price."&type=".$type."&suppliers=".$sid);
-                          } else {
-                            // Failed to move the file
-                            $_SESSION['error'] = "Failed to upload";
-                            header("Location: /pharmacy-management-system/pharmacist/manageProducts/addProduct.php?name=".$name."&price=".$price."&type=".$type."&suppliers=".$sid);                          }
-                          }
-                        } else {
-                          // Invalid file type
-                          $_SESSION['error'] = "File must be an image";
-                          header("Location: /pharmacy-management-system/pharmacist/manageProducts/addProduct.php?name=".$name."&price=".$price."&type=".$type."&suppliers=".$sid);
-                        }
-        
-                
+                        
                     if ($stmt->execute()) {
+
+                        $newProductId =  $db->lastInsertId();
+                        if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+                            $file = $_FILES['image'];
+                        
+                            // Check if the uploaded file is an image
+                            $allowedExtensions = array('jpg', 'jpeg', 'png', 'gif');
+                            $fileExtension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+                        
+                            if (in_array($fileExtension, $allowedExtensions)) {
+                                // Rename the file
+                                $newFileName = $newProductId . '.' . $fileExtension;
+                        
+                                // Set the destination path to the "products" folder
+                                $destinationPath = '../../public/products/' . basename($newFileName);
+                        
+                                // Move the uploaded file to the destination folder
+                                if (!move_uploaded_file($file['tmp_name'], $destinationPath)) {
+                                    $db->rollback();            
+                                    $_SESSION['error'] = "Failed to upload";
+                                    header("Location: /pharmacy-management-system/pharmacist/manageProducts/addProduct.php?name=" . $name . "&price=" . $price . "&type=" . $type . "&suppliers=" . $sid);
+                                }
+                            } else {
+                                $db->rollback();            
+                                $_SESSION['error'] = "File must be an image";
+                                header("Location: /pharmacy-management-system/pharmacist/manageProducts/addProduct.php?name=" . $name . "&price=" . $price . "&type=" . $type . "&suppliers=" . $sid);
+                            }
+                        }    
+                        $db->commit();
                         $_SESSION['success'] = "Product created successfully";
                         header("Location: /pharmacy-management-system/pharmacist/manageProducts/productsList.php");
                         exit();
                     } else {
-    
+                        $db->rollback();            
                         $_SESSION['error'] = "Failed to insert user into the database";
                         header("Location: /pharmacy-management-system/pharmacist/manageProducts/productsList.php");
                         exit();
