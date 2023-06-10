@@ -40,7 +40,7 @@ $type = isset($_GET['type']) ? $_GET['type'] : '';
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Upload Images</label>
+                <label class="form-label">Upload Image</label>
                 <label for="image" class="form-label"></label>
                 <input class="form-control" type="file" id="image" name="image">
             </div>

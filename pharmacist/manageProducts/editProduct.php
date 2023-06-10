@@ -35,7 +35,16 @@
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Upload Images</label>
+                <?php
+                    $filename = $row['pid'];
+                    $filepath = '../../public/products/' . $filename;
+
+                    if (file_exists($filepath.".jpg")||file_exists($filepath.".png"||file_exists($filepath.".jpeg"))) {
+                        echo '<label class="form-label">Replace Current Image</label>';
+                    } else {
+                        echo '<label class="form-label">Upload Image</label>';
+                    }
+                ?>
                 <label for="image" class="form-label"></label>
                 <input class="form-control" type="file" id="image" name="image">
             </div>

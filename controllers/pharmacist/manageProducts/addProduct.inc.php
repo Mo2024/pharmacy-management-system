@@ -52,7 +52,7 @@ if (isset($_SESSION['userId'])) {
                             $file = $_FILES['image'];
                         
                             // Check if the uploaded file is an image
-                            $allowedExtensions = array('jpg', 'jpeg', 'png', 'gif');
+                            $allowedExtensions = array('jpg', 'jpeg', 'png');
                             $fileExtension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
                         
                             if (in_array($fileExtension, $allowedExtensions)) {
