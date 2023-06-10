@@ -37,8 +37,8 @@
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown" >
                   <li><a class="dropdown-item" href="/pharmacy-management-system/pharmacist/managePatients/patientsList.php">Manage Patients</a></li>
                   <li><a class="dropdown-item" href="/pharmacy-management-system/pharmacist/manageProducts/productsList.php">Manage Products</a></li>
+                  <li><a class="dropdown-item" href="/pharmacy-management-system/pharmacist/manageOrders/OrdersList.php">Manage Orders</a></li>
                   <li><a class="dropdown-item" href="/pharmacy-management-system/pharmacist/manageSuppliers/suppliersList.php">Manage Suppliers</a></li>
-                  <li><a class="dropdown-item" href="/pharmacy-management-system/admin/generateReports.php">Generate Reports</a></li>
                 </ul>
               </li>
                 ';
