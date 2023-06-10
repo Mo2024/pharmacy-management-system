@@ -31,7 +31,7 @@ thead
             <td><?php echo $row['oid']; ?></td>
             <td><?php echo $row['orderDate'];?></td>
             <td><a href="/pharmacy-management-system/pharmacist/manageOrders/orderDetails.php?orderId=<?php echo $row['oid'] ?>" type="button" class="btn btn-sm btn-primary">Details</a></td>
-            <td><a type="button" href="/pharmacy-management-system/pharmacist/manageOrders/updateStatus.php?orderId=<?php echo $row['oid'] ?>" class="btn btn-sm btn-outline-secondary">Update Order</a></td>
+            <td><a type="button" href="/pharmacy-management-system/pharmacist/manageOrders/updateStatus.php?orderId=<?php echo $row['oid'] ?>" class="btn btn-sm btn-outline-secondary <?php echo $row['status'] == 'delivered' ? 'disabled' : '' ?> ">Update Order</a></td>
           </tr>
         <?php } ?>
 

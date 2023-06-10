@@ -3,7 +3,7 @@ require('../../functions/functions.inc.php');
 require("../../partials/regex.inc.php");
 if(isset($_SESSION['userId'])){
     if($_SESSION['role'] == "pharmacist"){
-        $query = "SELECT oid, orderDate FROM orders ORDER BY oid DESC";
+        $query = "SELECT oid, orderDate, status FROM orders ORDER BY oid DESC";
         $statement = $db->prepare($query);
         $statement->execute();
         $rows = $statement->fetchAll(PDO::FETCH_ASSOC);
