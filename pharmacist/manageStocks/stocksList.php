@@ -30,8 +30,8 @@ thead
           <tr id="<?php echo $row['pid'].'#'.$row['bid'] ?>">
             <td><?php echo $row['name']; ?></td>
             <td><?php echo $row['qty'];?></td>
-            <td><a type="button" href="/pharmacy-management-system/pharmacist/manageStock/stocksList.php?productId=<?php echo $row['pid'] ?>&branchId=<?php echo $_SESSION['bid'] ?>" class="btn btn-sm btn-outline-secondary">Edit Product</a></td>
-            <td><button value="<?php echo $row['pid'].'#'.$row['bid'] ?>" onclick="handleDelete(this.value)" type="button" class="btn btn-sm btn-danger">Delete Product</button></td>
+            <td><a type="button" href="/pharmacy-management-system/pharmacist/manageStock/stocksList.php?productId=<?php echo $row['pid'] ?>&branchId=<?php echo $_SESSION['bid'] ?>" class="btn btn-sm btn-outline-secondary">Edit Stock</a></td>
+            <td><button value="<?php echo $row['pid'].'#'.$row['bid'] ?>" onclick="handleDelete(this.value)" type="button" class="btn btn-sm btn-danger">Delete Stock</button></td>
           </tr>
         <?php } ?>
 
@@ -41,7 +41,7 @@ thead
     </div>
     <div class="d-flex mb-3">
       <button type="button" class="ms-auto border-0">
-        <a class="text-decoration-none btn btn-sm btn-primary ms-auto" href="/pharmacy-management-system/pharmacist/manageProducts/addProduct.php">Add Product</a>
+        <a class="text-decoration-none btn btn-sm btn-primary ms-auto" href="/pharmacy-management-system/pharmacist/manageStocks/addStock.php">Add Stock</a>
         <a class="text-decoration-none btn btn-sm btn-outline-primary ms-auto" href="/pharmacy-management-system/mainpage.php">Return To Home Page</a>
       </button>
     </div>
