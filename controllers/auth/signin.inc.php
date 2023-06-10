@@ -19,6 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
             if (password_verify($formPassword, $row['hash'])) {                
                 
                 $_SESSION["userId"] = $row['uid'];
+                $_SESSION["bid"] = $row['bid'];
                 $_SESSION["role"] = $row['type'];
                 $_SESSION["username"] = $row['username'];
                 
