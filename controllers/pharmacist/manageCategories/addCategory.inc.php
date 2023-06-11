@@ -16,7 +16,7 @@ if (isset($_SESSION['userId'])) {
 
                 if (!$nameValid) {
                     $_SESSION['error'] = "Invalid Name";
-                    header("Location: /pharmacy-management-system/pharmacist/manageProducts/addCategory.php?name=".$name);
+                    header("Location: /pharmacy-management-system/pharmacist/manageCategories/addCategory.php?name=".$name);
                 }else {
                   
                     $sql = "INSERT INTO category (name) VALUES (:name)";
@@ -38,7 +38,7 @@ if (isset($_SESSION['userId'])) {
                 }
             } else {
                 $_SESSION['error'] = "Please make sure all data is inputed";
-                header("Location: /pharmacy-management-system/pharmacist/manageProducts/addCategory.php?name=".$name);
+                header("Location: /pharmacy-management-system/pharmacist/manageCategories/addCategory.php?name=".$name);
             }
         }
     } else {

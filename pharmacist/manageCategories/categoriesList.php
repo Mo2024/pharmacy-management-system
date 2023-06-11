@@ -1,5 +1,5 @@
 <?php $title = "Products List"; require('../../partials/boilerplate.inc.php')?>
-<?php require('../../controllers/pharmacist/manageProducts/ProductsList.inc.php')?>
+<?php require('../../controllers/pharmacist/manageCategories/categoriesList.inc.php')?>
 <style>
 thead
 {
@@ -13,7 +13,7 @@ thead
 
       <thead>
         <tr >
-          <th  scope="col" colspan="4">Products List</th>
+          <th  scope="col" colspan="2">Categories List</th>
         </tr>
       </thead>
 
@@ -21,17 +21,13 @@ thead
 
         <tr>
           <th>Name</th>
-          <th>Price</th>
-          <th>Edit Product Info</th>
-          <th>Delete Product</th>
+          <th>Delete Category</th>
         </tr>
         
         <?php foreach ($rows as $row) { ?>
-          <tr id="<?php echo $row['pid'] ?>">
+          <tr id="<?php echo $row['cid'] ?>">
             <td><?php echo $row['name']; ?></td>
-            <td>$<?php echo $row['price'];?></td>
-            <td><a type="button" href="/pharmacy-management-system/pharmacist/manageProducts/editProduct.php?productId=<?php echo $row['pid'] ?>" class="btn btn-sm btn-outline-secondary">Edit Product</a></td>
-            <td><button value="<?php echo $row['pid'] ?>" onclick="handleDelete(this.value)" type="button" class="btn btn-sm btn-danger">Delete Product</button></td>
+            <td><button value="<?php echo $row['cid'] ?>" onclick="handleDelete(this.value)" type="button" class="btn btn-sm btn-danger">Delete Category</button></td>
           </tr>
         <?php } ?>
 
@@ -42,12 +38,11 @@ thead
     <div class="d-flex mb-3">
       <button type="button" class="ms-auto border-0">
         <a class="text-decoration-none btn btn-sm btn-primary ms-auto" href="/pharmacy-management-system/pharmacist/manageCategories/addCategory.php">Add Category</a>
-        <a class="text-decoration-none btn btn-sm btn-primary ms-auto" href="/pharmacy-management-system/pharmacist/manageProducts/addProduct.php">Add Product</a>
         <a class="text-decoration-none btn btn-sm btn-outline-primary ms-auto" href="/pharmacy-management-system/mainpage.php">Return To Home Page</a>
       </button>
     </div>
 </div>
 
-<script src="/pharmacy-management-system/public/js/productsList.js"></script>
+<script src="/pharmacy-management-system/public/js/categoriesList.js"></script>
 
 <?php require('../../partials/footer.inc.php')?>

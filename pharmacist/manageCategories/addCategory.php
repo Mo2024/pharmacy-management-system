@@ -1,5 +1,5 @@
 <?php $title = "Add Category"; require('../../partials/boilerplate.inc.php')?>
-<?php require('../../controllers/pharmacist/manageProducts/addCategory.inc.php')?>
+<?php require('../../controllers/pharmacist/manageCategories/addCategory.inc.php')?>
 <?php 
 $name = isset($_GET['name']) ? $_GET['name'] : '';
 ?>
