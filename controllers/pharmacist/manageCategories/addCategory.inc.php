@@ -27,12 +27,12 @@ if (isset($_SESSION['userId'])) {
                     if ($stmt->execute()) {
                 
                         $_SESSION['success'] = "Category created successfully";
-                        header("Location: /pharmacy-management-system/pharmacist/manageProducts/productsList.php");
+                        header("Location: /pharmacy-management-system/pharmacist/manageCategories/addCategory.php");
                         exit();
                     } else {
     
                         $_SESSION['error'] = "Failed to insert user into the database";
-                        header("Location: /pharmacy-management-system/pharmacist/manageProducts/productsList.php");
+                        header("Location: /pharmacy-management-system/pharmacist/manageCategories/addCategory.php");
                         exit();
                     }
                 }

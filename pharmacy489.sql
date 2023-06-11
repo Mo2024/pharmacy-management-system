@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 09, 2023 at 10:50 PM
+-- Generation Time: Jun 11, 2023 at 03:16 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -73,18 +73,43 @@ INSERT INTO `branches` (`bid`, `name`, `area`, `road`, `building`, `block`) VALU
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `category`
+--
+
+CREATE TABLE `category` (
+  `cid` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `category`
+--
+
+INSERT INTO `category` (`cid`, `name`) VALUES
+(4, 'sadsadasd');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `orders`
 --
 
 CREATE TABLE `orders` (
   `oid` int(11) NOT NULL,
   `totalPrice` int(11) NOT NULL,
-  `paymentMethod` int(11) NOT NULL,
-  `orderDate` datetime NOT NULL,
+  `paymentMethod` varchar(255) NOT NULL,
+  `orderDate` varchar(255) NOT NULL,
   `uid` int(11) NOT NULL,
   `status` varchar(255) NOT NULL,
-  `dateDelivered` datetime DEFAULT NULL
+  `dateDelivered` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`oid`, `totalPrice`, `paymentMethod`, `orderDate`, `uid`, `status`, `dateDelivered`) VALUES
+(1, 2345, 'cash', 'May 25,2020', 6, 'delivered', 'June 10, 2023');
 
 -- --------------------------------------------------------
 
@@ -98,20 +123,9 @@ CREATE TABLE `products` (
   `type` varchar(255) NOT NULL,
   `price` double NOT NULL,
   `sid` int(11) NOT NULL,
-  `isDeleted` tinyint(1) NOT NULL
+  `isDeleted` tinyint(1) NOT NULL,
+  `cid` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `products`
---
-
-INSERT INTO `products` (`pid`, `name`, `type`, `price`, `sid`, `isDeleted`) VALUES
-(1, 'Panadol', 'Medicine', 12.671, 2, 0),
-(2, 'Colgate', 'Personal Care', 43.11, 2, 0),
-(3, 'asdsa', 'asd', 23, 2, 0),
-(4, 'asdas', 'asdsa', 231, 2, 0),
-(5, 'asdasd', 'adssaads', 23, 2, 0),
-(6, 'sdaasd', 'asdasd', 23223, 2, 0);
 
 -- --------------------------------------------------------
 
@@ -164,18 +178,6 @@ INSERT INTO `suppliers` (`sid`, `name`, `area`, `road`, `building`, `block`, `da
 -- --------------------------------------------------------
 
 --
--- Table structure for table `suppliers_in_branch`
---
-
-CREATE TABLE `suppliers_in_branch` (
-  `sbid` int(11) NOT NULL,
-  `sid` int(11) NOT NULL,
-  `bid` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `users`
 --
 
@@ -201,8 +203,8 @@ INSERT INTO `users` (`uid`, `username`, `email`, `fName`, `hash`, `pcode`, `type
 (1, 'mohd1', 'mohdosama2025@gmail.com', 'Mohamed Ali', '$2y$10$qrvkrZ0JDY/LUosgNy0QPufbQhWxxpa6gAyY.CCYvtwAp9ZG4pn.a', '588514', 'admin', '211', 0, NULL, 'June 09, 2023'),
 (2, 'dasasd', 'mkrfs2002@gmail.coms', 'sadsad', '$2y$10$XPxB.hbtoe2qwGRvKzuhyePnwJPdhNpwDCy.nNZPWumJrDvT.EdGG', '', 'admin', '256965', 0, NULL, 'June 09, 2023'),
 (3, 'ssgd', 'mkrfs2002@gmail.com', 'dfsdsf', '$2y$10$En1GxmPF7HwPSOT4JDX6s.Ozbr5he2Nnq1ZFnzVgBSTXB.pfu.FFy', '', 'admin', '5735534', 0, NULL, 'June 09, 2023'),
-(5, 'mohd2', 'mrkvsbusiness@gmail.com', 'mohd osama', '$2y$10$ifyu73Iyw2hL7mdWn73Ote0BALx16wWTVet4M4FO0xHODzw3cir/2', '', 'pharmacist', '33270524', 0, 1, 'June 09, 2023'),
-(6, 'hadi1', 'had@gmail.com', 'hadi aman', '$2y$10$boLRqa1KEpq/SG9Mqr1eB.PNaGrwss4rRdltGn3.0leQBAhUUfJp.', '0', 'patient', '33270276', 1, NULL, 'June 09, 2023'),
+(5, 'mohd2', 'mrkvsbusiness@gmail.com', 'mohd osama', '$2y$10$IOZvYRXqEmGLeCyN4NXXbOxjwMqHoOfDJV3nzwb1cYNPNOIkr2riu', '', 'pharmacist', '33270524', 0, 1, 'June 09, 2023'),
+(6, 'hadi1', 'mohdosama2025@gmail.com', 'hadi aman', '$2y$10$boLRqa1KEpq/SG9Mqr1eB.PNaGrwss4rRdltGn3.0leQBAhUUfJp.', '0', 'patient', '33270276', 1, NULL, 'June 09, 2023'),
 (7, 'adsfsa', 'lsds@gmail.com', 'adsf saadf', '$2y$10$gP1DIRiJgeWvlkfh0H/sjOO2qBGomaY21mFCDUchbKYWsH1zSWLVm', '0', 'patient', '222234', 1, NULL, 'June 09, 2023'),
 (8, 'mohd3', 'mkrfs2025@gmail.com', 'Mohamed Osama', '$2y$10$Ebxy8FD82vltBGmUdOAGL./H.vvZkfptSNz0ykXxYZsBOUx1bmSIq', '', 'patient', '33270527', 1, NULL, 'June 09, 2023'),
 (9, 'asas', 'hasd@gmail.com', 'dsasd asd', '$2y$10$VJYCY3wi9dN50aVU0.Cx2u7wmp.tiLIh7NpSxHB1F1gTN7OAsMZTq', '', 'patient', '33270527', 1, NULL, 'June 09, 2023'),
@@ -225,6 +227,12 @@ ALTER TABLE `branches`
   ADD PRIMARY KEY (`bid`);
 
 --
+-- Indexes for table `category`
+--
+ALTER TABLE `category`
+  ADD PRIMARY KEY (`cid`);
+
+--
 -- Indexes for table `orders`
 --
 ALTER TABLE `orders`
@@ -236,7 +244,8 @@ ALTER TABLE `orders`
 --
 ALTER TABLE `products`
   ADD PRIMARY KEY (`pid`),
-  ADD KEY `sid` (`sid`);
+  ADD KEY `sid` (`sid`),
+  ADD KEY `cid` (`cid`);
 
 --
 -- Indexes for table `products_in_branch`
@@ -261,14 +270,6 @@ ALTER TABLE `suppliers`
   ADD PRIMARY KEY (`sid`);
 
 --
--- Indexes for table `suppliers_in_branch`
---
-ALTER TABLE `suppliers_in_branch`
-  ADD PRIMARY KEY (`sbid`),
-  ADD KEY `sid` (`sid`),
-  ADD KEY `bid` (`bid`);
-
---
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -286,22 +287,28 @@ ALTER TABLE `branches`
   MODIFY `bid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `category`
+--
+ALTER TABLE `category`
+  MODIFY `cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `oid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `oid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `pid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `pid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `products_in_branch`
 --
 ALTER TABLE `products_in_branch`
-  MODIFY `pbid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `pbid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `products_in_order`
@@ -314,12 +321,6 @@ ALTER TABLE `products_in_order`
 --
 ALTER TABLE `suppliers`
   MODIFY `sid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `suppliers_in_branch`
---
-ALTER TABLE `suppliers_in_branch`
-  MODIFY `sbid` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -362,13 +363,6 @@ ALTER TABLE `products_in_branch`
 ALTER TABLE `products_in_order`
   ADD CONSTRAINT `products_in_order_ibfk_1` FOREIGN KEY (`oid`) REFERENCES `orders` (`oid`),
   ADD CONSTRAINT `products_in_order_ibfk_2` FOREIGN KEY (`pid`) REFERENCES `products` (`pid`);
-
---
--- Constraints for table `suppliers_in_branch`
---
-ALTER TABLE `suppliers_in_branch`
-  ADD CONSTRAINT `suppliers_in_branch_ibfk_1` FOREIGN KEY (`sid`) REFERENCES `suppliers` (`sid`) ON DELETE CASCADE,
-  ADD CONSTRAINT `suppliers_in_branch_ibfk_2` FOREIGN KEY (`bid`) REFERENCES `branches` (`bid`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `users`
