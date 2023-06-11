@@ -17,7 +17,8 @@ function handleDelete(cid) {
                         alert('Error deleting a supplier')
                     }
                 } else {
-                    alert("Deletion failed")
+                    // alert("Deletion failed")
+                    console.log(response)
                 }
             } else {
                 console.log("Error sending deletion request. Status code: " + xhr.status);

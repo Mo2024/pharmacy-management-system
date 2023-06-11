@@ -19,6 +19,21 @@
                 <input placeholder="Type" class="form-control" type="text" name="type" id="type" value="<?php echo $row['type']; ?>" required>
             </div>
 
+            <div class="mb-3" id="categoryContainer">
+                <label class="form-label text-dark" for="cid">Suppliers</label>
+                <select class="form-select" name="cid" id="cid" required>
+                    <option value="">Select Category</option>
+                    <?php
+                    if (!empty($categories)) {
+                        foreach ($categories as $category) {
+                            $selected = isset($row['cid']) && $row['cid'] == $category['cid'] ? 'selected' : '';
+                            echo '<option value="' . $category['cid'] . '" ' . $selected . '>' . $category['name'] . '</option>';
+                        }
+                    }
+                    ?>
+                </select>
+            </div>
+
             <div class="mb-3" id="suppliersContainer" <?php echo isset($_GET['suppliers']) ? 'style="display: block;"' : ''; ?>>
                 <label class="form-label text-dark" for="suppliers">Suppliers</label>
                 <select class="form-select" name="suppliers" id="suppliers" required>

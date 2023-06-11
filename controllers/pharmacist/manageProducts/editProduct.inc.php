@@ -12,6 +12,10 @@ if(isset($_SESSION['userId'])){
             $sql = "SELECT sid, name FROM suppliers";
             $stmt = $db->query($sql);
             $suppliers = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            
+            $sql = "SELECT * FROM category";
+            $stmt = $db->query($sql);
+            $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }else{
             $_SESSION['error'] = "Choose a valid Product";
             header("Location: /pharmacy-management-system/pharmacist/manageProducts/productsList.php");
@@ -23,12 +27,14 @@ if(isset($_SESSION['userId'])){
             $price = $_POST['price'];
             $type = $_POST['type'];
             $sid = $_POST['suppliers'];
+            $cid = $_POST['cid'];
 
 
             $nameValid = preg_match('/^[A-Za-z\s]+$/', $name);
             $priceValid = preg_match($priceReg, $price);
             $sidValid = preg_match($idReg, $sid);
             $typeValid = preg_match('/^[A-Za-z\s]+$/', $type);
+            $cidValid = preg_match($idReg, $cid);
 
  
             if (!$nameValid) {
@@ -43,15 +49,19 @@ if(isset($_SESSION['userId'])){
             }  elseif (!$sidValid) {
                 $_SESSION['error'] = "Invalid Type";
                 header("Location: /pharmacy-management-system/pharmacist/manageProducts/editProduct.php?productId=".$pid);
+            }elseif (!$cidValid) {
+                $_SESSION['error'] = "Invalid Category";
+                header("Location: /pharmacy-management-system/pharmacist/manageProducts/editProduct.php?productId=".$pid);
             }else{
                 $db->beginTransaction();           
-                $insertQuery = "UPDATE products SET name = :name, price = :price, type = :type, sid = :sid WHERE pid = :pid";
+                $insertQuery = "UPDATE products SET name = :name, price = :price, type = :type, sid = :sid, cid = :cid WHERE pid = :pid";
                 $stmt = $db->prepare($insertQuery);
                 $stmt->bindParam(':pid', $pid);
                 $stmt->bindParam(':name', $name);
                 $stmt->bindParam(':type', $type);
                 $stmt->bindParam(':price', $price);
                 $stmt->bindParam(':sid', $sid);
+                $stmt->bindParam(':cid', $cid);
 
                 $filepath = '../../public/products/' . $pid;
                 $filepathRollBack = '../../public/products/_deleted';

@@ -8,42 +8,52 @@ if (isset($_SESSION['userId'])) {
         $sql = "SELECT sid, name FROM suppliers";
         $stmt = $db->query($sql);
         $suppliers = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $sql = "SELECT * FROM category";
+        $stmt = $db->query($sql);
+        $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
         if (isset($_POST['submit'])) {
             $name = $_POST['name'];
             $price = $_POST['price'];
             $type = $_POST['type'];
             $sid = $_POST['suppliers'];
+            $cid = $_POST['cid'];
 
 
-            if ($_POST['name'] != "" && $_POST['price'] != "" && $_POST['type'] != "" && $_POST['suppliers'] != "" ) {
+            if ($_POST['name'] != "" && $_POST['price'] != "" && $_POST['type'] != "" && $_POST['suppliers'] != "" && $_POST['cid'] != "") {
 
                 $nameValid = preg_match('/^[A-Za-z\s]+$/', $name);
                 $priceValid = preg_match($priceReg, $price);
                 $sidValid = preg_match($idReg, $sid);
+                $cidValid = preg_match($idReg, $cid);
                 $typeValid = preg_match('/^[A-Za-z\s]+$/', $type);
 
 
                 if (!$nameValid) {
                     $_SESSION['error'] = "Invalid Name";
-                    header("Location: /pharmacy-management-system/pharmacist/manageProducts/addProduct.php?name=".$name."&price=".$price."&type=".$type."&suppliers=".$sid);
+                    header("Location: /pharmacy-management-system/pharmacist/manageProducts/addProduct.php?name=".$name."&price=".$price."&type=".$type."&suppliers=".$sid."&cid=".$cid);
                 } elseif (!$priceValid) {
                     $_SESSION['error'] = "Invalid Price";
-                    header("Location: /pharmacy-management-system/pharmacist/manageProducts/addProduct.php?name=".$name."&price=".$price."&type=".$type."&suppliers=".$sid);
+                    header("Location: /pharmacy-management-system/pharmacist/manageProducts/addProduct.php?name=".$name."&price=".$price."&type=".$type."&suppliers=".$sid."&cid=".$cid);
                 } elseif (!$typeValid) {
                     $_SESSION['error'] = "Invalid Type";
-                    header("Location: /pharmacy-management-system/pharmacist/manageProducts/addProduct.php?name=".$name."&price=".$price."&type=".$type."&suppliers=".$sid);
+                    header("Location: /pharmacy-management-system/pharmacist/manageProducts/addProduct.php?name=".$name."&price=".$price."&type=".$type."&suppliers=".$sid."&cid=".$cid);
                 }  elseif (!$sidValid) {
-                    $_SESSION['error'] = "Invalid Type";
-                    header("Location: /pharmacy-management-system/pharmacist/manageProducts/addProduct.php?name=".$name."&price=".$price."&type=".$type."&suppliers=".$sid);
+                    $_SESSION['error'] = "Invalid Supplier";
+                    header("Location: /pharmacy-management-system/pharmacist/manageProducts/addProduct.php?name=".$name."&price=".$price."&type=".$type."&suppliers=".$sid."&cid=".$cid);
+                }  elseif (!$cidValid) {
+                    $_SESSION['error'] = "Invalid Category";
+                    header("Location: /pharmacy-management-system/pharmacist/manageProducts/addProduct.php?name=".$name."&price=".$price."&type=".$type."&suppliers=".$sid."&cid=".$cid);
                 } else {
                     $db->beginTransaction();           
-                    $sql = "INSERT INTO products (name, type, price, sid) VALUES (:name, :type, :price, :sid)";
+                    $sql = "INSERT INTO products (name, type, price, sid, cid) VALUES (:name, :type, :price, :sid, :cid)";
                     $stmt = $db->prepare($sql);
                     $stmt->bindParam(':name', $name);
                     $stmt->bindParam(':type', $type);
                     $stmt->bindParam(':price', $price);
                     $stmt->bindParam(':sid', $sid);
+                    $stmt->bindParam(':cid', $cid);
                         
                     if ($stmt->execute()) {
 
@@ -66,12 +76,12 @@ if (isset($_SESSION['userId'])) {
                                 if (!move_uploaded_file($file['tmp_name'], $destinationPath)) {
                                     $db->rollback();            
                                     $_SESSION['error'] = "Failed to upload";
-                                    header("Location: /pharmacy-management-system/pharmacist/manageProducts/addProduct.php?name=" . $name . "&price=" . $price . "&type=" . $type . "&suppliers=" . $sid);
+                                    header("Location: /pharmacy-management-system/pharmacist/manageProducts/addProduct.php?name=".$name."&price=".$price."&type=".$type."&suppliers=".$sid."&cid=".$cid);
                                 }
                             } else {
                                 $db->rollback();            
                                 $_SESSION['error'] = "File must be an image";
-                                header("Location: /pharmacy-management-system/pharmacist/manageProducts/addProduct.php?name=" . $name . "&price=" . $price . "&type=" . $type . "&suppliers=" . $sid);
+                                header("Location: /pharmacy-management-system/pharmacist/manageProducts/addProduct.php?name=".$name."&price=".$price."&type=".$type."&suppliers=".$sid."&cid=".$cid);
                             }
                         }    
                         $db->commit();
@@ -87,7 +97,7 @@ if (isset($_SESSION['userId'])) {
                 }
             } else {
                 $_SESSION['error'] = "Please make sure all data is inputed";
-                header("Location: /pharmacy-management-system/pharmacist/manageProducts/addProduct.php?name=".$name."&price=".$price."&type=".$type."&suppliers=".$sid);
+                header("Location: /pharmacy-management-system/pharmacist/manageProducts/addProduct.php?name=".$name."&price=".$price."&type=".$type."&suppliers=".$sid."&cid=".$cid);
             }
         }
     } else {
