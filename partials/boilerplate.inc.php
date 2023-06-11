@@ -27,6 +27,12 @@
     $dotenv->load();
 
     require(__DIR__ ."/../functions/connection.inc.php");
+
+    $query = "SELECT category.* FROM category";
+    $statement = $db->prepare($query);
+    $statement->execute();
+    $categoryRows = $statement->fetchAll(PDO::FETCH_ASSOC);
+
     $brandName = $_ENV['brandName'];
     //Extends cookie's duration if the user is constantly using it
     if(isset($_COOKIE['session'])){

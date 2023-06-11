@@ -1,5 +1,4 @@
 <header>
-
       <nav class="navbar navbar-expand-lg navbar-light" style="background-color:#F9D949;">
       <div class="container-fluid">
         <a class="navbar-brand" href="/pharmacy-management-system/mainpage.php">Logo</a>
@@ -11,29 +10,27 @@
             <li class="nav-item">
               <a class="nav-link h4 " aria-current="page" href="/pharmacy-management-system/mainpage.php">Home</a>
             </li>
-            <?php
-              if(isset($_SESSION['userId']) && isset($_SESSION['role']) && $_SESSION['role'] == "admin"){
-                echo'
-                <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle h4" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-                  aria-expanded="false">
-                  Admin
-                </a>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle h4" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown" >
+                  <?php foreach($categoryRows as $category) { ?>
+                    <li><a class="dropdown-item" href="/pharmacy-management-system/categories.php?category=<?php echo $category['cid'] ?>"><?php echo $category['name'] ?></a></li>
+                  <?php } ?>
+                </ul>
+              </li>
+            <?php if(isset($_SESSION['userId']) && isset($_SESSION['role']) && $_SESSION['role'] == "admin"){ ?>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle h4" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Admin</a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown" >
                   <li><a class="dropdown-item" href="/pharmacy-management-system/admin/addUser.php">Add User</a></li>
                   <li><a class="dropdown-item" href="/pharmacy-management-system/admin/addBranch.php">Add Branch</a></li>
                   <li><a class="dropdown-item" href="/pharmacy-management-system/admin/generateReports.php">Generate Reports</a></li>
                 </ul>
               </li>
-                ';
-              }
-              if(isset($_SESSION['userId']) && isset($_SESSION['role']) && $_SESSION['role'] == "pharmacist"){
-                echo'
-                <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle h4" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-                  aria-expanded="false">
-                  Pharmacist
-                </a>
+              <?php } ?>
+             <?php if(isset($_SESSION['userId']) && isset($_SESSION['role']) && $_SESSION['role'] == "pharmacist"){ ?>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle h4" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Pharmacist</a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown" >
                   <li><a class="dropdown-item" href="/pharmacy-management-system/pharmacist/managePatients/patientsList.php">Manage Patients</a></li>
                   <li><a class="dropdown-item" href="/pharmacy-management-system/pharmacist/manageProducts/productsList.php">Manage Products</a></li>
@@ -43,9 +40,7 @@
                   <li><a class="dropdown-item" href="/pharmacy-management-system/pharmacist/manageCategories/categoriesList.php">Manage Category</a></li>
                 </ul>
               </li>
-                ';
-              }
-            ?>
+              <?php }?>
 
           </ul>
           <div class="navbar-nav ms-auto d-flex">
