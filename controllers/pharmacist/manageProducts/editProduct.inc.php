@@ -64,12 +64,15 @@ if(isset($_SESSION['userId'])){
                 $stmt->bindParam(':cid', $cid);
 
                 $filepath = '../../public/products/' . $pid;
-                $filepathRollBack = '../../public/products/_deleted';
+                $filepathRollBack = $filepath . '_rollback';
                 if ($stmt->execute()) {
 
                     if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
                         $file = $_FILES['image'];
-
+                    
+                        $filepath = '../../public/products/' . $pid;
+                        $filepathRollBack = $filepath . '_rollback';
+                    
                         if (file_exists($filepath . ".jpg")) {
                             rename($filepath . ".jpg", $filepathRollBack . ".jpg");
                         } else if (file_exists($filepath . ".png")) {
@@ -78,29 +81,49 @@ if(isset($_SESSION['userId'])){
                             rename($filepath . ".jpeg", $filepathRollBack . ".jpeg");
                         }
                     
-                        // Check if the uploaded file is an image
                         $allowedExtensions = array('jpg', 'jpeg', 'png');
                         $fileExtension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
                     
                         if (in_array($fileExtension, $allowedExtensions)) {
-                            // Rename the file
-                            $newFileName = $pid . '.' . $fileExtension;
+                            if ($fileExtension !== 'jpg') {
+                                $image = imagecreatefromstring(file_get_contents($file['tmp_name']));
+                                if ($image !== false) {
+                                    $newFileName = $pid . '.jpg';
+                                    $destinationPath = '../../public/products/' . basename($newFileName);
+                                    imagejpeg($image, $destinationPath, 100);
+                                    imagedestroy($image);
+                                } else {
+                                    if (file_exists($filepathRollBack . ".jpg")) {
+                                        rename($filepathRollBack . ".jpg", $filepath . ".jpg");
+                                    } else if (file_exists($filepathRollBack . ".png")) {
+                                        rename($filepathRollBack . ".png", $filepath . ".png");
+                                    } else if (file_exists($filepathRollBack . ".jpeg")) {
+                                        rename($filepathRollBack . ".jpeg", $filepath . ".jpeg");
+                                    }
                     
-                            // Set the destination path to the "products" folder
-                            $destinationPath = '../../public/products/' . basename($newFileName);
+                                    $db->rollback();
+                                    $_SESSION['error'] = "Failed to convert image to JPEG";
+                                    header("Location: /pharmacy-management-system/pharmacist/manageProducts/addProduct.php?name=" . $name . "&price=" . $price . "&type=" . $type . "&suppliers=" . $sid);
+                                    exit();
+                                }
+                            } else {
+                                $newFileName = $pid . '.' . $fileExtension;
+                                $destinationPath = '../../public/products/' . basename($newFileName);
+                            }
                     
-                            // Move the uploaded file to the destination folder
                             if (!move_uploaded_file($file['tmp_name'], $destinationPath)) {
-                                $db->rollback();
                                 if (file_exists($filepathRollBack . ".jpg")) {
                                     rename($filepathRollBack . ".jpg", $filepath . ".jpg");
                                 } else if (file_exists($filepathRollBack . ".png")) {
                                     rename($filepathRollBack . ".png", $filepath . ".png");
                                 } else if (file_exists($filepathRollBack . ".jpeg")) {
                                     rename($filepathRollBack . ".jpeg", $filepath . ".jpeg");
-                                }            
+                                }
+                    
+                                $db->rollback();
                                 $_SESSION['error'] = "Failed to upload";
                                 header("Location: /pharmacy-management-system/pharmacist/manageProducts/addProduct.php?name=" . $name . "&price=" . $price . "&type=" . $type . "&suppliers=" . $sid);
+                                exit();
                             }
                         } else {
                             $db->rollback();
@@ -110,11 +133,14 @@ if(isset($_SESSION['userId'])){
                                 rename($filepathRollBack . ".png", $filepath . ".png");
                             } else if (file_exists($filepathRollBack . ".jpeg")) {
                                 rename($filepathRollBack . ".jpeg", $filepath . ".jpeg");
-                            }            
+                            }
+                    
                             $_SESSION['error'] = "File must be an image";
                             header("Location: /pharmacy-management-system/pharmacist/manageProducts/addProduct.php?name=" . $name . "&price=" . $price . "&type=" . $type . "&suppliers=" . $sid);
+                            exit();
                         }
-                    }    
+                    }
+                       
                     $db->commit();
                     if (file_exists($filepathRollBack . ".jpg")) {
                         unlink($filepathRollBack . ".jpg");

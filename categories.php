@@ -40,7 +40,6 @@
 
 <script>
 function handleCart(pid){
-    console.log('ss')
     let exists = false;
     var cart = JSON.parse(localStorage.getItem('cart')) || [];
 

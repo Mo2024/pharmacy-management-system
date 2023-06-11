@@ -2,6 +2,8 @@
 require('../../partials/regex.inc.php');
 require('../../functions/mailer.inc.php');
 require('../../functions/functions.inc.php');
+use Intervention\Image\ImageManager;
+
 if (isset($_SESSION['userId'])) {
     if ($_SESSION['role'] == 'pharmacist') {
 
@@ -66,24 +68,41 @@ if (isset($_SESSION['userId'])) {
                             $fileExtension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
                         
                             if (in_array($fileExtension, $allowedExtensions)) {
-                                // Rename the file
-                                $newFileName = $newProductId . '.' . $fileExtension;
-                        
-                                // Set the destination path to the "products" folder
-                                $destinationPath = '../../public/products/' . basename($newFileName);
+                                // Convert the file to JPEG if it is PNG or JPEG
+                                if ($fileExtension !== 'jpg') {
+                                    $image = imagecreatefromstring(file_get_contents($file['tmp_name']));
+                                    if ($image !== false) {
+                                        $newFileName = $newProductId . '.jpg';
+                                        $destinationPath = '../../public/products/' . $newFileName;
+                                        imagejpeg($image, $destinationPath, 100);
+                                        imagedestroy($image);
+                                    } else {
+                                        $db->rollback();
+                                        $_SESSION['error'] = "Failed to convert image to JPEG";
+                                        header("Location: /pharmacy-management-system/pharmacist/manageProducts/addProduct.php?name=".$name."&price=".$price."&type=".$type."&suppliers=".$sid."&cid=".$cid);
+                                        exit();
+                                    }
+                                } else {
+                                    $newFileName = $newProductId . '.' . $fileExtension;
+                                    $destinationPath = '../../public/products/' . basename($newFileName);
+                                }
                         
                                 // Move the uploaded file to the destination folder
                                 if (!move_uploaded_file($file['tmp_name'], $destinationPath)) {
-                                    $db->rollback();            
+                                    $db->rollback();
                                     $_SESSION['error'] = "Failed to upload";
                                     header("Location: /pharmacy-management-system/pharmacist/manageProducts/addProduct.php?name=".$name."&price=".$price."&type=".$type."&suppliers=".$sid."&cid=".$cid);
+                                    exit();
                                 }
                             } else {
-                                $db->rollback();            
+                                $db->rollback();
                                 $_SESSION['error'] = "File must be an image";
                                 header("Location: /pharmacy-management-system/pharmacist/manageProducts/addProduct.php?name=".$name."&price=".$price."&type=".$type."&suppliers=".$sid."&cid=".$cid);
+                                exit();
                             }
-                        }    
+                        }
+                        
+                           
                         $db->commit();
                         $_SESSION['success'] = "Product created successfully";
                         header("Location: /pharmacy-management-system/pharmacist/manageProducts/productsList.php");

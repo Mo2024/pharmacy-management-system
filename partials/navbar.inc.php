@@ -44,19 +44,20 @@
 
           </ul>
           <div class="navbar-nav ms-auto d-flex">
-    <?php
-      if(!isset($_SESSION['userId']) && !isset($_SESSION['username'])){
-        echo'
-        <a href="/pharmacy-management-system/auth/signup.php" class="nav-link h4">Sign Up</a>
-        <a href="/pharmacy-management-system/auth/signin.php" class="nav-link h4">Log In</a>
-        ';
-      }else{
-        echo '
-        <a href="/pharmacy-management-system/profile/profile.php" class="nav-link h4">Profile</a>
-        <a href="/pharmacy-management-system/controllers/auth/logout.inc.php" class="nav-link h4">Sign out</a>
-        ';
-      }
-    ?>
+            <?php
+        if(!isset($_SESSION['userId']) && !isset($_SESSION['username'])){
+          echo'
+          <a href="/pharmacy-management-system/auth/signup.php" class="nav-link h4">Sign Up</a>
+          <a href="/pharmacy-management-system/auth/signin.php" class="nav-link h4">Log In</a>
+          ';
+        }else{
+          echo '
+          <a href="/pharmacy-management-system/cart.php" class="nav-link h4">Cart</a>
+          <a href="/pharmacy-management-system/profile/profile.php" class="nav-link h4">Profile</a>
+          <a href="/pharmacy-management-system/controllers/auth/logout.inc.php" class="nav-link h4">Sign out</a>
+          ';
+        }
+      ?>
     </div>
         </div>
       </div>
