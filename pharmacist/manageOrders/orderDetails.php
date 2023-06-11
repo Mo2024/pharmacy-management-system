@@ -25,6 +25,21 @@
              
             </div>
         </div>
+    </div>
+</div>
+<div class="row justify-content-center mt-3">
+    <div class="col-xl-9">
+        <div class="bg-color border card border-color-form shadow">
+            <div class="card-body">
+            <h5 class="card-title text-center" style="font-size:45px;font-weight:bold;color:black;">Products</h5>
+            <ul class="list-group list-group-flush">
+                <?php foreach($products as $product){ ?>
+                    <li class="list-group-item"><h5><?php echo $product['name'] ?></h5>Amount: <?php echo $product['qty'] ?></li>
+                <?php } ?>
+             </ul>
+             
+            </div>
+        </div>
         <div class="d-flex justify-content-end mt-3">
         <a class="text-decoration-none btn btn-sm btn-outline-primary ms-auto" href="/pharmacy-management-system/pharmacist/manageOrders/ordersList.php">Return To Orders List</a>
         </div>

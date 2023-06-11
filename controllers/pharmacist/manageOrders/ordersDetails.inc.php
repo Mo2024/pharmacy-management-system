@@ -13,6 +13,14 @@ if(isset($_SESSION['userId'])){
             WHERE orders.oid = '$oid';";
             $result = $db->query($oidQuery);
             $row = $result->fetch();
+
+            $poidQuery = 
+            "SELECT products.*, products_in_order.qty 
+            FROM products_in_order
+            INNER JOIN products ON products_in_order.pid = products.pid
+            WHERE products_in_order.oid = '$oid';";
+            $result = $db->query($poidQuery);
+            $products = $result->fetchAll(PDO::FETCH_ASSOC);
         }else{
             $_SESSION['error'] = "Choose a valid Order";
             header("Location: /pharmacy-management-system/pharmacist/manageOrders/ordersList.php");
