@@ -54,7 +54,7 @@ xhr.onreadystatechange = function () {
                                 <div class="col-md-8 mt-5">
                                     <div class="card-body">
                                         <h3 class="card-title">${item.name}</h3>
-                                        <h4 class="card-title">Total Price: $${item.price*qty}</h4>
+                                        <h4 id="price${item.pid}" class="card-title">Total Price: $${item.price*qty}</h4>
                                         <div class="input-group w-50">
                                             <span class="input-group-btn">
                                             <button type="button" class="btn btn-outline-secondary" onclick="decreaseValue(${item.pid})">-</button>
@@ -72,7 +72,6 @@ xhr.onreadystatechange = function () {
                         mainContainer.innerHTML += itemDiv;
                     })
                     .catch(function(error) {
-                        // Error occurred during the request
                         console.log('Error:', error);
                     });
 
@@ -87,9 +86,7 @@ xhr.onreadystatechange = function () {
 };
 
 xhr.onerror = function () {
-    // Request error occurred
     console.log("Error sending deletion request.");
-    // You can add any additional error handling code here
 };
 
 var data = "cart=" + encodeURIComponent(localStorage.getItem('cart'));
@@ -107,19 +104,19 @@ function handleQtyUpdate(id, qty) {
       divElement.remove();
     }
 
-    // Remove item from cart based on 'pid' value
-    updatedCart = cart.filter((item) => parseInt(item.pid) !== id);
+    updatedCart = cart.filter((item) => item.pid !== id);
   } else {
-    // Update quantity in cart based on 'pid' value
+
     updatedCart = cart.map((item) => {
-      if (parseInt(item.pid) === id) {
+      if (parseInt(item.pid) === parseInt(id)) {
+        let price = document.getElementById('price'+id)
+        price.innerHTML = `Total Price: $${parseInt(item.price)* item.qty}`
         return { ...item, qty: qty };
       }
       return item;
     });
   }
 
-  // Update cart in local storage
   localStorage.setItem('cart', JSON.stringify(updatedCart));
 }
 

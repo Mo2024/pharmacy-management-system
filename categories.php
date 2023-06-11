@@ -29,7 +29,7 @@
                             <h5 class="card-title mb-3"><?php echo $product['name'] ?></h5>
                         </a>
                         <h6 class="mb-3">$<?php echo $product['price'] ?></h6>
-                        <button value="<?php echo $product['pid'] ?>" onclick="handleCart(this.value)" class="text-decoration-none btn btn-sm btn-primary ms-auto">Add to cart</button>
+                        <button value="<?php echo $product['pid'] ?>" onclick="handleCart(this.value, <?php echo $product['price'] ?>)" class="text-decoration-none btn btn-sm btn-primary ms-auto">Add to cart</button>
 
                     </div>
                 </div>
@@ -39,7 +39,7 @@
 </section>
 
 <script>
-function handleCart(pid){
+function handleCart(pid, price){
     let exists = false;
     var cart = JSON.parse(localStorage.getItem('cart')) || [];
 
@@ -52,7 +52,7 @@ function handleCart(pid){
     }
 
     if(!exists){
-        let newProduct = {pid: pid, qty: 1};
+        let newProduct = {pid: parseInt(pid), qty: 1, price: parseInt(price)};
         cart.push(newProduct)
     }
     localStorage.setItem('cart', JSON.stringify(cart));
