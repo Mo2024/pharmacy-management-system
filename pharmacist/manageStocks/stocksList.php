@@ -3,8 +3,19 @@
 <style>
 thead
 {
-    background-color: #3C486B;
-    color: white; 
+  background-color: #3C486B;
+  color: white; 
+}
+
+@media (max-width: 576px) {
+  .w-xs-50{
+    width: 50%
+  }
+}
+@media (min-width: 576px) {
+  .w-md-50{
+    width: 27.5%
+  }
 }
 </style>
 <div class="mt-4 container">
@@ -28,7 +39,7 @@ thead
         <?php foreach ($rows as $row) { ?>
           <tr id="<?php echo $row['pid'].'#'.$row['bid'] ?>">
             <td><?php echo $row['name']; ?></td>
-            <td class="w-25">                    
+            <td class="w-xs-50 w-md-50">                    
               <div class="input-group">
                 <span class="input-group-btn">
                 <button type="button" class="btn btn-outline-secondary" onclick="decreaseValue('<?php echo $row['pid'].'%'.$row['bid'] ?>')">-</button>

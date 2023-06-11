@@ -15,7 +15,7 @@ if (isset($_SESSION['userId'])) {
 
             if ($_POST['name'] != "" && $_POST['area'] != "" && $_POST['building'] != "" && $_POST['road'] != "" && $_POST['block'] != "") {
 
-                $nameValid = preg_match($nameReg, $name);
+                $nameValid = preg_match('/^[A-Za-z\s]+$/', $name);
                 $areaValid = preg_match('/^[a-zA-Z0-9\s]+$/', $area);
                 $buildingValid = preg_match('/^[a-zA-Z0-9\s]+$/', $building);
                 $roadValid = preg_match('/^[a-zA-Z0-9\s]+$/', $road);

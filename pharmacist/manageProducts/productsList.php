@@ -41,6 +41,7 @@ thead
     </div>
     <div class="d-flex mb-3">
       <button type="button" class="ms-auto border-0">
+        <a class="text-decoration-none btn btn-sm btn-primary ms-auto" href="/pharmacy-management-system/pharmacist/manageProducts/addCategory.php">Add Category</a>
         <a class="text-decoration-none btn btn-sm btn-primary ms-auto" href="/pharmacy-management-system/pharmacist/manageProducts/addProduct.php">Add Product</a>
         <a class="text-decoration-none btn btn-sm btn-outline-primary ms-auto" href="/pharmacy-management-system/mainpage.php">Return To Home Page</a>
       </button>

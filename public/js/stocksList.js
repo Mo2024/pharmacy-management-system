@@ -36,7 +36,12 @@ function handleStockUpdate(ids, value, callback) {
                 var response = xhr.responseText;
                 if (response == "true") {
                     callback(true)
-                } else {
+                } else if (response.includes("rollBackQty")) {
+                    let qty = response.split("rollBackQty")[1]
+                    document.getElementById(ids).value = qty;
+                    callback(false)
+                }
+                else {
                     callback(false)
                 }
             } else {

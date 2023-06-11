@@ -18,6 +18,12 @@ if($qty > 0){
     if($stmt->execute([$qty, $pid, $bid])){
         echo "true";
     }
+}else if($qty <= 0){
+    $stmt = $db->prepare("SELECT qty FROM products_in_branch  WHERE pid = ? AND bid = ?");
+    $stmt->execute([$pid, $bid]);
+    $row = $stmt->fetch();
+    $qty = $row['qty'];
+    echo  'rollBackQty'.$qty;
 }
 
 
