@@ -9,7 +9,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         try {
             $cart = json_decode($_POST['cart'], true);
             if(empty($cart)){
-                //handle
+                $_SESSION['error'] = 'Cart is empty!';
+                header('Location: http://localhost/pharmacy-management-system/mainpage.php');                   
             }else{
                 $paymentMethod = $_POST['paymentMethod'];
                 $paymentMethodValid = preg_match('/^(creditCard|cash)$/', $paymentMethod);
@@ -55,7 +56,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $isUnique = false;
 
                     while (!$isUnique) {
-                        // Generate a UUID
                         $uuid = Uuid::uuid4()->toString();
                       
                         $query = "SELECT COUNT(*) FROM orders WHERE oid = :oid";
@@ -120,10 +120,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $message->setBody($body);
                         $mailer->send($message); 
                         header('Location: http://localhost/pharmacy-management-system/success.php?orderId='.$uuid);                   
-                        }
+                    }
 
                 }else{
-                    // handle
+                    $_SESSION['error'] = 'Must choose a valid payment method!';
+                    header('Location: http://localhost/pharmacy-management-system/cart.php');                 
                 }
           
                   
