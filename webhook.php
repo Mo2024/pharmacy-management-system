@@ -1,6 +1,7 @@
+<?php $title = "webhook"; require('partials/boilerplate.inc.php')?>
 <?php
-session_start();
 require_once __DIR__ . '/vendor/autoload.php';
+require('functions/mailer.inc.php');
 use Dotenv\Dotenv;
 $dotenv = Dotenv::createImmutable(__DIR__);
 $dotenv->load();
@@ -63,6 +64,24 @@ switch ($event->type) {
         $stmt->execute([$metadata['oid'], $item->pid, $item->qty]);
     }
     $db->commit();
+
+    $query = 
+    "SELECT orders.*, users.email
+    FROM orders
+    INNER JOIN users ON orders.uid = users.uid
+    WHERE orders.oid = ?";
+
+    $statement = $db->prepare($query);
+    $statement->execute([$metadata['oid']]);
+    $row = $statement->fetch();
+    $recipientEmail = $row['email'];
+    $subject = 'Order Successfull!';
+    $body = 'Order No '.$row['oid'].' has been placed!';
+
+    $message->setTo($recipientEmail);
+    $message->setSubject($subject);
+    $message->setBody($body);
+    $mailer->send($message);
     break;
   default:
     echo 'Received unknown event type ' . $event->type;

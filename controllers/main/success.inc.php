@@ -1,5 +1,4 @@
 <?php 
-require('functions/mailer.inc.php');
 if(isset($_SESSION['userId'])){
     if(isset($_GET['orderId'])){
         $query = 
@@ -20,15 +19,6 @@ if(isset($_SESSION['userId'])){
         $statement = $db->prepare($poidQuery);
         $statement->execute([$_GET['orderId']]);        
         $products = $statement->fetchAll(PDO::FETCH_ASSOC);
-
-        $recipientEmail = $row['email'];
-        $subject = 'Order Successfull!';
-        $body = 'Order No '.$row['oid'].' has been placed!';
-
-        $message->setTo($recipientEmail);
-        $message->setSubject($subject);
-        $message->setBody($body);
-        $mailer->send($message);
 
     }else{
         $_SESSION['error'] = "You must make an order!";
