@@ -61,7 +61,7 @@ switch ($event->type) {
     $stmt = $db->prepare($query);
 
     foreach($productsQty as $item){
-        $stmt->execute([$metadata['oid'], $item->pid, $item->qty]);
+      $stmt->execute([$metadata['oid'], $item->pid, $item->qty]);
     }
     $db->commit();
 
