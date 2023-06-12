@@ -1,1 +1,1 @@
-stripe listen --forward-to localhost:80/pharmacy-maasasasnagement-system/webhook.php
+stripe listen --forward-to localhost:80/pharmacy-management-system/webhook.php

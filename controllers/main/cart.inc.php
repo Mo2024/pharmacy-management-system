@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             foreach ($cart as $cartItem) {
                                 if ($cartItem['pid'] === $product['pid']) {
                                 $quantity = $cartItem['qty'];
-                                $totalBill = $totalBill + ($cartItem['qty'] * $product['pid']);
+                                $totalBill = $totalBill + ($cartItem['qty'] * $product['price']);
                                 break;
                                 }
                             }
