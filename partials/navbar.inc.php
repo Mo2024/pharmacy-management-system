@@ -44,20 +44,21 @@
 
           </ul>
           <div class="navbar-nav ms-auto d-flex">
-            <?php
-        if(!isset($_SESSION['userId']) && !isset($_SESSION['username'])){
-          echo'
+            <?php if(!isset($_SESSION['userId']) && !isset($_SESSION['username'])){ ?>
           <a href="/pharmacy-management-system/auth/signup.php" class="nav-link h4">Sign Up</a>
           <a href="/pharmacy-management-system/auth/signin.php" class="nav-link h4">Log In</a>
-          ';
-        }else{
-          echo '
+          <?php }else{ ?>
           <a href="/pharmacy-management-system/cart.php" class="nav-link h4">Cart</a>
-          <a href="/pharmacy-management-system/profile/profile.php" class="nav-link h4">Profile</a>
+          <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle h4" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Profile</a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown" >
+                  <li><a class="dropdown-item" href="/pharmacy-management-system/profile/profile.php">Profile</a></li>
+                  <li><a class="dropdown-item" href="/pharmacy-management-system/profile/orders.php">Orders</a></li>
+                </ul>
+              </li>
           <a href="/pharmacy-management-system/controllers/auth/logout.inc.php" class="nav-link h4">Sign out</a>
-          ';
-        }
-      ?>
+          <?php }?>
+
     </div>
         </div>
       </div>
