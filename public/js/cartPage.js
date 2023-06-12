@@ -156,3 +156,12 @@ function handlePaymentSubmission(event) {
 }
 
 
+window.addEventListener('load', function () {
+    let cart = JSON.parse(localStorage.getItem('cart'));
+    if (cart === null || cart.length === 0) {
+        document.getElementById('checkoutBtn').disabled = true;
+        document.getElementById('submitBtn').disabled = true;
+    }
+});
+
+

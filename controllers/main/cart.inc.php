@@ -76,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             'line_items' => $lineItems,
                             'mode' => 'payment',
                             'success_url' => 'http://localhost/pharmacy-management-system/success.php?orderId='.$uuid,
-                            'cancel_url' => 'http://localhost/pharmacy-management-system/cancel.php',
+                            'cancel_url' => 'http://localhost/pharmacy-management-system/mainpage.php',
                             'metadata' => [
                                 'user_id' => $_SESSION['userId'],
                                 'totalBill' => $totalBill,
