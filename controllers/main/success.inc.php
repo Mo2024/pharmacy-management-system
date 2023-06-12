@@ -1,8 +1,9 @@
 <?php 
+require('functions/mailer.inc.php');
 if(isset($_SESSION['userId'])){
     if(isset($_GET['orderId'])){
         $query = 
-        "SELECT orders.*, users.fName, addresses.*
+        "SELECT orders.*, users.fName, users.email, addresses.*
         FROM orders
         INNER JOIN users ON orders.uid = users.uid
         INNER JOIN addresses ON users.uid = addresses.uid
@@ -19,6 +20,16 @@ if(isset($_SESSION['userId'])){
         $statement = $db->prepare($poidQuery);
         $statement->execute([$_GET['orderId']]);        
         $products = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        $recipientEmail = $row['email'];
+        $subject = 'Order Successfull!';
+        $body = 'Order No '.$row['oid'].' has been placed!';
+
+        $message->setTo($recipientEmail);
+        $message->setSubject($subject);
+        $message->setBody($body);
+        $mailer->send($message);
+
     }else{
         $_SESSION['error'] = "You must make an order!";
         header("Location: /pharmacy-management-system/mainpage.php");

@@ -44,4 +44,6 @@
     </div>
 </div>
 </div>
+<script src="/pharmacy-management-system/public/js/success.js"></script>
+
 <?php require('partials/footer.inc.php')?>
