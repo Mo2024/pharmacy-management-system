@@ -1,4 +1,5 @@
 <?php 
+use Ramsey\Uuid\Uuid;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -50,17 +51,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             $productsQty[] = ['pid' => $product['pid'], 'qty' => $quantity];
                             $lineItems[] = $lineItem;
                         }      
+
+                        $uuid = null;
+                        $isUnique = false;
+
+                        while (!$isUnique) {
+                            // Generate a UUID
+                            $uuid = Uuid::uuid4()->toString();
+                          
+                            $query = "SELECT COUNT(*) FROM orders WHERE oid = :oid";
+                            $stmt = $db->prepare($query);
+                            $stmt->bindParam(':oid', $uuid);
+                            $stmt->execute();
+                            $count = $stmt->fetchColumn();
+                          
+                            if ($count === 0) {
+                              $isUnique = true;
+                            }
+                        }
+
                         $stripe = new \Stripe\StripeClient($_ENV['secret_key']);
                         $session = $stripe->checkout->sessions->create([
                             'payment_method_types' => ['card'],
                             'line_items' => $lineItems,
                             'mode' => 'payment',
-                            'success_url' => 'https://example.com/success',
-                            'cancel_url' => 'https://example.com/cancel',
+                            'success_url' => 'http://localhost/pharmacy-management-system/success.php?orderId='.$uuid,
+                            'cancel_url' => 'http://localhost/pharmacy-management-system/cancel.php',
                             'metadata' => [
                                 'user_id' => $_SESSION['userId'],
                                 'totalBill' => $totalBill,
-                                'productsQty' => json_encode($productsQty)
+                                'productsQty' => json_encode($productsQty),
+                                'oid' => $uuid
                             ],
                         ]);
                         

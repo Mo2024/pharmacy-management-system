@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once __DIR__ . '/vendor/autoload.php';
 use Dotenv\Dotenv;
 $dotenv = Dotenv::createImmutable(__DIR__);
@@ -50,20 +51,18 @@ switch ($event->type) {
     // Insert the order data into the "orders" table in your database
     // Adapt this code to use your specific database connection and query method
     $db->beginTransaction();
-    $query = "INSERT INTO orders (totalPrice, paymentMethod, orderDate, status, uid) VALUES (?, 'Credit Card', ?, 'pending', ?)";
+    $query = "INSERT INTO orders (oid, totalPrice, paymentMethod, orderDate, status, uid) VALUES (?, ?, 'Credit Card', ?, 'pending', ?)";
     $dateCreated = date("F d\, Y");
     $stmt = $db->prepare($query);
-    $stmt->execute([$metadata['totalBill'], $dateCreated, $metadata['user_id']]);
+    $stmt->execute([$metadata['oid'], $metadata['totalBill'], $dateCreated, $metadata['user_id']]);
     
     $query = "INSERT INTO products_in_order (oid, pid, qty) VALUES (?, ?, ?)";
     $stmt = $db->prepare($query);
-    $oid = $db->lastInsertId();
 
     foreach($productsQty as $item){
-        $stmt->execute([$oid, $item->pid, $item->qty]);
+        $stmt->execute([$metadata['oid'], $item->pid, $item->qty]);
     }
     $db->commit();
-
     break;
   default:
     echo 'Received unknown event type ' . $event->type;
