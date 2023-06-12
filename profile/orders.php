@@ -1,4 +1,4 @@
-<?php $title = "My Order"; require('../partials/boilerplate.inc.php')?>
+<?php $title = "My Orders"; require('../partials/boilerplate.inc.php')?>
 <?php require('../controllers/profile/orders.inc.php')?>
 <style>
 thead
