@@ -37,6 +37,8 @@
                     $_SESSION['display'] = 'pCode';
                     $_SESSION['forgetuid'] = $result['uid'];
                     $_SESSION['forgetusername'] = $result['username'];
+                    $_SESSION['forgetrole'] = $result['type'];
+                    $_SESSION['forgetbid'] = $result['bid'];
                     header("Location: /pharmacy-management-system/auth/forgetPassword.php");
                 } else {
                     $_SESSION['error'] = 'Email Does not exist';
@@ -85,6 +87,8 @@
                     $_SESSION['success'] = 'Password Successfully Updated';
                     $_SESSION['username'] = $_SESSION['forgetusername'];
                     $_SESSION['userId'] = $_SESSION['forgetuid'];
+                    $_SESSION['bid'] = $_SESSION['forgetbid'];
+                    $_SESSION['role'] = $_SESSION['forgetrole'];
                     unset($_SESSION['display']);
                     unset($_SESSION['forgetuid']);
                     unset($_SESSION['forgetusername']);

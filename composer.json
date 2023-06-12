@@ -3,6 +3,7 @@
         "vlucas/phpdotenv": "^5.5",
         "phpmailer/phpmailer": "^6.8",
         "swiftmailer/swiftmailer": "^6.3",
-        "intervention/image": "^2.7"
+        "intervention/image": "^2.7",
+        "stripe/stripe-php": "^10.15"
     }
 }
