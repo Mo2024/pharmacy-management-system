@@ -22,11 +22,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $results = $statement->fetchAll(PDO::FETCH_ASSOC);
     
                         $lineItems = [];
+                        $productsQty =[];
+                        $totalBill = 0;
                         foreach ($results as $product) {
                             $quantity = 1; 
                             foreach ($cart as $cartItem) {
                                 if ($cartItem['pid'] === $product['pid']) {
-                                $quantity = $cartItem['qty']; 
+                                $quantity = $cartItem['qty'];
+                                $totalBill = $totalBill + ($cartItem['qty'] * $product['pid']);
                                 break;
                                 }
                             }
@@ -41,19 +44,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 ],
                                 ],
                                 'quantity' => $quantity,
+                                'metadata' => [
+                                ],
                             ];
-                            
+                            $productsQty[] = ['pid' => $product['pid'], 'qty' => $quantity];
                             $lineItems[] = $lineItem;
-                            $stripe = new \Stripe\StripeClient($_ENV['secret_key']);
-                            $session = $stripe->checkout->sessions->create([
-                                'payment_method_types' => ['card'],
-                                'line_items' => $lineItems,
-                                'mode' => 'payment',
-                                'success_url' => 'https://example.com/success',
-                                'cancel_url' => 'https://example.com/cancel',
-                            ]);
-                            header("Location: " . $session->url);
                         }      
+                        $stripe = new \Stripe\StripeClient($_ENV['secret_key']);
+                        $session = $stripe->checkout->sessions->create([
+                            'payment_method_types' => ['card'],
+                            'line_items' => $lineItems,
+                            'mode' => 'payment',
+                            'success_url' => 'https://example.com/success',
+                            'cancel_url' => 'https://example.com/cancel',
+                            'metadata' => [
+                                'user_id' => $_SESSION['userId'],
+                                'totalBill' => $totalBill,
+                                'productsQty' => json_encode($productsQty)
+                            ],
+                        ]);
+                        
+                        header("Location: " . $session->url);
 
                     }else{
                         //handle
