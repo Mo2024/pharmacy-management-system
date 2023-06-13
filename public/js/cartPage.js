@@ -90,6 +90,8 @@ function handleQtyUpdate(id, qty, dbQty, isDecrease = false) {
         // Delete div and remove item from cart
         let divId = 'div' + id;
         let divElement = document.getElementById(divId);
+        let checkoutBtn = document.getElementById('checkoutBtn');
+        checkoutBtn.disabled = true;
         if (divElement) {
             divElement.remove();
         }
