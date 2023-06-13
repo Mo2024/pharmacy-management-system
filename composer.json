@@ -6,6 +6,6 @@
         "intervention/image": "^2.7",
         "stripe/stripe-php": "^10.15",
         "ramsey/uuid": "^4.7",
-        "tecnickcom/tcpdf": "^6.6"
+        "dompdf/dompdf": "^2.0"
     }
 }
