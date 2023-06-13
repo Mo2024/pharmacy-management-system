@@ -8,10 +8,11 @@ if (isset($_SESSION['userId'])) {
         $query = 
         "SELECT products.*
         FROM products
-        LEFT JOIN products_in_branch ON products.pid = products_in_branch.pid
+        LEFT JOIN products_in_branch ON products.pid = products_in_branch.pid AND products_in_branch.bid = ?
         WHERE products_in_branch.pid IS NULL
         AND products.isDeleted = 0;";
-        $stmt = $db->query($query);
+        $stmt = $db->prepare($query);
+        $stmt->execute([$_SESSION['bid']]);
         $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
         if (isset($_POST['submit'])) {
