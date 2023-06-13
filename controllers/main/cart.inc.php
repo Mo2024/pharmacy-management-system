@@ -125,8 +125,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             $stmt = $db->prepare($query);
     
                             foreach($productsQty as $item){
-                            $stmt->execute([$uuid, $item['pid'], $item['qty']]);
-                            }
+                                $stmt->execute([$uuid, $item['pid'], $item['qty']]);
+                                $patientQty = $item['qty'];
+                                $sql = 'select pb.* from products_in_branch as pb where pid = ?';
+                                $statement = $db->prepare($sql);
+                                $statement->execute([$item['pid']]);
+                                $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+                                foreach($results as $branch){
+                                  if($patientQty > 0 ){
+                                    if($branch['qty'] > 0){
+                                      $patientQty = $patientQty - $branch['qty'];
+                                      if($patientQty > 0){
+                                        $updateQuery = 'update products_in_branch set qty = 0 where pid = ? and bid = ?';
+                                        $statement = $db->prepare($updateQuery);
+                                        $statement->execute([$branch['pid'], $branch['bid']]);              
+                                      }else{
+                                        $updateQuery = 'update products_in_branch set qty = ? where pid = ? and bid = ?';
+                                        $statement = $db->prepare($updateQuery);
+                                        $statement->execute([abs($patientQty), $branch['pid'], $branch['bid']]);
+                                      }
+                                    }
+                                  }else{
+                                    break;
+                                  }
+                                }
+                              }
                             $db->commit();
     
                             $query = 

@@ -52,7 +52,9 @@ body.modal-open {
 
 <div  class="container">
 <h3 id="totalBill" class="text-center"></h3>
-
+<div class="d-flex mb-3">
+    <button id="checkoutBtn" onclick="openPaymentMethodSelection()" type="button" class="btn btn-sm btn-primary ms-auto">Proceed to Checkout</button>
+</div>
 <div id="mainContainer" class="row justify-content-center">
 
 </div>
@@ -84,9 +86,7 @@ body.modal-open {
 
 
 
-<div class="d-flex mb-3">
-    <button id="checkoutBtn" onclick="openPaymentMethodSelection()" type="button" class="btn btn-sm btn-primary ms-auto">Proceed to Checkout</button>
-</div>
+
 
 <script src="/pharmacy-management-system/public/js/cartPage.js"></script>
 

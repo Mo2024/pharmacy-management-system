@@ -52,6 +52,7 @@ switch ($event->type) {
     // Insert the order data into the "orders" table in your database
     // Adapt this code to use your specific database connection and query method
     $db->beginTransaction();
+
     $query = "INSERT INTO orders (oid, totalPrice, paymentMethod, orderDate, status, uid) VALUES (?, ?, 'Credit Card', ?, 'pending', ?)";
     $dateCreated = date("F d\, Y");
     $stmt = $db->prepare($query);
@@ -60,23 +61,31 @@ switch ($event->type) {
     $query = "INSERT INTO products_in_order (oid, pid, qty) VALUES (?, ?, ?)";
     $stmt = $db->prepare($query);
 
-    $updateQuery = 
-    "UPDATE products_in_branch 
-    SET qty = qty - :qty 
-    WHERE pid = :pid 
-    AND qty >= :qty 
-    AND bid IN (
-      SELECT bid 
-      FROM products_in_branch 
-      WHERE pid = :pid 
-      AND qty >= :qty 
-      ORDER BY RAND() 
-      LIMIT 1
-    )";
-    $updateStmt = $db->prepare($updateQuery);
-
     foreach($productsQty as $item){
       $stmt->execute([$metadata['oid'], $item->pid, $item->qty]);
+      $patientQty = $item->qty;
+      $sql = 'select pb.* from products_in_branch as pb where pid = ?';
+      $statement = $db->prepare($sql);
+      $statement->execute([$item->pid]);
+      $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+      foreach($results as $branch){
+        if($patientQty > 0 ){
+          if($branch['qty'] > 0){
+            $patientQty = $patientQty - $branch['qty'];
+            if($patientQty > 0){
+              $updateQuery = 'update products_in_branch set qty = 0 where pid = ? and bid = ?';
+              $statement = $db->prepare($updateQuery);
+              $statement->execute([$branch['pid'], $branch['bid']]);              
+            }else{
+              $updateQuery = 'update products_in_branch set qty = ? where pid = ? and bid = ?';
+              $statement = $db->prepare($updateQuery);
+              $statement->execute([abs($patientQty), $branch['pid'], $branch['bid']]);
+            }
+          }
+        }else{
+          break;
+        }
+      }
     }
     $db->commit();
 
