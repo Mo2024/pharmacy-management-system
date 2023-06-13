@@ -60,6 +60,21 @@ switch ($event->type) {
     $query = "INSERT INTO products_in_order (oid, pid, qty) VALUES (?, ?, ?)";
     $stmt = $db->prepare($query);
 
+    $updateQuery = 
+    "UPDATE products_in_branch 
+    SET qty = qty - :qty 
+    WHERE pid = :pid 
+    AND qty >= :qty 
+    AND bid IN (
+      SELECT bid 
+      FROM products_in_branch 
+      WHERE pid = :pid 
+      AND qty >= :qty 
+      ORDER BY RAND() 
+      LIMIT 1
+    )";
+    $updateStmt = $db->prepare($updateQuery);
+
     foreach($productsQty as $item){
       $stmt->execute([$metadata['oid'], $item->pid, $item->qty]);
     }

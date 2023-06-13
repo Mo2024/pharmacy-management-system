@@ -71,8 +71,23 @@ foreach ($categoryRows as $category) {
                         <p href="" class="text-reset text-decoration-none">
                             <h5 class="card-title mb-3"><?php echo $product['name'] ?></h5>
                         </p>
+                        <?php 
+
+                        $sql = "SELECT SUM(qty) AS total_quantity FROM products_in_branch WHERE pid = :pid";
+                        $stmt = $db->prepare($sql);
+                        $stmt->bindParam(':pid', $product['pid']);
+                        $stmt->execute();
+                        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                        $totalQuantity = $result['total_quantity'];
+                        ?>
                         <h6 class="mb-3">$<?php echo $product['price'] ?></h6>
-                        <button value="<?php echo $product['pid'] ?>" onclick="handleCart(this.value, <?php echo $product['price'] ?>)" class="text-decoration-none btn btn-sm btn-primary ms-auto">Add to cart</button>
+                        <?php if($totalQuantity > 0) {  ?>
+                        <button value="<?php echo $product['pid'] ?>" onclick="handleCart(this.value, <?php echo $product['price'] ?>, <?php echo $totalQuantity ?>)" class="text-decoration-none btn btn-sm btn-primary ms-auto">Add to cart</button>
+                        <?php } else { ?>
+                            <button disabled class="text-decoration-none btn btn-sm btn-outline-secondary ms-auto">Out of Stock</button>
+                            
+                        <?php } ?>
                     </div>
                 </div>
             </div>
@@ -85,4 +100,6 @@ foreach ($categoryRows as $category) {
 ?>
 
 <script src="/pharmacy-management-system/public/js/searchQuery.js"></script>
+<script src="/pharmacy-management-system/public/js/addToCart.js"></script>
+
 <?php require('partials/footer.inc.php')?>
