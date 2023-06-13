@@ -1,5 +1,37 @@
 <?php $title = "Category"; require('partials/boilerplate.inc.php')?>
 <?php require('controllers/main/products.inc.php')?>
+<style>
+  #suggestionList {
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    /* padding: 10px; */
+    display: none;
+    
+  }
+
+  .suggestion-item {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #333;
+    background-color: #f2f2f2;
+    transition: background-color 0.3s ease;
+  }
+
+  .suggestion-item:hover,
+  .suggestion-item.hovered {
+    background-color: #dcdcdc;
+  }
+</style>
+
+<div class="container w-50 mb-4">
+  <div class="d-flex mt-3">
+    <input id="searchQuery" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+    <button id="searchButton" class="btn btn-outline-success" type="button">Search</button>
+  </div>
+  <div id="suggestionList"></div>
+  <p id="noResultsMessage" style="display: none;">No quizzes found</p>
+</div>
 
 <?php 
 $categoryCurrent = ''; 
@@ -7,7 +39,6 @@ foreach ($categoryRows as $category) {
     if($category['cid'] !== $categoryCurrent){
         $categoryCurrent = $category['cid'];
 
-        // Get products for current category
         $query = "SELECT * FROM products WHERE cid = ? AND isDeleted = 0";
         $statement = $db->prepare($query);
         $statement->execute([$category['cid']]);
@@ -37,9 +68,9 @@ foreach ($categoryRows as $category) {
                         ?>
                     </div>
                     <div class="card-body">
-                        <a href="" class="text-reset text-decoration-none">
+                        <p href="" class="text-reset text-decoration-none">
                             <h5 class="card-title mb-3"><?php echo $product['name'] ?></h5>
-                        </a>
+                        </p>
                         <h6 class="mb-3">$<?php echo $product['price'] ?></h6>
                         <button value="<?php echo $product['pid'] ?>" onclick="handleCart(this.value, <?php echo $product['price'] ?>)" class="text-decoration-none btn btn-sm btn-primary ms-auto">Add to cart</button>
                     </div>
@@ -53,5 +84,5 @@ foreach ($categoryRows as $category) {
 }
 ?>
 
-<script src="/pharmacy-management-system/public/js/categoriesPage.js"></script>
+<script src="/pharmacy-management-system/public/js/searchQuery.js"></script>
 <?php require('partials/footer.inc.php')?>

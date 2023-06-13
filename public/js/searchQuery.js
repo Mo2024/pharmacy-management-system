@@ -1,61 +1,16 @@
-document.getElementById("searchButton").addEventListener("click", function () {
-  var searchInput = document.getElementById('searchQuery');
-  suggestionList.style.display = 'none';
-  var searchQuery = searchInput.value;
-  var now = new Date();
-  var time = now.getTime();
-  time += 300000;
-  now.setTime(time);
-
-
-  var ajax = new XMLHttpRequest();
-  ajax.open("GET", "http://localhost/pharmacy-management-system/controllers/ajax/searchQuizzes.inc.php?searchQuery=" + encodeURIComponent(searchQuery) + "&isSearchBtn", true);
-  ajax.onreadystatechange = function () {
-    if (ajax.readyState === 4 && ajax.status === 200) {
-      var response = JSON.parse(ajax.responseText);
-      var quizzes = response.quizzes;
-      var container = document.getElementById("mainContainer");
-
-      container.innerHTML = "";
-
-      quizzes.forEach(function (quiz) {
-        var card = document.createElement("div");
-        card.classList.add("card", "mb-3", "mt-3");
-        card.innerHTML = `
-          <div class="row">
-            <div class="col-md-3">
-                <img src="https://cdn.shopify.com/s/files/1/0566/6586/6400/products/6_6e504cd6-25a9-46b2-b94b-5d87768d3306_300x@2x.jpg?v=1629388839" alt="" class="img-fluid h-100 w-100">
-            </div>
-            <div class="col-md-8 mt-5">
-              <div class="card-body">
-                  <h3 class="card-title">${quiz.title}</h3>
-                  <h4 class="card-title">Created By: ${quiz.username}</h4>
-                  <a href="/pharmacy-management-system/quiz/viewQuiz.php?quizId=${quiz.quizid}" class="btn mt-5 btn-primary">View Quiz Details</a>
-              </div>
-            </div>
-          </div>
-              `;
-        container.appendChild(card);
-      });
-    }
-  };
-  ajax.send();
-
-});
-
 var searchInput = document.getElementById('searchQuery');
 var suggestionList = document.getElementById('suggestionList');
 var currentSelectionIndex = -1;
 
 function fetchSuggestions(searchQuery) {
   var ajax = new XMLHttpRequest();
-  ajax.open('GET', 'http://localhost/pharmacy-management-system/controllers/ajax/searchQuizzes.inc.php?searchQuery=' + encodeURIComponent(searchQuery), true);
+  ajax.open('GET', 'http://localhost/pharmacy-management-system/controllers/ajax/searchProducts.inc.php?searchQuery=' + encodeURIComponent(searchQuery), true);
   ajax.setRequestHeader('Content-Type', 'application/json');
 
   ajax.onreadystatechange = function () {
     if (ajax.readyState === 4 && ajax.status === 200) {
       var response = JSON.parse(ajax.responseText);
-      var suggestions = response.quizzes;
+      var suggestions = response.products;
       var noResultsMessage = document.getElementById('noResultsMessage');
 
       if (searchQuery === '') {
@@ -72,9 +27,9 @@ function fetchSuggestions(searchQuery) {
 
         suggestions.forEach(function (suggestion, index) {
           var suggestionItem = document.createElement('a');
-          suggestionItem.href = '/pharmacy-management-system/quiz/viewQuiz.php?quizId=' + suggestion.quizid;
+          suggestionItem.href = '/pharmacy-management-system/products/product.php?productId=' + suggestion.pid;
           suggestionItem.classList.add('suggestion-item');
-          suggestionItem.textContent = suggestion.title;
+          suggestionItem.textContent = suggestion.name;
 
           suggestionItem.addEventListener('mouseover', function () {
             this.classList.add('hovered');
