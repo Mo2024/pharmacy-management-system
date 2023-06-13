@@ -4,7 +4,6 @@ function handleCart(pid, price, dbQty) {
 
     for (const item of cart) {
         if (item.pid == pid) {
-            console.log(pid, item.pid, dbQty)
             if (parseInt(item.qty) >= parseInt(dbQty)) {
                 alert("exceeded available quantity")
                 exists = true;
@@ -19,7 +18,7 @@ function handleCart(pid, price, dbQty) {
     }
 
     if (!exists) {
-        let newProduct = { pid: parseInt(pid), qty: 1, price: parseInt(price) };
+        let newProduct = { pid: parseInt(pid), qty: 1, price: parseInt(price), dbQty: dbQty };
         cart.push(newProduct)
     }
     localStorage.setItem('cart', JSON.stringify(cart));

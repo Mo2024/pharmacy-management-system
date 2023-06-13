@@ -2,6 +2,10 @@ function getQuantityByPID(productsArray, pid) {
     const product = productsArray.find(item => parseInt(item.pid) === pid);
     return product ? product.qty : 0;
 }
+function getDBQuantityByPID(productsArray, pid) {
+    const product = productsArray.find(item => parseInt(item.pid) === pid);
+    return product ? product.dbQty : 0;
+}
 
 var xhr = new XMLHttpRequest();
 xhr.open("POST", "http://localhost/pharmacy-management-system/controllers/main/getCart.inc.php", true);
@@ -30,6 +34,7 @@ xhr.onreadystatechange = function () {
                                 src = '/pharmacy-management-system/public/imgs/no.png';
                             }
                             let qty = getQuantityByPID(localCart, item.pid)
+                            let dbQty = getDBQuantityByPID(localCart, item.pid)
                             let itemDiv =
                                 `<div id="div${item.pid}" class="card mb-3 mt-3 w-75">
                             <div class="row">
@@ -42,11 +47,11 @@ xhr.onreadystatechange = function () {
                                         <h4 id="price${item.pid}" class="card-title">Total Price: $${item.price * qty}</h4>
                                         <div class="input-group w-50">
                                             <span class="input-group-btn">
-                                            <button type="button" class="btn btn-outline-secondary" onclick="decreaseValue(${item.pid})">-</button>
+                                            <button type="button" class="btn btn-outline-secondary" onclick="decreaseValue(${item.pid}, ${dbQty})">-</button>
                                             </span>
-                                            <input id="${item.pid}" type="number" class="form-control qty text-center"  value="${qty}" onchange="handleQtyUpdate(this.id, this.value)"  min="1">
+                                            <input id="${item.pid}" type="number" class="form-control qty text-center"  value="${qty}" onchange="handleQtyUpdate(this.id, this.value, ${dbQty})"  min="1">
                                             <span class="input-group-btn">
-                                            <button type="button" class="btn btn-outline-secondary" onclick="increaseValue(${item.pid})">+</button>
+                                            <button type="button" class="btn btn-outline-secondary" onclick="increaseValue(${item.pid}, ${dbQty})">+</button>
                                             </span>
                                         </div>
                                     </div>
@@ -77,7 +82,7 @@ xhr.onerror = function () {
 var data = "cart=" + encodeURIComponent(localStorage.getItem('cart'));
 xhr.send(data);
 
-function handleQtyUpdate(id, qty) {
+function handleQtyUpdate(id, qty, dbQty, isDecrease = false) {
     let cart = JSON.parse(localStorage.getItem('cart'));
     let updatedCart = [];
 
@@ -94,9 +99,15 @@ function handleQtyUpdate(id, qty) {
 
         updatedCart = cart.map((item) => {
             if (parseInt(item.pid) === parseInt(id)) {
-                let price = document.getElementById('price' + id)
-                price.innerHTML = `Total Price: $${parseInt(item.price) * item.qty}`
-                return { ...item, qty: qty };
+                if (parseInt(item.qty) >= parseInt(dbQty) && !isDecrease) {
+                    alert("exceeded available quantity")
+                    let inputQty = document.getElementById(item.pid)
+                    inputQty.value = item.qty
+                } else {
+                    let price = document.getElementById('price' + id)
+                    price.innerHTML = `Total Price: $${parseInt(item.price) * item.qty}`
+                    return { ...item, qty: qty };
+                }
             }
             return item;
         });
@@ -105,21 +116,21 @@ function handleQtyUpdate(id, qty) {
     localStorage.setItem('cart', JSON.stringify(updatedCart));
 }
 
-function increaseValue(id) {
+function increaseValue(id, dbQty) {
     let qtyInput = document.getElementById(id);
     if (qtyInput) {
         let qty = parseInt(qtyInput.value) + 1;
         qtyInput.value = qty;
-        handleQtyUpdate(id, qty);
+        handleQtyUpdate(id, qty, dbQty);
     }
 }
 
-function decreaseValue(id) {
+function decreaseValue(id, dbQty) {
     let qtyInput = document.getElementById(id);
     if (qtyInput) {
         let qty = parseInt(qtyInput.value) - 1;
         qtyInput.value = qty;
-        handleQtyUpdate(id, qty);
+        handleQtyUpdate(id, qty, dbQty, true);
     }
 }
 

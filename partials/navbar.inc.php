@@ -48,6 +48,7 @@
           </ul>
           <div class="navbar-nav ms-auto d-flex">
             <?php if(isset($_SESSION['userId']) && isset($_SESSION['username'])){ ?>
+              <a href="/pharmacy-management-system/cart.php" class="nav-link h4">Cart</a>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle h4" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Profile</a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown" >
