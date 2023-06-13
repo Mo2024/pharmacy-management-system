@@ -1,1 +1,3 @@
+change ;extension=gd to extension=gd in php.ini
+
 stripe listen --forward-to localhost:80/pharmacy-management-system/webhook.php

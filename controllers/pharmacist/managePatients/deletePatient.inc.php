@@ -19,4 +19,3 @@ if ($result && $result['type'] === "patient") {
     $stmt->execute([$pid]);
     echo "true";
 }
-?>

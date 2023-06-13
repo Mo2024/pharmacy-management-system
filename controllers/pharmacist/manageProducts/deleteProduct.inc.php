@@ -22,5 +22,3 @@ if($stmt->execute([$pid])){
     echo "true";
 }
 
-
-?>

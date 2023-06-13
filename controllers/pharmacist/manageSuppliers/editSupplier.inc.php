@@ -63,5 +63,3 @@ if(isset($_SESSION['userId'])){
     setcookie("redirect", $url,0,'/');
     header("Location: /pharmacy-management-system/auth/signin.php");
 }
-
-?>

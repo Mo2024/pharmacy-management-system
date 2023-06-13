@@ -26,5 +26,3 @@ if($qty > 0){
     echo  'rollBackQty'.$qty;
 }
 
-
-?>

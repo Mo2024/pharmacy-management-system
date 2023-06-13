@@ -17,4 +17,3 @@ if($stmt->execute([$pid, $bid])){
     echo "true";
 }
 
-?>

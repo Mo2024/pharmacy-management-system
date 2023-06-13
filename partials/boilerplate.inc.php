@@ -1,3 +1,7 @@
+<?php
+session_start();
+ob_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,7 +19,6 @@
 
 <body class="min-vh-100 d-flex flex-column">
   <?php 
-    session_start();
     if((isset($_SESSION['forgetuid']) && $_SERVER['REQUEST_URI'] != '/pharmacy-management-system/auth/forgetPassword.php')
     || (isset($_SESSION['display']) && $_SERVER['REQUEST_URI'] != '/pharmacy-management-system/auth/forgetPassword.php')){
       unset($_SESSION['display']);
@@ -49,8 +52,6 @@
   ?>
 
 
-  <?php require(__DIR__.'/../partials/navbar.inc.php'); ?>
-
+  <?php require('navbar.inc.php'); ?>
   <main class="container mt-5">
-  <?php require('notification.inc.php');?>
-  
+  <?php require('notification.inc.php') ?>

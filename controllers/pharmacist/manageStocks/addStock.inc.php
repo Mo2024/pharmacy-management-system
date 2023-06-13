@@ -61,4 +61,3 @@ if (isset($_SESSION['userId'])) {
     $_SESSION['error'] = "Please make login";
     header("Location: /pharmacy-management-system/auth/signin.php");
 }
-?>

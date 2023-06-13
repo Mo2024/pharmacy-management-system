@@ -160,4 +160,3 @@ if (isset($_SESSION['userId'])) {
     header("Location: /pharmacy-management-system/auth/signin.php");
     exit();
 }
-?>

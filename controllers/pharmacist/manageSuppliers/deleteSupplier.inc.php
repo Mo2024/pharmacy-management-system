@@ -15,4 +15,3 @@ $stmt->execute([$sid]);
 if ($stmt->rowCount() > 0) {
   echo "true";
 }
-?>

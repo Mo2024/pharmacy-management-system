@@ -10,5 +10,4 @@ $mailer = new Swift_Mailer($transport);
 
 // create a new SwiftMailer message
 $message = new Swift_Message();
-$message->setFrom([$smtpEmail => 'ITCS333 G-2']);                
-?>
+$message->setFrom([$smtpEmail => 'ITCS333 G-2']);

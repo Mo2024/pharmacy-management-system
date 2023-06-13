@@ -16,4 +16,3 @@
         header("Location: /pharmacy-management-system/mainpage.php");
     }
 
-?>

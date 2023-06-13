@@ -1,4 +1,4 @@
-<?php $title = "webhook"; require('partials/boilerplate.inc.php')?>
+<!-- <?php $title = "webhook"; require('partials/boilerplate.inc.php')?> -->
 <?php
 require_once __DIR__ . '/vendor/autoload.php';
 require('functions/mailer.inc.php');
@@ -88,5 +88,3 @@ switch ($event->type) {
 }
 
 http_response_code(200);
-
-?>

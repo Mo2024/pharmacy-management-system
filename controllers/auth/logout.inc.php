@@ -6,4 +6,3 @@ session_start();
 $_SESSION['success'] = 'Sign out Successful';
 header("Location: /pharmacy-management-system/mainpage.php");
 exit();
-?>
