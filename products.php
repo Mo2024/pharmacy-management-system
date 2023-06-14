@@ -83,7 +83,7 @@ foreach ($categoryRows as $category) {
                         ?>
                         <h6 class="mb-3">$<?php echo $product['price'] ?></h6>
                         <?php if($totalQuantity > 0) {  ?>
-                        <button value="<?php echo $product['pid'] ?>" onclick="handleCart(this.value, <?php echo $product['price'] ?>, <?php echo $totalQuantity ?>)" class="text-decoration-none btn btn-sm btn-primary ms-auto">Add to cart</button>
+                        <button value="<?php echo $product['pid'] ?>" onclick="handleCart(this.value, <?php echo $product['price'] ?>)" class="text-decoration-none btn btn-sm btn-primary ms-auto">Add to cart</button>
                         <?php } else { ?>
                             <button disabled class="text-decoration-none btn btn-sm btn-outline-secondary ms-auto">Out of Stock</button>
                             
