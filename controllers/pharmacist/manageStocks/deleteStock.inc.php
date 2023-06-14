@@ -13,7 +13,10 @@ $ids = explode("#", $ids);
 $pid = $ids[0]; 
 $bid = $ids[1]; 
 $stmt = $db->prepare("DELETE FROM products_in_branch WHERE pid = ? AND bid = ?");
-if($stmt->execute([$pid, $bid])){
-    echo "true";
+if($_SESSION['bid'] == $bid){
+    if($stmt->execute([$pid, $bid])){
+        echo "true";
+    }
+}else{
+    echo 'notBranch';
 }
-

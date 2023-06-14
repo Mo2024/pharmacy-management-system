@@ -34,7 +34,10 @@ function handleStockUpdate(ids, value, callback) {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
                 var response = xhr.responseText;
-                if (response == "true") {
+                 if (response == 'notBranch'){
+                    alert("You cant delete stock from other branches!")
+                    callback(false)
+                }else if (response == "true") {
                     callback(true)
                 } else if (response.includes("rollBackQty")) {
                     let qty = response.split("rollBackQty")[1]
@@ -78,10 +81,13 @@ function handleDelete(ids) {
                     } else {
                         alert('Error deleting a stock')
                     }
-                } else {
-                    alert("Deletion failed")
-                    // console.log(response)
+                } else if (response == 'notBranch'){
+                    alert("You cant delete stock from other branches!")
                 }
+                 else {
+                    alert("Deletion failed")
+                }
+                // console.log(response)
             } else {
                 console.log("Error sending deletion request. Status code: " + xhr.status);
             }
