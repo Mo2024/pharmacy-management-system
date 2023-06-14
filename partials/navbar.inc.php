@@ -41,6 +41,7 @@
                   <li><a class="dropdown-item" href="/pharmacy-management-system/pharmacist/manageSuppliers/suppliersList.php">Manage Suppliers</a></li>
                   <li><a class="dropdown-item" href="/pharmacy-management-system/pharmacist/manageStocks/stocksList.php">Manage Stock</a></li>
                   <li><a class="dropdown-item" href="/pharmacy-management-system/pharmacist/manageCategories/categoriesList.php">Manage Category</a></li>
+                  <li><a class="dropdown-item" href="/pharmacy-management-system/pharmacist/monitorRevenue.php">Monitor Revenue</a></li>
                 </ul>
               </li>
               <?php }?>
