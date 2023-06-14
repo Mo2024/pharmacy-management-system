@@ -1,5 +1,4 @@
 <?php
-// Assuming you have started the session
 
 if (isset($_SESSION['userId'])) {
     if ($_SESSION['role'] == 'admin') {
