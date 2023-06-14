@@ -2,10 +2,6 @@ function getQuantityByPID(productsArray, pid) {
     const product = productsArray.find(item => parseInt(item.pid) === pid);
     return product ? product.qty : 0;
 }
-function getDBQuantityByPID(productsArray, pid) {
-    const product = productsArray.find(item => parseInt(item.pid) === pid);
-    return product ? product.dbQty : 0;
-}
 
 var xhr = new XMLHttpRequest();
 xhr.open("POST", "http://localhost/pharmacy-management-system/controllers/main/getCart.inc.php", true);
@@ -22,7 +18,9 @@ xhr.onreadystatechange = function () {
                 let cart = JSON.parse(response);
                 let localCart = JSON.parse(localStorage.getItem('cart'))
                 let mainContainer = document.getElementById('mainContainer');
+                let totalAmount = 0;
                 for (const item of cart) {
+                    let qty = getQuantityByPID(localCart, item.pid)
 
                     var imageUrl = '/pharmacy-management-system/public/products/' + item.pid + '.jpg';
                     fetch(imageUrl, { method: 'HEAD' })
@@ -33,8 +31,6 @@ xhr.onreadystatechange = function () {
                             } else {
                                 src = '/pharmacy-management-system/public/imgs/no.png';
                             }
-                            let qty = getQuantityByPID(localCart, item.pid)
-                            let dbQty = getDBQuantityByPID(localCart, item.pid)
                             let itemDiv =
                                 `<div id="div${item.pid}" class="card mb-3 mt-3 w-75">
                             <div class="row">
@@ -49,7 +45,7 @@ xhr.onreadystatechange = function () {
                                             <span class="input-group-btn">
                                             <button type="button" class="btn btn-outline-secondary" onclick="decreaseValue(${item.pid})">-</button>
                                             </span>
-                                            <input id="${item.pid}" type="number" class="form-control qty text-center w-25"  value="${qty}" onchange="handleQtyUpdate(this.id, this.value, ${dbQty})"  min="1">
+                                            <input id="${item.pid}" type="number" class="form-control qty text-center w-25"  value="${qty}" onchange="handleQtyUpdate(this.id, this.value)"  min="1">
                                             <span class="input-group-btn">
                                             <button type="button" class="btn btn-outline-secondary" onclick="increaseValue(${item.pid})">+</button>
                                             </span>
@@ -59,15 +55,15 @@ xhr.onreadystatechange = function () {
                                 </div>
                             </div>
                         </div>`
-
                             mainContainer.innerHTML += itemDiv;
                         })
                         .catch(function (error) {
                             console.log('Error:', error);
                         });
-
-
+                        totalAmount = totalAmount +( item.price * qty)
                 }
+                let totalAmountEl = document.getElementById('totalBill')
+                totalAmountEl.innerHTML = `Total Amount: ${totalAmount}`
             }
 
         } else {
@@ -116,7 +112,7 @@ function handleQtyUpdate(id, qty, isDecrease = false) {
                     var cart = JSON.parse(localStorage.getItem('cart'));
     
                     var response = parseInt(xhr.responseText);
-
+                    let totalAmount = 0;
                     updatedCart = cart.map((item) => {
                         if (parseInt(item.pid) === parseInt(id)) {
                             if (parseInt(item.qty) >= response && !isDecrease) {
@@ -125,13 +121,18 @@ function handleQtyUpdate(id, qty, isDecrease = false) {
                                 inputQty.value = response;
                             } else {
                                 let price = document.getElementById('price' + id)
-                                price.innerHTML = `Total Price: $${parseInt(item.price) * item.qty}`
+                                price.innerHTML = `Total Price: $${parseInt(item.price) * qty}`
+                                totalAmount = totalAmount + (parseInt(item.price) * qty)
                                 return { ...item, qty: qty };
                             }
+                        }else{
+                            totalAmount = totalAmount + (parseInt(item.price) * item.qty)
                         }
                         return item;
                     });
-                    
+                    let totalAmountEl = document.getElementById('totalBill')
+                    totalAmountEl.innerHTML = `Total Amount: ${totalAmount}`
+        
                     localStorage.setItem('cart', JSON.stringify(updatedCart));
     
                 } else {
@@ -214,8 +215,17 @@ window.addEventListener('load', function () {
 
 function deleteItem(id) {
     let cart = JSON.parse(localStorage.getItem('cart'));
-    cart = cart.filter(item => item.pid !== id);
-    localStorage.setItem('cart', JSON.stringify(cart));
+    let updatedCart = cart.filter(item => item.pid !== id);
+    let totalAmount = 0;
+
+    for (let item of updatedCart) {
+      totalAmount += item.qty * item.price;
+    }
+
+    let totalAmountEl = document.getElementById('totalBill')
+    totalAmountEl.innerHTML = `Total Amount: ${totalAmount}`
+
+    localStorage.setItem('cart', JSON.stringify(updatedCart));
 
     let divId = 'div' + id;
     let divElement = document.getElementById(divId);

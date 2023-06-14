@@ -32,6 +32,7 @@ function handleCart(pid, price) {
                     if(response >= 1){
                         let newProduct = { pid: parseInt(pid), qty: 1, price: parseInt(price) };
                         cart.push(newProduct)
+                        alert("Added to cart")
                     }else{
                         alert("exceeded available quantity")
                     }

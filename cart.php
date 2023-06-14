@@ -48,16 +48,6 @@ thead
 body.modal-open {
   overflow: hidden;
 }
-/* @media (max-width: 576px) {
-  .w-xs-50{
-    width: 100%
-  }
-}
-@media (min-width: 576px) {
-  .w-md-50{
-    width: 20%
-  }
-} */
 </style>
 
 <div  class="container">
