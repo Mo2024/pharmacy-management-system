@@ -1,6 +1,6 @@
 <?php 
     $query = 
-    "SELECT category.cid, category.name, products.*
+    "SELECT category.cid, category.name as cname, products.*
     FROM category
     INNER JOIN products ON category.cid = products.cid
     WHERE products.isDeleted = 0";

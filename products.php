@@ -30,7 +30,7 @@
     <button id="searchButton" class="btn btn-outline-success" type="button">Search</button>
   </div>
   <div id="suggestionList"></div>
-  <p id="noResultsMessage" style="display: none;">No quizzes found</p>
+  <p id="noResultsMessage" style="display: none;">No products found</p>
 </div>
 
 <?php 
@@ -46,7 +46,7 @@ foreach ($categoryRows as $category) {
 ?>
 <section>
   <div class="text-center container">
-    <h4 class="mb-5"><strong><?php echo $category['name'] ?></strong></h4>
+    <h4 class="mb-5"><strong><?php echo $category['cname'] ?></strong></h4>
 
     <div class="row">
         <?php foreach ($productRows as $product) { ?>
