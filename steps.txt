@@ -1,3 +1,12 @@
-change ;extension=gd to extension=gd in php.ini
+step 1:
+open xampp
+click config for Apache
+click php.ini
+then change ;extension=gd to extension=gd in php.ini (remove the semicolon)
 
+step 2:
+download stripe cli follow this tutorial https://www.youtube.com/watch?v=jJu8vQH7hLY
+then type this command:
 stripe listen --forward-to localhost:80/pharmacy-management-system/webhook.php
+then copy the signing secret (it should look like something lithis this: whsec_409305f4543bb7175e03ed2d0cd48c493d90367b6f0687691b10edd4f8d98877)
+after copying it open the .env file and replace it in the "endpoint" variable
