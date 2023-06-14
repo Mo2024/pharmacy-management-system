@@ -47,11 +47,11 @@ xhr.onreadystatechange = function () {
                                         <h4 id="price${item.pid}" class="card-title">Total Price: $${item.price * qty}</h4>
                                         <div class="input-group w-50">
                                             <span class="input-group-btn">
-                                            <button type="button" class="btn btn-outline-secondary" onclick="decreaseValue(${item.pid}, ${dbQty})">-</button>
+                                            <button type="button" class="btn btn-outline-secondary" onclick="decreaseValue(${item.pid})">-</button>
                                             </span>
                                             <input id="${item.pid}" type="number" class="form-control qty text-center"  value="${qty}" onchange="handleQtyUpdate(this.id, this.value, ${dbQty})"  min="1">
                                             <span class="input-group-btn">
-                                            <button type="button" class="btn btn-outline-secondary" onclick="increaseValue(${item.pid}, ${dbQty})">+</button>
+                                            <button type="button" class="btn btn-outline-secondary" onclick="increaseValue(${item.pid})">+</button>
                                             </span>
                                         </div>
                                     </div>
@@ -82,7 +82,7 @@ xhr.onerror = function () {
 var data = "cart=" + encodeURIComponent(localStorage.getItem('cart'));
 xhr.send(data);
 
-function handleQtyUpdate(id, qty, dbQty, isDecrease = false) {
+function handleQtyUpdate(id, qty, isDecrease = false) {
     let cart = JSON.parse(localStorage.getItem('cart'));
     let updatedCart = [];
 
@@ -99,40 +99,69 @@ function handleQtyUpdate(id, qty, dbQty, isDecrease = false) {
         updatedCart = cart.filter((item) => parseInt(item.pid) !== parseInt(id));
     } else {
 
-        updatedCart = cart.map((item) => {
-            if (parseInt(item.pid) === parseInt(id)) {
-                if (parseInt(item.qty) >= parseInt(dbQty) && !isDecrease) {
-                    alert("exceeded available quantity")
-                    let inputQty = document.getElementById(item.pid)
-                    inputQty.value = item.qty
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "http://localhost/pharmacy-management-system/controllers/ajax/checkStock.inc.php", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    // Request completed successfully
+                    let exists = false;
+                    var cart = JSON.parse(localStorage.getItem('cart'));
+    
+                    var response = parseInt(xhr.responseText);
+
+                    updatedCart = cart.map((item) => {
+                        if (parseInt(item.pid) === parseInt(id)) {
+                            if (parseInt(item.qty) >= response && !isDecrease) {
+                                alert("exceeded available quantity")
+                                let inputQty = document.getElementById(item.pid)
+                                inputQty.value = response;
+                            } else {
+                                let price = document.getElementById('price' + id)
+                                price.innerHTML = `Total Price: $${parseInt(item.price) * item.qty}`
+                                return { ...item, qty: qty };
+                            }
+                        }
+                        return item;
+                    });
+                    
+                    localStorage.setItem('cart', JSON.stringify(updatedCart));
+    
                 } else {
-                    let price = document.getElementById('price' + id)
-                    price.innerHTML = `Total Price: $${parseInt(item.price) * item.qty}`
-                    return { ...item, qty: qty };
+                    console.log("Error sending deletion request. Status code: " + xhr.status);
                 }
             }
-            return item;
-        });
+        };
+    
+        xhr.onerror = function () {
+            console.log("Error sending deletion request.");
+        };
+    
+        var data = "pid=" + encodeURIComponent(parseInt(id));
+        xhr.send(data);
+
+
     }
 
-    localStorage.setItem('cart', JSON.stringify(updatedCart));
 }
 
-function increaseValue(id, dbQty) {
+function increaseValue(id) {
     let qtyInput = document.getElementById(id);
     if (qtyInput) {
         let qty = parseInt(qtyInput.value) + 1;
         qtyInput.value = qty;
-        handleQtyUpdate(id, qty, dbQty);
+        handleQtyUpdate(id, qty);
     }
 }
 
-function decreaseValue(id, dbQty) {
+function decreaseValue(id) {
     let qtyInput = document.getElementById(id);
     if (qtyInput) {
         let qty = parseInt(qtyInput.value) - 1;
         qtyInput.value = qty;
-        handleQtyUpdate(id, qty, dbQty, true);
+        handleQtyUpdate(id, qty, true);
     }
 }
 
