@@ -11,25 +11,25 @@ function getRevenue() {
             if (xhr.status === 200) {
                 // Request completed successfully
                 const response = JSON.parse(xhr.responseText);
-                console.log(response)
+                let tBodyEl = document.getElementsByTagName('tbody')[0];
+                tBodyEl.innerHTML = '';
+                
+                let row = document.createElement('tr');
+                let firstCell = document.createElement('th');
+                let secondCell = document.createElement('th');
+                let thirdCell = document.createElement('th');
+              
+                firstCell.textContent = 'Order No.';
+                secondCell.textContent = "Date Ordered";
+                thirdCell.textContent = 'Amount';
+              
+                row.appendChild(firstCell);
+                row.appendChild(secondCell);
+                row.appendChild(thirdCell);
+              
+                tBodyEl.appendChild(row);
                 if(response.length > 0){
                     let totalRevenue = 0
-                    let tBodyEl = document.getElementsByTagName('tbody')[0];
-                    
-                    let row = document.createElement('tr');
-                    let firstCell = document.createElement('th');
-                    let secondCell = document.createElement('th');
-                    let thirdCell = document.createElement('th');
-                  
-                    firstCell.textContent = 'Order No.';
-                    secondCell.textContent = "Date Ordered";
-                    thirdCell.textContent = 'Amount';
-                  
-                    row.appendChild(firstCell);
-                    row.appendChild(secondCell);
-                    row.appendChild(thirdCell);
-                  
-                    tBodyEl.appendChild(row);
                     for (let i = 0; i < response.length; i++) {
                         let order = response[i];
                       
