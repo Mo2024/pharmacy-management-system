@@ -49,11 +49,12 @@ xhr.onreadystatechange = function () {
                                             <span class="input-group-btn">
                                             <button type="button" class="btn btn-outline-secondary" onclick="decreaseValue(${item.pid})">-</button>
                                             </span>
-                                            <input id="${item.pid}" type="number" class="form-control qty text-center"  value="${qty}" onchange="handleQtyUpdate(this.id, this.value, ${dbQty})"  min="1">
+                                            <input id="${item.pid}" type="number" class="form-control qty text-center w-25"  value="${qty}" onchange="handleQtyUpdate(this.id, this.value, ${dbQty})"  min="1">
                                             <span class="input-group-btn">
                                             <button type="button" class="btn btn-outline-secondary" onclick="increaseValue(${item.pid})">+</button>
                                             </span>
                                         </div>
+                                        <button onclick="deleteItem(${item.pid})" type="button" id="closeButton" class="btn btn-danger mt-3">Remove</button>
                                     </div>
                                 </div>
                             </div>
@@ -90,13 +91,17 @@ function handleQtyUpdate(id, qty, isDecrease = false) {
         // Delete div and remove item from cart
         let divId = 'div' + id;
         let divElement = document.getElementById(divId);
-        let checkoutBtn = document.getElementById('checkoutBtn');
-        checkoutBtn.disabled = true;
+
         if (divElement) {
             divElement.remove();
         }
-
+        
         updatedCart = cart.filter((item) => parseInt(item.pid) !== parseInt(id));
+        if(updatedCart.length == 0){
+            let checkoutBtn = document.getElementById('checkoutBtn');
+            checkoutBtn.disabled = true;
+        }
+        localStorage.setItem('cart', JSON.stringify(updatedCart));
     } else {
 
         var xhr = new XMLHttpRequest();
@@ -207,3 +212,15 @@ window.addEventListener('load', function () {
 });
 
 
+function deleteItem(id) {
+    let cart = JSON.parse(localStorage.getItem('cart'));
+    cart = cart.filter(item => item.pid !== id);
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+    let divId = 'div' + id;
+    let divElement = document.getElementById(divId);
+    if (divElement) {
+        divElement.remove();
+    }
+
+}
