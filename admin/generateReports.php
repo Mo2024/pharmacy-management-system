@@ -21,15 +21,15 @@
                 </tr>
                 <tr>
                     <td>Sales Revenue Per Year</td>
-                    <td><a type="button" href="/pharmacy-management-system/admin/salesRevenuPerYear.php" class="btn btn-sm btn-primary">Generate Report</a></td>
+                    <td><a type="button" href="/pharmacy-management-system/admin/salesRevenuPerYear.php" target="_blank" class="btn btn-sm btn-primary">Generate Report</a></td>
                 </tr>
                 <tr>
                     <td>Latest Medicine Added</td>
-                    <td><a type="button" href="/pharmacy-management-system/admin/latestMedicine.php" class="btn btn-sm btn-primary">Generate Report</a></td>
+                    <td><a type="button" href="/pharmacy-management-system/admin/latestMedicine.php" target="_blank" class="btn btn-sm btn-primary">Generate Report</a></td>
                 </tr>
                 <tr>
                     <td>Top Products Ordered</td>
-                    <td><a type="button" href="/pharmacy-management-system/admin/topProducts.php" class="btn btn-sm btn-primary">Generate Report</a></td>
+                    <td><a type="button" href="/pharmacy-management-system/admin/topProducts.php" target="_blank" class="btn btn-sm btn-primary">Generate Report</a></td>
                 </tr>
             </tbody>
         </table>
