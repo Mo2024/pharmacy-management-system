@@ -13,21 +13,28 @@
                         <?php                 
                             $filepath = 'public/products/' . $product['pid'];
 
-                            if (file_exists($filepath . ".jpg")) {
-                                echo '<img src="'.$filepath.'.jpg" class="w-100 h-50" />';
-                            } else if (file_exists($filepath . ".png")) {
-                                echo '<img src="'.$filepath.'.png" class="w-100 h-50" />';
-                            } else if (file_exists($filepath . ".jpeg")) {
-                                echo '<img src="'.$filepath.'.jpeg" class="w-100 h-50" />';
-                            } else{
-                                echo '<img src="public/imgs/no.png" class="w-100 h-50" />';
-                            }
-                        ?>
+                            if (file_exists($filepath . ".jpg")) { ?>
+                                <a href="/pharmacy-management-system/products/product.php?productId=<?php echo $product['pid'] ?>" class="text-reset text-decoration-none">
+                                    <img src="<?php echo $filepath ?>.jpg" class="w-100 h-50" />
+                                </a>
+                            <?php } else if (file_exists($filepath . ".png")) { ?>
+                                <a href="/pharmacy-management-system/products/product.php?productId=<?php echo $product['pid'] ?>" class="text-reset text-decoration-none">
+                                    <img src="<?php echo $filepath ?>.png" class="w-100 h-50" />
+                                </a>
+                            <?php } else if (file_exists($filepath . ".jpeg")) { ?>
+                                <a href="/pharmacy-management-system/products/product.php?productId=<?php echo $product['pid'] ?>" class="text-reset text-decoration-none">
+                                    <img src="<?php echo $filepath ?>'.jpeg" class="w-100 h-50" />
+                                </a>
+                            <?php } else{ ?>
+                                <a href="/pharmacy-management-system/products/product.php?productId=<?php echo $product['pid'] ?>" class="text-reset text-decoration-none">
+                                    <img src="public/imgs/no.png" class="w-100 h-50" />
+                                </a>
+                            <?php }?>
                     </div>
                     <div class="card-body">
-                        <p href="" class="text-reset text-decoration-none">
+                        <a href="/pharmacy-management-system/products/product.php?productId=<?php echo $product['pid'] ?>" class="text-reset text-decoration-none">
                             <h5 class="card-title mb-3"><?php echo $product['name'] ?></h5>
-                        </p>
+                        </a>
                         <?php 
 
                         $sql = "SELECT SUM(qty) AS total_quantity FROM products_in_branch WHERE pid = :pid";
