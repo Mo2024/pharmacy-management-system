@@ -2,9 +2,8 @@
 use Ramsey\Uuid\Uuid;
 require('functions/mailer.inc.php');
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-    if(isset($_SESSION['userId'])){
+if(isset($_SESSION['userId'])){
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         try {
             $cart = json_decode($_POST['cart'], true);
@@ -189,4 +188,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         
     }
+}else{
+    $_SESSION['error'] = "Please login";
+    header("Location: /pharmacy-management-system/auth/signin.php");
 }
