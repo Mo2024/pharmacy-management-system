@@ -32,6 +32,22 @@
                     <input class="form-control" placeholder="Number" type="number" name="number" id="number" value="<?php if($redirect) echo $number?>" required>
                 </div>
             </div>
+            <div class="row">
+                <div class="mb-3 col-sm-6">
+                    <label class="form-label" for="building">Building</label>
+                    <input class="form-control" placeholder="Building" type="building" name="building" id="building" value="<?php if($redirect) echo $building?>" required>
+                </div>
+                <div class="mb-3 col-sm-6">
+                    <label class="form-label" for="road">Road</label>
+                    <input class="form-control" placeholder="Road" type="road" name="road" id="road" value="<?php if($redirect) echo $road?>" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="mb-3 col-sm-6">
+                    <label class="form-label" for="block">Block</label>
+                    <input class="form-control" placeholder="Block" type="block" name="block" id="block" value="<?php if($redirect) echo $block?>" required>
+                </div>
+            </div>
             <a href="/pharmacy-management-system/mainpage.php" class="btn btn-secondary mb-2 ms-auto">Cancel</a>
             <button name="submit" type="submit" class="btn btn-primary mb-2 ms-auto">Save Changes</button>
             

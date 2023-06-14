@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 11, 2023 at 03:16 AM
+-- Generation Time: Jun 14, 2023 at 10:21 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -39,14 +39,9 @@ CREATE TABLE `addresses` (
 --
 
 INSERT INTO `addresses` (`uid`, `building`, `road`, `block`) VALUES
-(2, 'dadfs', 'adffsa', 'sasa'),
-(3, 'gsdgsd', 'dsgdgs', 'dsgdgs'),
-(5, 'miasksa', 'dsadasd', 'ads'),
-(6, 'sdff', 'sdfdfs', 'dsfdsf'),
-(7, '1266', '3338', '433'),
-(8, 'asd2', 'asdas3', 'asdsa'),
-(9, '1266', '3338', '433'),
-(10, 'jjjj', 'aa', 'bbb');
+(1, '4821', '8884', '453'),
+(12, '134', '213', '233'),
+(13, '334', '3413', '2343');
 
 -- --------------------------------------------------------
 
@@ -68,7 +63,8 @@ CREATE TABLE `branches` (
 --
 
 INSERT INTO `branches` (`bid`, `name`, `area`, `road`, `building`, `block`) VALUES
-(1, 'Manama Branch', 'Manama', '3335', '1255', '422');
+(1, 'Manama Branch', 'Manama', '3335', '1255', '422'),
+(2, 'Seef Muharraq Branch', 'Muharraq ', '34', '27823', '423');
 
 -- --------------------------------------------------------
 
@@ -78,15 +74,8 @@ INSERT INTO `branches` (`bid`, `name`, `area`, `road`, `building`, `block`) VALU
 
 CREATE TABLE `category` (
   `cid` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL
+  `name` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `category`
---
-
-INSERT INTO `category` (`cid`, `name`) VALUES
-(4, 'sadsadasd');
 
 -- --------------------------------------------------------
 
@@ -95,7 +84,7 @@ INSERT INTO `category` (`cid`, `name`) VALUES
 --
 
 CREATE TABLE `orders` (
-  `oid` int(11) NOT NULL,
+  `oid` varchar(255) NOT NULL,
   `totalPrice` int(11) NOT NULL,
   `paymentMethod` varchar(255) NOT NULL,
   `orderDate` varchar(255) NOT NULL,
@@ -103,13 +92,6 @@ CREATE TABLE `orders` (
   `status` varchar(255) NOT NULL,
   `dateDelivered` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `orders`
---
-
-INSERT INTO `orders` (`oid`, `totalPrice`, `paymentMethod`, `orderDate`, `uid`, `status`, `dateDelivered`) VALUES
-(1, 2345, 'cash', 'May 25,2020', 6, 'delivered', 'June 10, 2023');
 
 -- --------------------------------------------------------
 
@@ -124,7 +106,7 @@ CREATE TABLE `products` (
   `price` double NOT NULL,
   `sid` int(11) NOT NULL,
   `isDeleted` tinyint(1) NOT NULL,
-  `cid` int(11) NOT NULL
+  `cid` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -148,8 +130,9 @@ CREATE TABLE `products_in_branch` (
 
 CREATE TABLE `products_in_order` (
   `poid` int(11) NOT NULL,
-  `oid` int(11) NOT NULL,
-  `pid` int(11) NOT NULL
+  `oid` varchar(255) NOT NULL,
+  `pid` int(11) NOT NULL,
+  `qty` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -167,13 +150,6 @@ CREATE TABLE `suppliers` (
   `block` varchar(255) NOT NULL,
   `dateAdded` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `suppliers`
---
-
-INSERT INTO `suppliers` (`sid`, `name`, `area`, `road`, `building`, `block`, `dateAdded`) VALUES
-(2, 'Ahmed Ali', 'Jidhafs', '3338', '1266', '433', 'June 09, 2023');
 
 -- --------------------------------------------------------
 
@@ -201,14 +177,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`uid`, `username`, `email`, `fName`, `hash`, `pcode`, `type`, `number`, `isDeleted`, `bid`, `dateCreated`) VALUES
 (1, 'mohd1', 'mohdosama2025@gmail.com', 'Mohamed Ali', '$2y$10$qrvkrZ0JDY/LUosgNy0QPufbQhWxxpa6gAyY.CCYvtwAp9ZG4pn.a', '588514', 'admin', '211', 0, NULL, 'June 09, 2023'),
-(2, 'dasasd', 'mkrfs2002@gmail.coms', 'sadsad', '$2y$10$XPxB.hbtoe2qwGRvKzuhyePnwJPdhNpwDCy.nNZPWumJrDvT.EdGG', '', 'admin', '256965', 0, NULL, 'June 09, 2023'),
-(3, 'ssgd', 'mkrfs2002@gmail.com', 'dfsdsf', '$2y$10$En1GxmPF7HwPSOT4JDX6s.Ozbr5he2Nnq1ZFnzVgBSTXB.pfu.FFy', '', 'admin', '5735534', 0, NULL, 'June 09, 2023'),
-(5, 'mohd2', 'mrkvsbusiness@gmail.com', 'mohd osama', '$2y$10$IOZvYRXqEmGLeCyN4NXXbOxjwMqHoOfDJV3nzwb1cYNPNOIkr2riu', '', 'pharmacist', '33270524', 0, 1, 'June 09, 2023'),
-(6, 'hadi1', 'mohdosama2025@gmail.com', 'hadi aman', '$2y$10$boLRqa1KEpq/SG9Mqr1eB.PNaGrwss4rRdltGn3.0leQBAhUUfJp.', '0', 'patient', '33270276', 1, NULL, 'June 09, 2023'),
-(7, 'adsfsa', 'lsds@gmail.com', 'adsf saadf', '$2y$10$gP1DIRiJgeWvlkfh0H/sjOO2qBGomaY21mFCDUchbKYWsH1zSWLVm', '0', 'patient', '222234', 1, NULL, 'June 09, 2023'),
-(8, 'mohd3', 'mkrfs2025@gmail.com', 'Mohamed Osama', '$2y$10$Ebxy8FD82vltBGmUdOAGL./H.vvZkfptSNz0ykXxYZsBOUx1bmSIq', '', 'patient', '33270527', 1, NULL, 'June 09, 2023'),
-(9, 'asas', 'hasd@gmail.com', 'dsasd asd', '$2y$10$VJYCY3wi9dN50aVU0.Cx2u7wmp.tiLIh7NpSxHB1F1gTN7OAsMZTq', '', 'patient', '33270527', 1, NULL, 'June 09, 2023'),
-(10, 'Mosbsd', 'lkadjn@gmail.com', 'asdsa asdfdf', '$2y$10$pivqXKT1reXT4nPtrYsg3uZM9FkS0h0/epjgZdVsd5goLt4zbk7uW', '', 'patient', '1266', 1, NULL, 'June 09, 2023');
+(12, 'mohd2', 'mkrfs2002@gmail.com', 'Mohamed Osama ', '$2y$10$SjY1OsuEKudD0qxAvaQNLemzr21Qepj8gcU5ZZtdUiMKwaQOHvhgC', '', 'patient', '34532345', 0, NULL, 'June 14, 2023'),
+(13, 'mohd3', 'mkrfs2025@gmail.com', 'Mohamed Osama', '$2y$10$RVsHlG8VCuDeagztvV9XO.9SbI9DCyTxqvGDocyF4P2Wi9A5UeAgq', '', 'pharmacist', '234687232', 0, 1, 'June 14, 2023');
 
 --
 -- Indexes for dumped tables
@@ -244,8 +214,8 @@ ALTER TABLE `orders`
 --
 ALTER TABLE `products`
   ADD PRIMARY KEY (`pid`),
-  ADD KEY `sid` (`sid`),
-  ADD KEY `cid` (`cid`);
+  ADD KEY `products_ibfk_1` (`sid`),
+  ADD KEY `products_ibfk_2` (`cid`);
 
 --
 -- Indexes for table `products_in_branch`
@@ -284,31 +254,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `branches`
 --
 ALTER TABLE `branches`
-  MODIFY `bid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `bid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `orders`
---
-ALTER TABLE `orders`
-  MODIFY `oid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `cid` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `pid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `pid` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `products_in_branch`
 --
 ALTER TABLE `products_in_branch`
-  MODIFY `pbid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `pbid` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `products_in_order`
@@ -320,13 +284,13 @@ ALTER TABLE `products_in_order`
 -- AUTO_INCREMENT for table `suppliers`
 --
 ALTER TABLE `suppliers`
-  MODIFY `sid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `sid` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Constraints for dumped tables
@@ -348,21 +312,22 @@ ALTER TABLE `orders`
 -- Constraints for table `products`
 --
 ALTER TABLE `products`
-  ADD CONSTRAINT `products_ibfk_2` FOREIGN KEY (`sid`) REFERENCES `suppliers` (`sid`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`sid`) REFERENCES `suppliers` (`sid`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `products_ibfk_2` FOREIGN KEY (`cid`) REFERENCES `category` (`cid`) ON DELETE SET NULL ON UPDATE SET NULL;
 
 --
 -- Constraints for table `products_in_branch`
 --
 ALTER TABLE `products_in_branch`
-  ADD CONSTRAINT `products_in_branch_ibfk_3` FOREIGN KEY (`bid`) REFERENCES `branches` (`bid`) ON DELETE CASCADE,
-  ADD CONSTRAINT `products_in_branch_ibfk_4` FOREIGN KEY (`pid`) REFERENCES `products` (`pid`) ON DELETE CASCADE;
+  ADD CONSTRAINT `products_in_branch_ibfk_3` FOREIGN KEY (`bid`) REFERENCES `branches` (`bid`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `products_in_branch_ibfk_4` FOREIGN KEY (`pid`) REFERENCES `products` (`pid`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `products_in_order`
 --
 ALTER TABLE `products_in_order`
-  ADD CONSTRAINT `products_in_order_ibfk_1` FOREIGN KEY (`oid`) REFERENCES `orders` (`oid`),
-  ADD CONSTRAINT `products_in_order_ibfk_2` FOREIGN KEY (`pid`) REFERENCES `products` (`pid`);
+  ADD CONSTRAINT `products_in_order_ibfk_2` FOREIGN KEY (`pid`) REFERENCES `products` (`pid`),
+  ADD CONSTRAINT `products_in_order_ibfk_3` FOREIGN KEY (`oid`) REFERENCES `orders` (`oid`);
 
 --
 -- Constraints for table `users`
