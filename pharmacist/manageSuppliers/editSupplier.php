@@ -1,4 +1,4 @@
-<?php $title = "Add Branch"; require('../../partials/boilerplate.inc.php')?>
+<?php $title = "Edit Suppliers"; require('../../partials/boilerplate.inc.php')?>
 <?php require('../../controllers/pharmacist/manageSuppliers/editSupplier.inc.php')?>
 
 <section class="container row mx-auto">

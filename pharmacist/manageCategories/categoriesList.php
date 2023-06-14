@@ -1,4 +1,4 @@
-<?php $title = "Products List"; require('../../partials/boilerplate.inc.php')?>
+<?php $title = "Category List"; require('../../partials/boilerplate.inc.php')?>
 <?php require('../../controllers/pharmacist/manageCategories/categoriesList.inc.php')?>
 <style>
 thead

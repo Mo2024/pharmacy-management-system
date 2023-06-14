@@ -1,4 +1,4 @@
-<?php $title = "Add Branch"; require('../../partials/boilerplate.inc.php')?>
+<?php $title = "Add Product"; require('../../partials/boilerplate.inc.php')?>
 <?php require('../../controllers/pharmacist/manageProducts/addProduct.inc.php')?>
 <?php 
 $name = isset($_GET['name']) ? $_GET['name'] : '';

@@ -1,7 +1,7 @@
 <?php $title = "Add User"; require('../partials/boilerplate.inc.php')?>
 <?php require('../controllers/admin/CreateUser.inc.php')?>
 <section class="container row mx-auto">
-    <div class="col-lg-6">
+    <div class="col-lg-12">
 
         <h1 class="text-dark">Create New User</h1>
         <form method="POST" class="validated-form" novalidate enctype="multipart/form-data">
@@ -58,20 +58,7 @@
                 </select>
             </div>
             <div class="mb-3">
-                <button name="submit" class="btn btn-success">Add Item</button>
-            </div>
-        </form>
-    </div>
-    <div class="col-lg-6">
-        <h1 class="text-dark">New menu section</h1>
-        <form action="/admin/menu" method="POST" class="validated-form" novalidate>
-            <div class="mb-3">
-                <label class="form-label text-dark" for="name">Title</label>
-                <input class="form-control" type="text" name="menu[name]" id="name" required>
-            </div>
-
-            <div class="mb-3">
-                <button name="submit" class="btn btn-success">Add Section</button>
+                <button name="submit" class="btn btn-success">Add User</button>
             </div>
         </form>
     </div>
