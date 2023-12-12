@@ -6,7 +6,7 @@
     //At least one special character, one small letter, one capital letter and length is at least 8 characters
     $passwordReg = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/";
     $nameReg = "/^[A-Za-z]+(?:\s+[A-Za-z]+)+$/";
-    $pnumberReg = "/^[0-9]{1,100}$/";
+    $pnumberReg = "/^[1-9][0-9]{0,99}$/";
     $dateReg = "/^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/";
     $userTypeReg = "/^(admin|manager|user)$/";
     $pcodeReg = "/^\d{6}$/";
@@ -20,5 +20,5 @@
     $descriptionReg = "/^(?=.*[a-zA-Z]).{1,100}$/";
     $roleReg = "/^(pharmacist|admin|patient)$/";
     $idReg = "/^\d+$/";
-    $priceReg = '/^[-+]?[0-9]*\.?[0-9]+$/';
+    $priceReg = '/^[1-9][0-9]{0,99}$/';
 
