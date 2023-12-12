@@ -22,7 +22,7 @@ if (isset($_SESSION['userId'])) {
 
             if ($_POST['qty'] != "" && $_POST['pid'] != "") {
 
-                $qtyValid = preg_match($idReg, $qty);
+                $qtyValid = preg_match($priceReg, $qty);
                 $pidValid = preg_match($idReg, $pid);
 
 
