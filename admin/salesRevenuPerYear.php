@@ -49,7 +49,7 @@ if (isset($_SESSION['userId'])) {
         foreach ($results as $year) {
             $html .= '<tr>';
             $html .= '<td>' . $year['year'] . '</td>';
-            $html .= '<td>' . $year['totalRevenue'] . '</td>';
+            $html .= '<td>$' . $year['totalRevenue'] . '</td>';
             $html .= '</tr>';
         }
         $html .= '</table>';

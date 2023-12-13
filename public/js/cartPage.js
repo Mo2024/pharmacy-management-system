@@ -60,10 +60,10 @@ xhr.onreadystatechange = function () {
                         .catch(function (error) {
                             console.log('Error:', error);
                         });
-                        totalAmount = totalAmount +( item.price * qty)
+                    totalAmount = totalAmount + (item.price * qty)
                 }
                 let totalAmountEl = document.getElementById('totalBill')
-                totalAmountEl.innerHTML = `Total Amount: ${totalAmount}`
+                totalAmountEl.innerHTML = `Total Amount: $${totalAmount}`
             }
 
         } else {
@@ -91,9 +91,9 @@ function handleQtyUpdate(id, qty, isDecrease = false) {
         if (divElement) {
             divElement.remove();
         }
-        
+
         updatedCart = cart.filter((item) => parseInt(item.pid) !== parseInt(id));
-        if(updatedCart.length == 0){
+        if (updatedCart.length == 0) {
             let checkoutBtn = document.getElementById('checkoutBtn');
             checkoutBtn.disabled = true;
         }
@@ -103,48 +103,52 @@ function handleQtyUpdate(id, qty, isDecrease = false) {
         var xhr = new XMLHttpRequest();
         xhr.open("POST", "http://localhost/pharmacy-management-system/controllers/ajax/checkStock.inc.php", true);
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    
+
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4) {
                 if (xhr.status === 200) {
                     // Request completed successfully
                     let exists = false;
                     var cart = JSON.parse(localStorage.getItem('cart'));
-    
+
                     var response = parseInt(xhr.responseText);
                     let totalAmount = 0;
+                    let exceeds = false
                     updatedCart = cart.map((item) => {
                         if (parseInt(item.pid) === parseInt(id)) {
                             if (parseInt(item.qty) >= response && !isDecrease) {
                                 alert("exceeded available quantity")
                                 let inputQty = document.getElementById(item.pid)
                                 inputQty.value = response;
+                                exceeds = true
                             } else {
                                 let price = document.getElementById('price' + id)
                                 price.innerHTML = `Total Price: $${parseInt(item.price) * qty}`
                                 totalAmount = totalAmount + (parseInt(item.price) * qty)
                                 return { ...item, qty: qty };
                             }
-                        }else{
+                        } else {
                             totalAmount = totalAmount + (parseInt(item.price) * item.qty)
                         }
                         return item;
                     });
-                    let totalAmountEl = document.getElementById('totalBill')
-                    totalAmountEl.innerHTML = `Total Amount: ${totalAmount}`
-        
+                    if (!exceeds) {
+                        let totalAmountEl = document.getElementById('totalBill')
+                        totalAmountEl.innerHTML = `Total Amount: $${totalAmount}`
+                    }
+
                     localStorage.setItem('cart', JSON.stringify(updatedCart));
-    
+
                 } else {
                     console.log("Error sending deletion request. Status code: " + xhr.status);
                 }
             }
         };
-    
+
         xhr.onerror = function () {
             console.log("Error sending deletion request.");
         };
-    
+
         var data = "pid=" + encodeURIComponent(parseInt(id));
         xhr.send(data);
 
@@ -219,11 +223,11 @@ function deleteItem(id) {
     let totalAmount = 0;
 
     for (let item of updatedCart) {
-      totalAmount += item.qty * item.price;
+        totalAmount += item.qty * item.price;
     }
 
     let totalAmountEl = document.getElementById('totalBill')
-    totalAmountEl.innerHTML = `Total Amount: ${totalAmount}`
+    totalAmountEl.innerHTML = `Total Amount: $${totalAmount}`
 
     localStorage.setItem('cart', JSON.stringify(updatedCart));
 
