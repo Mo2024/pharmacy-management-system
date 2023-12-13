@@ -17,7 +17,7 @@ ob_start();
   <title><?php echo $title;?></title>
 </head>
 
-<body class="min-vh-100 d-flex flex-column">
+<body class="min-vh-100 d-flex flex-column" style="background-color:	#FAF3F0">
   <?php 
     if((isset($_SESSION['forgetuid']) && $_SERVER['REQUEST_URI'] != '/pharmacy-management-system/auth/forgetPassword.php')
     || (isset($_SESSION['display']) && $_SERVER['REQUEST_URI'] != '/pharmacy-management-system/auth/forgetPassword.php')){

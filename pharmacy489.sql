@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 14, 2023 at 10:26 AM
+-- Generation Time: Dec 13, 2023 at 05:42 PM
 -- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- PHP Version: 8.1.17
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -77,6 +77,13 @@ CREATE TABLE `category` (
   `name` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `category`
+--
+
+INSERT INTO `category` (`cid`, `name`) VALUES
+(1, 'Hygeine');
+
 -- --------------------------------------------------------
 
 --
@@ -109,6 +116,13 @@ CREATE TABLE `products` (
   `cid` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `products`
+--
+
+INSERT INTO `products` (`pid`, `name`, `type`, `price`, `sid`, `isDeleted`, `cid`) VALUES
+(1, 'Colgate', 'toothbrush', 3, 1, 0, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -121,6 +135,13 @@ CREATE TABLE `products_in_branch` (
   `pid` int(11) NOT NULL,
   `qty` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `products_in_branch`
+--
+
+INSERT INTO `products_in_branch` (`pbid`, `bid`, `pid`, `qty`) VALUES
+(1, 1, 1, 10);
 
 -- --------------------------------------------------------
 
@@ -151,6 +172,13 @@ CREATE TABLE `suppliers` (
   `dateAdded` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `suppliers`
+--
+
+INSERT INTO `suppliers` (`sid`, `name`, `area`, `road`, `building`, `block`, `dateAdded`) VALUES
+(1, 'supplier a', 'manama', '2345', '2456', '343', 'November 01, 2023');
+
 -- --------------------------------------------------------
 
 --
@@ -176,9 +204,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`uid`, `username`, `email`, `fName`, `hash`, `pcode`, `type`, `number`, `isDeleted`, `bid`, `dateCreated`) VALUES
-(1, 'mohd1', 'mohdosama2025@gmail.com', 'Mohamed Ali', '$2y$10$qrvkrZ0JDY/LUosgNy0QPufbQhWxxpa6gAyY.CCYvtwAp9ZG4pn.a', '588514', 'admin', '211', 0, NULL, 'June 09, 2023'),
-(12, 'mohd2', 'mkrfs2002@gmail.com', 'Mohamed Osama ', '$2y$10$SjY1OsuEKudD0qxAvaQNLemzr21Qepj8gcU5ZZtdUiMKwaQOHvhgC', '', 'patient', '34532345', 0, NULL, 'June 14, 2023'),
-(13, 'mohd3', 'mkrfs2025@gmail.com', 'Mohamed Osama', '$2y$10$RVsHlG8VCuDeagztvV9XO.9SbI9DCyTxqvGDocyF4P2Wi9A5UeAgq', '', 'pharmacist', '234687232', 0, 1, 'June 14, 2023');
+(1, 'mohd1', 'mohdosama2025@gmail.com', 'Mohamed Ali', '$2y$10$wfOublmO/ethEw8DrRg.peuPuF1nShrE3kRiz5r1wsJstrYQbCeVm', '588514', 'admin', '211', 0, NULL, 'June 09, 2023'),
+(12, 'mohd2', 'mkrfs2002@gmail.com', 'Mohamed Osama ', '$2y$10$wfOublmO/ethEw8DrRg.peuPuF1nShrE3kRiz5r1wsJstrYQbCeVm', '', 'patient', '34532345', 0, NULL, 'June 14, 2023'),
+(13, 'mohd3', 'mkrfs2025@gmail.com', 'Mohamed Osama', '$2y$10$wfOublmO/ethEw8DrRg.peuPuF1nShrE3kRiz5r1wsJstrYQbCeVm', '', 'pharmacist', '234687232', 0, 1, 'June 14, 2023');
 
 --
 -- Indexes for dumped tables
@@ -260,19 +288,19 @@ ALTER TABLE `branches`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `cid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `pid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `pid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `products_in_branch`
 --
 ALTER TABLE `products_in_branch`
-  MODIFY `pbid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `pbid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `products_in_order`
@@ -284,7 +312,7 @@ ALTER TABLE `products_in_order`
 -- AUTO_INCREMENT for table `suppliers`
 --
 ALTER TABLE `suppliers`
-  MODIFY `sid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `sid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`

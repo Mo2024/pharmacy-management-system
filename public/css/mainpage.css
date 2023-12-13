@@ -1,0 +1,26 @@
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+main {
+    height: 900px;
+    background-color: #F0F0F0;
+    background-image: url("../imgs/MicrosoftTeams-image-modified.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+
+}
+
+main h1 {
+    display: inline-block;
+    font-size: 80px;
+    padding-top: 230px;
+    padding-left: 40px;
+    font-family: 'Roboto', sans-serif;
+    color: white;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+}

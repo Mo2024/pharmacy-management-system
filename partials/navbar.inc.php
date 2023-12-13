@@ -1,7 +1,9 @@
 <header>
       <nav class="navbar navbar-expand-lg navbar-light" style="background-color:#F9D949;">
       <div class="container-fluid">
-        <a class="navbar-brand" href="/pharmacy-management-system/mainpage.php">Logo</a>
+      <a class="navbar-brand" href="/pharmacy-management-system/mainpage.php">
+          <img src="/pharmacy-management-system/public/imgs/cvs.png" alt="CVS" class="img-fluid" style="width: 50px;">
+      </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
