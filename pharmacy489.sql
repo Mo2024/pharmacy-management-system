@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 13, 2023 at 05:42 PM
+-- Generation Time: Dec 13, 2023 at 11:48 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.1.17
 
@@ -82,7 +82,8 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`cid`, `name`) VALUES
-(1, 'Hygeine');
+(1, 'Hygeine'),
+(2, 'Medicine');
 
 -- --------------------------------------------------------
 
@@ -99,6 +100,16 @@ CREATE TABLE `orders` (
   `status` varchar(255) NOT NULL,
   `dateDelivered` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`oid`, `totalPrice`, `paymentMethod`, `orderDate`, `uid`, `status`, `dateDelivered`) VALUES
+('24935436-b96f-47f1-9b4d-2a620a90e66c', 124, 'Cash', 'December 13, 2022', 12, 'pending', ''),
+('24935436-b96f-47f1-9b4d-2a620a90e66w', 5, 'Cash', 'December 13, 2022', 12, 'pending', ''),
+('842cef32-e40d-454f-9725-539469693ba8', 18, 'Cash', 'December 13, 2023', 1, 'pending', ''),
+('842cef32-e40d-454f-9725-539469693bq8', 18, 'Cash', 'December 13, 2023', 1, 'pending', '');
 
 -- --------------------------------------------------------
 
@@ -121,7 +132,8 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`pid`, `name`, `type`, `price`, `sid`, `isDeleted`, `cid`) VALUES
-(1, 'Colgate', 'toothbrush', 3, 1, 0, 1);
+(1, 'Colgate', 'toothbrush', 3, 1, 0, 1),
+(2, 'Panadol', 'pills', 20, 2, 0, 2);
 
 -- --------------------------------------------------------
 
@@ -141,7 +153,7 @@ CREATE TABLE `products_in_branch` (
 --
 
 INSERT INTO `products_in_branch` (`pbid`, `bid`, `pid`, `qty`) VALUES
-(1, 1, 1, 10);
+(1, 1, 1, 74);
 
 -- --------------------------------------------------------
 
@@ -155,6 +167,14 @@ CREATE TABLE `products_in_order` (
   `pid` int(11) NOT NULL,
   `qty` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `products_in_order`
+--
+
+INSERT INTO `products_in_order` (`poid`, `oid`, `pid`, `qty`) VALUES
+(1, '842cef32-e40d-454f-9725-539469693ba8', 1, 6),
+(2, '24935436-b96f-47f1-9b4d-2a620a90e66c', 1, 4);
 
 -- --------------------------------------------------------
 
@@ -177,7 +197,8 @@ CREATE TABLE `suppliers` (
 --
 
 INSERT INTO `suppliers` (`sid`, `name`, `area`, `road`, `building`, `block`, `dateAdded`) VALUES
-(1, 'supplier a', 'manama', '2345', '2456', '343', 'November 01, 2023');
+(1, 'supplier a', 'manama', '2345', '2456', '343', 'November 01, 2023'),
+(2, 'Medicine Supplier', 'Manama', '35465', '1245', '344', 'December 13, 2023');
 
 -- --------------------------------------------------------
 
@@ -288,13 +309,13 @@ ALTER TABLE `branches`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `pid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `pid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `products_in_branch`
@@ -306,13 +327,13 @@ ALTER TABLE `products_in_branch`
 -- AUTO_INCREMENT for table `products_in_order`
 --
 ALTER TABLE `products_in_order`
-  MODIFY `poid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `poid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `suppliers`
 --
 ALTER TABLE `suppliers`
-  MODIFY `sid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `sid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`

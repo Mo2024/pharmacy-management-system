@@ -20,7 +20,7 @@
             </div>
 
             <div class="mb-3" id="categoryContainer">
-                <label class="form-label text-dark" for="cid">Suppliers</label>
+                <label class="form-label text-dark" for="cid">Category</label>
                 <select class="form-select" name="cid" id="cid" required>
                     <option value="">Select Category</option>
                     <?php
