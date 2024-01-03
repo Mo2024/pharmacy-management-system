@@ -32,7 +32,7 @@ $qty = isset($_GET['qty']) ? $_GET['qty'] : '';
 
 
             <div class="mb-3">
-                <button name="submit" class="btn btn-success">Add Supplier</button>
+                <button name="submit" class="btn btn-success">Add Stock</button>
             </div>
         </form>
     </div>
